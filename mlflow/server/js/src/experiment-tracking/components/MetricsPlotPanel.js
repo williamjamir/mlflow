@@ -20,6 +20,9 @@ import Routes from '../routes';
 import { RunLinksPopover } from './RunLinksPopover';
 import { getUUID } from '../../common/utils/ActionUtils';
 import { saveAs } from 'file-saver';
+// BEGIN-EDGE
+import { LoadingDescription } from '@databricks/web-shared-bundle/metrics';
+// END-EDGE
 import { normalizeMetricsHistoryEntry } from '../utils/MetricsUtils';
 
 export const CHART_TYPE_LINE = 'line';
@@ -629,6 +632,9 @@ export class MetricsPlotPanel extends React.Component {
             // initial page load / before we try to load additional metrics),
             // optimistically render the children
             shouldOptimisticallyRender={historyRequestIds.length === 0}
+            // BEGIN-EDGE
+            description={LoadingDescription.MLFLOW_METRIC_PLOT_PANEL}
+            // END-EDGE
           >
             {this.hasMultipleExperiments() ? null : (
               <RunLinksPopover

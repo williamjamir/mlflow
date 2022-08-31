@@ -26,6 +26,12 @@ export class RestoreRunModalImpl extends Component {
     });
     return Promise.all(restorePromises).catch((e) => {
       const errorMessage = 'While restoring an experiment run, an error occurred.';
+      // BEGIN-EDGE
+      Utils.propagateErrorToParentFrame({
+        error: Error(errorMessage),
+        errorMessage,
+      });
+      // END-EDGE
       this.props.openErrorModal(errorMessage);
     });
   }

@@ -1,0 +1,1 @@
+{"version":3,"file":"MFEStrings.d.ts","sourceRoot":"","sources":["../../src/mfe-services/MFEStrings.ts"],"names":[],"mappings":"AAGA,eAAO,MAAM,0BAA0B,sBAAsB,CAAC;AAG9D,aAAK,aAAa,GAAG;IACnB,SAAS,EAAE,MAAM,CAAC;IAClB,cAAc,EAAE,MAAM,CAAC;IACvB,wBAAwB,EAAE,MAAM,CAAC;IACjC,iBAAiB,EAAE,MAAM,CAAC;CAC3B,CAAC;AAEF,wBAAgB,eAAe,CAAC,MAAM,EAAE,MAAM,GAAG,aAAa,CAY7D"}

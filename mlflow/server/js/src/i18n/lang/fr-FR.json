@@ -1,0 +1,3300 @@
+{
+  "+1i81u" : {
+    "defaultMessage" : "Enregistré à",
+    "description" : "Label name for registered timestamp metadata in model version page"
+  },
+  "+D8o4G" : {
+    "defaultMessage" : "Le téléchargement des artefacts a été désactivé par l'administrateur de votre espace de travail.",
+    "description" : "Tooltip to explain why downloading the artifact is disabled"
+  },
+  "+Dnww0" : {
+    "defaultMessage" : "Renommer l'exécution",
+    "description" : "Modal title to rename the experiment run name"
+  },
+  "+LLlvi" : {
+    "defaultMessage" : "Exécution source",
+    "description" : "Label name for source run metadata in model version page"
+  },
+  "+O40WZ" : {
+    "defaultMessage" : "Dernière publication",
+    "description" : "Title text for the online store last published metadata field."
+  },
+  "+gcii2" : {
+    "defaultMessage" : "Configurer l'inférence du modèle",
+    "description" : "Modal title text for setting up model inference"
+  },
+  "+hkg/y" : {
+    "defaultMessage" : "Max",
+    "description" : "Column title for the column displaying the maximum metric values for a metric"
+  },
+  "/2MZix" : {
+    "defaultMessage" : "ID d’exécution :",
+    "description" : "Row title for the run id on the experiment compare runs page"
+  },
+  "/2m1wK" : {
+    "defaultMessage" : "Petit problème…",
+    "description" : "Error modal title to rendering errors"
+  },
+  "/7+KCP" : {
+    "defaultMessage" : "Certaines valeurs (moins de 5 %) sont nulles.",
+    "description" : "AutoML warning shown when <5% nulls are found in columns"
+  },
+  "/738wy" : {
+    "defaultMessage" : "Filtrer",
+    "description" : "String for the filter button to filter experiment runs table which match the search criteria"
+  },
+  "/9xaqW" : {
+    "defaultMessage" : "Aucun",
+    "description" : "Empty state text for when job schedule does not exist in monitoring pane"
+  },
+  "/ABq+N" : {
+    "defaultMessage" : "Désactiver les notifications",
+    "description" : "Text for dropdown for no notifications on model view page"
+  },
+  "/EIf7s" : {
+    "defaultMessage" : "Enregistrement en attente...",
+    "description" : "Default status message for model versions that are pending registration"
+  },
+  "/JowTb" : {
+    "defaultMessage" : "Nom",
+    "description" : "Column title for name column for displaying the metrics name for the experiment run"
+  },
+  "/VWFZb" : {
+    "defaultMessage" : "Partagez et diffusez des modèles de machine learning.",
+    "description" : "Text for model registry onboarding on the model list page on Azure"
+  },
+  "/YdNM8" : {
+    "defaultMessage" : "Aucun modèle pour l’instant. <link>Créez un modèle</link> pour commencer.",
+    "description" : "Placeholder text for empty models table in the registered model list page"
+  },
+  "/g45Xz" : {
+    "defaultMessage" : "Partagez et gérez des modèles de machine learning.",
+    "description" : "Default text for model registry onboarding on the model list page"
+  },
+  "0ElvS9" : {
+    "defaultMessage" : "Axe Y :",
+    "description" : "Label text for y-axis in contour plot comparison in MLflow"
+  },
+  "0FuFzX" : {
+    "defaultMessage" : "Annulée",
+    "description" : "AutoML Step description canceled training"
+  },
+  "0Kfkl0" : {
+    "defaultMessage" : "Inclure un profil de l'ensemble de la table des fonctionnalités (en plus des profils fenêtrés)",
+    "description" : "Hint text for global profile in update config modal"
+  },
+  "0XA2QI" : {
+    "defaultMessage" : "Jobs planifiés",
+    "description" : "Title text for the feature table scheduled jobs column."
+  },
+  "0YGbFg" : {
+    "defaultMessage" : "Relancez AutoML avec des valeurs non nulles dans la colonne cible",
+    "description" : "Action message for when all target column values are null values"
+  },
+  "0gGMZm" : {
+    "defaultMessage" : "Nom",
+    "description" : "Default text for name placeholder in editable tags table form in MLflow"
+  },
+  "0gIYIc" : {
+    "defaultMessage" : "« Lissez » la ligne entre les points en vous basant sur la moyenne mobile exponentielle. Le lissage permet d'afficher la tendance globale lorsque la fréquence d'enregistrement est élevée.",
+    "description" : "Helpful tooltip message to help with line smoothness for the metrics plot"
+  },
+  "0ja5l/" : {
+    "defaultMessage" : "Aucun tag détecté.",
+    "description" : "Text for no tags found in editable form table in MLflow"
+  },
+  "0pdAuV" : {
+    "defaultMessage" : "Actif",
+    "description" : "Linked model dropdown option to show active experiment runs"
+  },
+  "1/M8+x" : {
+    "defaultMessage" : "Axe X :",
+    "description" : "Label text for x-axis in scatter plot comparison in MLflow"
+  },
+  "16BvfJ" : {
+    "defaultMessage" : "{timeSince, plural, one {Il y a 1 an} other {Il y a {timeSince,number} ans}}",
+    "description" : "Text for time in years since given date for MLflow views"
+  },
+  "16HcXN" : {
+    "defaultMessage" : "Échec de l’entraînement du modèle",
+    "description" : "Title text about AutoML failed"
+  },
+  "17k196" : {
+    "defaultMessage" : "Annuler",
+    "description" : "Text for the cancel button in an editable note in MLflow"
+  },
+  "1FE6jY" : {
+    "defaultMessage" : "Création de nouvelles ressources informatiques {stageTag} avec la configuration spécifiée… Cette opération peut prendre quelques minutes.",
+    "description" : "Compute config update description"
+  },
+  "1Iq+NW" : {
+    "defaultMessage" : "Copier",
+    "description" : "Button text for copy button"
+  },
+  "1LfNLA" : {
+    "defaultMessage" : "La colonne cible ne contient que des valeurs nulles",
+    "description" : "AutoML warning shown when the target column contains only null values"
+  },
+  "1Pem7X" : {
+    "defaultMessage" : "1 jour",
+    "description" : "1 day window granularity for data profiles"
+  },
+  "1Q47v+" : {
+    "defaultMessage" : "Certains modèles n'ont peut-être pas été entraînés. Réexécutez AutoML avec des données de série temporelle plus longues.",
+    "description" : "Recommended action for user when AutoML is given time series that are too\n          short"
+  },
+  "1UVDwT" : {
+    "defaultMessage" : "Ajouter un commentaire",
+    "description" : "Text for add comment button on activities list on model version page"
+  },
+  "1Xsho/" : {
+    "defaultMessage" : "Vous devez disposer d'autorisations « CAN_MANAGE » sur ce modèle afin d'activer {featureNameText}.",
+    "description" : "Error message when user does not have model manage permissions in enable\n              serving button popover."
+  },
+  "1Z9/+o" : {
+    "defaultMessage" : "Présentation",
+    "description" : "Tab title for AutoML status overview"
+  },
+  "1f72BQ" : {
+    "defaultMessage" : "Version",
+    "description" : "Column title text for model version in model version table"
+  },
+  "1jPG5D" : {
+    "defaultMessage" : "Auteur",
+    "description" : "Lable name for the creator under details tab on the model view page"
+  },
+  "1nKgV2" : {
+    "defaultMessage" : "Demandes en attente",
+    "description" : "Column title text for pending requests in model version table"
+  },
+  "1xjS1n" : {
+    "defaultMessage" : "Échec du notebook d'exploration des données",
+    "description" : "AutoML warning shown when data exploration notebook fails"
+  },
+  "25EUlg" : {
+    "defaultMessage" : "Les extraits de code ci-dessous montrent comment charger le modèle enregistré.",
+    "description" : "Subtext heading explaining the below section of the model artifact view on how users can load the registered logged model"
+  },
+  "27oNFE" : {
+    "defaultMessage" : "Configurer le modèle",
+    "description" : "Heading text for the model schema of the registered model from the experiment run"
+  },
+  "2Exf7S" : {
+    "defaultMessage" : "Formats acceptés : images, texte, html, pdf, geojson",
+    "description" : "Text to explain users which formats are supported to display the artifacts"
+  },
+  "2NfDVN" : {
+    "defaultMessage" : "Charger le modèle",
+    "description" : "Heading text for stating how to load the model from the experiment run"
+  },
+  "2Ohj3W" : {
+    "defaultMessage" : "<link>Aucun planning</link>",
+    "description" : "Learn more link with cloud specific links to the feature store scheduled job documentation."
+  },
+  "2XtkeE" : {
+    "defaultMessage" : "En cours d'arrêt",
+    "description" : "Terminating replica status label for serving V2 logs panel"
+  },
+  "2YEXRM" : {
+    "defaultMessage" : "Modifier",
+    "description" : "Text for the edit button next to the description section title on the experiment view page"
+  },
+  "2f2qeb" : {
+    "defaultMessage" : "Type",
+    "description" : "Text for type column in schema table in model version page"
+  },
+  "2kU7bW" : {
+    "defaultMessage" : "Aucun modèle n'a été enregistré pour l'instant. Découvrez <link>comment enregistrer un modèle</link>.",
+    "description" : "Message text when no model versions are registerd"
+  },
+  "2lKtlK" : {
+    "defaultMessage" : "Haute",
+    "description" : "Text describing a high severity AutoML warning"
+  },
+  "2ngXDv" : {
+    "defaultMessage" : "Le nombre minimal de répliques doit être inférieur ou égal au nombre maximal de répliques.",
+    "description" : "Validation error message for when there are more min replicas than max replicas"
+  },
+  "2oFAO4" : {
+    "defaultMessage" : "Partager",
+    "description" : "Text for share button on experiment view page header"
+  },
+  "3+9AIt" : {
+    "defaultMessage" : "Le nombre maximal de répliques doit être supérieur ou égal au nombre minimal de répliques.",
+    "description" : "Validation error message for when there are fewer max replicas than min replicas"
+  },
+  "35/JL+" : {
+    "defaultMessage" : "Le nombre de répliques doit être inférieur ou égal à {max}",
+    "description" : "Validation error message for when there are too many replicas"
+  },
+  "36g3aR" : {
+    "defaultMessage" : "Modifier",
+    "description" : "Text for the edit button next to the description section title on\n             the model view page"
+  },
+  "37UpKt" : {
+    "defaultMessage" : "Fonctionnalités comprises",
+    "description" : "Label text for features in update config modal"
+  },
+  "3C7hQk" : {
+    "defaultMessage" : "Surveillez les fonctionnalités et les performances des modèles (prévisualisation publique). <link>En savoir plus.</link>",
+    "description" : "Text for tooltip for model monitoring in the registered model page"
+  },
+  "3HTxsL" : {
+    "defaultMessage" : "Région",
+    "description" : "Title text for the online store region column."
+  },
+  "3Rb4sG" : {
+    "defaultMessage" : "Supprimer",
+    "description" : "String for the delete button to delete a particular experiment run"
+  },
+  "3UqTZZ" : {
+    "defaultMessage" : "et le déployer en tant que point de terminaison REST pour <link>une diffusion en temps réel</link>",
+    "description" : "Continuing sub text to explain users that they can deploy the model fo real time serving"
+  },
+  "3Uuq5A" : {
+    "defaultMessage" : "lorsque {systemComment}",
+    "description" : "Comment text in activity title for system transition in model\n                 version page"
+  },
+  "3WodQG" : {
+    "defaultMessage" : "Colonnes avec des annotations de type sémantique incompatibles",
+    "description" : "AutoML warning shown for columns with incompatible semantic type annotations"
+  },
+  "3Y1QLc" : {
+    "defaultMessage" : "Mettre à jour la configuration",
+    "description" : "Config button for data profiles on the feature table page"
+  },
+  "3geT+I" : {
+    "defaultMessage" : "Utilisez les API d'artefact de journal pour stocker les fichiers générés lors des exécutions MLflow.",
+    "description" : "Information in the empty state explaining how one could log artifacts output files for the experiment runs"
+  },
+  "3ioIKi" : {
+    "defaultMessage" : "Les exécutions enfant chargées seront imbriquées dans leurs parents.",
+    "description" : "Tooltip text for load more button explaining the runs are nested under their parent experiment run"
+  },
+  "4+RPaz" : {
+    "defaultMessage" : "Supprimer",
+    "description" : "Text for delete button on model version view page header"
+  },
+  "424G/o" : {
+    "defaultMessage" : "Expériences",
+    "description" : "Breadcrumb nav item to link to the list of experiments page on runs page"
+  },
+  "44s7uM" : {
+    "defaultMessage" : "Dernière modification",
+    "description" : "Title text for the feature table last modified metadata field."
+  },
+  "47QsAK" : {
+    "defaultMessage" : "{fieldName} sont vides",
+    "description" : "Default text in data table where items are empty in the model\n                  comparison page"
+  },
+  "4BAMr6" : {
+    "defaultMessage" : "Granularités",
+    "description" : "Model monitoring configuration text for granularities"
+  },
+  "4MojW8" : {
+    "defaultMessage" : "Impossible de définir le tag. Erreur : {errorTrace}",
+    "description" : "Error message when updating or setting a tag feature fails"
+  },
+  "4NEPlV" : {
+    "defaultMessage" : "Nuage de points",
+    "description" : "Tab text for scatter plot on the model comparison page"
+  },
+  "4P3rtc" : {
+    "defaultMessage" : "Aucun producteur trouvé.",
+    "description" : "Text on the producer section describing no producers exist."
+  },
+  "4T1MAQ" : {
+    "defaultMessage" : "Préférences",
+    "description" : "Preferences title for compute config"
+  },
+  "4X56Td" : {
+    "defaultMessage" : "a rejeté une transition d’étape",
+    "description" : "Activity title text for rejected transition request in model versions page"
+  },
+  "4Xgr9t" : {
+    "defaultMessage" : "Dernière modification par",
+    "description" : "Title text for the feature page last modified by metadata field."
+  },
+  "4aTcCT" : {
+    "defaultMessage" : "Toutes les exécutions",
+    "description" : "Linked model dropdown option to show all experiment runs"
+  },
+  "4cecjR" : {
+    "defaultMessage" : "Partagez et diffusez des modèles de machine learning.",
+    "description" : "Text for model registry onboarding on the model list page on AWS"
+  },
+  "4hOOuV" : {
+    "defaultMessage" : "404 : ressource introuvable",
+    "description" : "Generic 404 user-friendly error for the MLFlow UI"
+  },
+  "4idqpX" : {
+    "defaultMessage" : "Ajouter",
+    "description" : "Add button text in editable tags table view in MLflow"
+  },
+  "4p+nQv" : {
+    "defaultMessage" : "Dernière écriture",
+    "description" : "Title text for the feature table last written metadata field."
+  },
+  "4rnCTs" : {
+    "defaultMessage" : "Importée par",
+    "description" : "Title text for the feature page imported by field."
+  },
+  "4yOFcJ" : {
+    "defaultMessage" : "Modifiez le notebook d'exploration des données et réexécutez-le pour établir un profil de l'ensemble du jeu de données.",
+    "description" : "Recommended action when data exploration notebook truncate columns."
+  },
+  "5Mzn2b" : {
+    "defaultMessage" : "Auteur",
+    "description" : "Label name for creator metadata in model version page"
+  },
+  "5RWIet" : {
+    "defaultMessage" : "Schéma {sectionName}",
+    "description" : "Field name text for schema table in the model comparison page"
+  },
+  "5ZAXeS" : {
+    "defaultMessage" : "{timeSince, plural, one {Il y a 1 mois} other {Il y a {timeSince,number} mois}}",
+    "description" : "Text for time in months since given date for MLflow views"
+  },
+  "5Zui9s" : {
+    "defaultMessage" : "500 : erreur interne du serveur",
+    "description" : "Generic 500 user-friendly error for the MLFlow UI"
+  },
+  "5jS5aY" : {
+    "defaultMessage" : "Avertissements",
+    "description" : "Header/title of AutoML warnings dashboard"
+  },
+  "5nCq47" : {
+    "defaultMessage" : "Relancez AutoML sur un jeu de données sans valeurs nulles dans la colonne cible.",
+    "description" : "Error message shown when AutoML is given target column with nulls"
+  },
+  "656rRX" : {
+    "defaultMessage" : "Retournez à la <link>page d'accueil</link>.",
+    "description" : "Default error message for error views in MLflow"
+  },
+  "6DnXTj" : {
+    "defaultMessage" : "Clés du timestamp",
+    "description" : "Title text for the feature table timestamp keys metadata field."
+  },
+  "6Lsp2w" : {
+    "defaultMessage" : "Type sémantique catégoriel détecté pour les colonnes",
+    "description" : "AutoML warning shown when columns have categorical semantic type"
+  },
+  "6P8+34" : {
+    "defaultMessage" : "Réexécutez AutoML sur un jeu de données avec des colonnes de caractéristiques prises en charge.",
+    "description" : "Recommended action for user when AutoML finds no supported feature columns"
+  },
+  "6b6fTN" : {
+    "defaultMessage" : "Sélectionnez un fichier à prévisualiser",
+    "description" : "Label to suggests users to select a file to preview the output"
+  },
+  "6bmLqb" : {
+    "defaultMessage" : "Charger le modèle",
+    "description" : "Code comment which states how to load the model"
+  },
+  "6kSKRk" : {
+    "defaultMessage" : "Comparaison de {numVersions} versions",
+    "description" : "Text for main title for the model comparison page"
+  },
+  "6rUKx3" : {
+    "defaultMessage" : "Aucune fonctionnalité trouvée.",
+    "description" : "Text describing no features exists for the feature table."
+  },
+  "6rl01I" : {
+    "defaultMessage" : "AutoML a échantillonné le jeu de données. Essayez d'ignorer les colonnes à cardinalité élevée qui existent (par ex., les colonnes de chaîne avec plusieurs valeurs différentes) afin d'accroître la taille de l'échantillon.",
+    "description" : "Action that AutoML took given a dataset that was too large"
+  },
+  "6tN5G5" : {
+    "defaultMessage" : "répliques",
+    "description" : "Label for line on replicas graph"
+  },
+  "6xPc4W" : {
+    "defaultMessage" : "Prédire sur un DataFrame Spark :",
+    "description" : "Section heading to display the code block on how we can use registered model to predict using spark DataFrame"
+  },
+  "739thv" : {
+    "defaultMessage" : "Étape du cycle de vie",
+    "description" : "Label for displaying lifecycle stage of the experiment run to see if its active or deleted"
+  },
+  "74xuTf" : {
+    "defaultMessage" : "Annuler",
+    "description" : "Cancel text for button to cancel pending request action in model registry"
+  },
+  "778sv1" : {
+    "defaultMessage" : "L'entraînement AutoML a été interrompu prématurément",
+    "description" : "AutoML warning shown that the training is stopped early"
+  },
+  "77YBRg" : {
+    "defaultMessage" : "Profils des données",
+    "description" : "Tab pane name for feature table data profiles"
+  },
+  "79dD5F" : {
+    "defaultMessage" : "Une erreur s'est produite lors de l'envoi de votre note.",
+    "description" : "Error message text when saving an editable note in MLflow"
+  },
+  "7F/CBv" : {
+    "defaultMessage" : "Étape",
+    "description" : "Column title text for model version stage in model version table"
+  },
+  "7NKkk1" : {
+    "defaultMessage" : "Enregistrer",
+    "description" : "Modal button text to save the changes to rename the experiment run name"
+  },
+  "7QqKFE" : {
+    "defaultMessage" : "Simultanéité provisionnée :",
+    "description" : "Concurrency label for compute config"
+  },
+  "7RRdQX" : {
+    "defaultMessage" : "Journaux",
+    "description" : "Title text for logs section on model version's serving page"
+  },
+  "7UtBbR" : {
+    "defaultMessage" : "Dimensionner à zéro",
+    "description" : "Checkbox text for enabling scale to zero"
+  },
+  "7cuzHn" : {
+    "defaultMessage" : "Action",
+    "description" : "Column header of AutoML warnings table. Describes what actions AutoML took as a result of a warning, as well as what actions we recommend that the user take."
+  },
+  "7jsqqe" : {
+    "defaultMessage" : "{timeSince, plural, one {Il y a 1 minute} other {Il y a {timeSince,number} minutes}}",
+    "description" : "Text for time in minutes since given date for MLflow views"
+  },
+  "7kUi8J" : {
+    "defaultMessage" : "Durée :",
+    "description" : "Row title for the duration of runs on the experiment compare runs page"
+  },
+  "7nAMnb" : {
+    "defaultMessage" : "Veuillez saisir le nom du nouveau modèle.",
+    "description" : "Error message for having no input for creating models in the model registry"
+  },
+  "7pCEMd" : {
+    "defaultMessage" : "Plus de 5 % des valeurs sont nulles.",
+    "description" : "AutoML warning shown when >5% nulls are found in columns"
+  },
+  "7rTIly" : {
+    "defaultMessage" : "Nom",
+    "description" : "Column title for name column for displaying the params name for the experiment run"
+  },
+  "7uuki1" : {
+    "defaultMessage" : "Commentaire",
+    "description" : "Title text for transition request form to add comments for model version stage transition request"
+  },
+  "7zNDHj" : {
+    "defaultMessage" : "Paramètres :",
+    "description" : "Label text for parameters in parallel coordinates plot in MLflow"
+  },
+  "8/7V3S" : {
+    "defaultMessage" : "Emplacement de l'artefact",
+    "description" : "Label for displaying the experiment artifact location"
+  },
+  "81+fJx" : {
+    "defaultMessage" : "Une erreur est survenue. Impossible de charger les informations du modèle.",
+    "description" : "Error state text when the model artifact was unable to load"
+  },
+  "81DxPY" : {
+    "defaultMessage" : "Les tracés de contour ne peuvent être rendus que lors de la comparaison d’un groupe d’exécutions avec trois métriques ou paramètres uniques ou plus. Enregistrez plus de métriques ou de paramètres dans vos exécutions pour les visualiser à l’aide du tracé de contour.",
+    "description" : "Text explanation when contour plot is disabled in comparison pages\n              in MLflow"
+  },
+  "88l+j9" : {
+    "defaultMessage" : "Voulez-vous vraiment supprimer la version de modèle {versionNum} ?? Cette opération est irréversible.",
+    "description" : "Comment text for model version deletion modal in model versions view\n                 page"
+  },
+  "8Qqbgr" : {
+    "defaultMessage" : "Aucune table de fonctionnalités trouvée.",
+    "description" : "Text on the table section describing no feature tables are found by search."
+  },
+  "8Uxki0" : {
+    "defaultMessage" : "AutoML a utilisé le hachage des fonctionnalités.",
+    "description" : "Action that AutoML took for extreme category column"
+  },
+  "8XT7z5" : {
+    "defaultMessage" : "Échec de la suppression du tag. Erreur : {errorTrace}",
+    "description" : "Error message when deleting a tag feature fails"
+  },
+  "8XbTnl" : {
+    "defaultMessage" : "Valeur",
+    "description" : "Default text for value placeholder in editable tags table form in MLflow"
+  },
+  "8flziy" : {
+    "defaultMessage" : "Temps (mur)",
+    "description" : "Radio button option to choose the time wall control option for the X-axis for metric graph on the experiment runs"
+  },
+  "8uJ0h/" : {
+    "defaultMessage" : "Granularités",
+    "description" : "Option group title for window granularities in update config modal"
+  },
+  "8xji5J" : {
+    "defaultMessage" : "Axe X :",
+    "description" : "Label text for X-axis in box plot comparison in MLflow"
+  },
+  "92yATM" : {
+    "defaultMessage" : "Événements de version",
+    "description" : "Title text for version events section on model version's serving page"
+  },
+  "93iLUV" : {
+    "defaultMessage" : "{timeSince, plural, one {Il y a 1 seconde} other {Il y a {timeSince,number} secondes}}",
+    "description" : "Text for time in seconds since given date for MLflow views"
+  },
+  "98Ub01" : {
+    "defaultMessage" : "Supprimer la version de modèle",
+    "description" : "Title text for model version deletion modal in model versions view page"
+  },
+  "99StqK" : {
+    "defaultMessage" : "Afficher l'historique",
+    "description" : "Link to job history"
+  },
+  "9Ce4Gd" : {
+    "defaultMessage" : "Démarré pendant",
+    "description" : "Label for the start time select dropdown for experiment runs view"
+  },
+  "9CqEWy" : {
+    "defaultMessage" : "Charger plus de résultats",
+    "description" : "Load more button text to load more experiment runs"
+  },
+  "9KXBFn" : {
+    "defaultMessage" : "Tags",
+    "description" : "Row group title for tags of runs on the experiment compare runs page"
+  },
+  "9U7p8j" : {
+    "defaultMessage" : "Annuler",
+    "description" : "Cancel button text for generating batch inference notebooks"
+  },
+  "9U8V17" : {
+    "defaultMessage" : "Description",
+    "description" : "Title text for the feature table description section field."
+  },
+  "9URaPt" : {
+    "defaultMessage" : "Utilisation de la mémoire (%)",
+    "description" : "Graph title for memory usage metrics graph"
+  },
+  "9W3kev" : {
+    "defaultMessage" : "Ajouter au registre",
+    "description" : "Confirmation text to register the model"
+  },
+  "9fVZg8" : {
+    "defaultMessage" : "Supprimer",
+    "description" : "Text for disabled delete button due to active versions on model view page header"
+  },
+  "9mAGv0" : {
+    "defaultMessage" : "Nom du modèle",
+    "description" : "Text for form title on creating model in the model registry"
+  },
+  "9tVuSP" : {
+    "defaultMessage" : "Relancez AutoML sur un jeu de données comprenant plusieurs catégories dans la colonne cible.",
+    "description" : "Recommended action when AutoML is given a target column with 1 category"
+  },
+  "9y+yUQ" : {
+    "defaultMessage" : "Le fichier est trop volumineux pour pouvoir en afficher un aperçu",
+    "description" : "Label to indicate that the file is too large to preview"
+  },
+  "A27SOF" : {
+    "defaultMessage" : "Impossible de charger la page. Veuillez réessayer ultérieurement.",
+    "description" : "Page level error boundary alert description"
+  },
+  "A3+K1g" : {
+    "defaultMessage" : "Gravité",
+    "description" : "Column header of AutoML warnings table. Describes priority of warning."
+  },
+  "ABg28u" : {
+    "defaultMessage" : "Table de journalisation",
+    "description" : "Link text for the generated logging table for model monitoring"
+  },
+  "AEzy9w" : {
+    "defaultMessage" : "Après la création, vous pouvez ajouter des modèles enregistrés au registre sous forme de nouvelles versions. ",
+    "description" : "Text for form description on creating model in the model registry"
+  },
+  "AH/7/t" : {
+    "defaultMessage" : "Fonctionnalités publiées ({length})",
+    "description" : "Title text for the online store published features section."
+  },
+  "AOV6+K" : {
+    "defaultMessage" : "Fonctionnalité",
+    "description" : "Title text for the feature name column."
+  },
+  "AWn3+C" : {
+    "defaultMessage" : "Commentaire",
+    "description" : "Placeholder text for stage transition form to add comments for model version stage transitions"
+  },
+  "AaU3xx" : {
+    "defaultMessage" : "Impossible de trouver le moniteur : {name}",
+    "description" : "Alert header text for when monitor with a name cannot be found"
+  },
+  "AoTAbL" : {
+    "defaultMessage" : "Version de modèle",
+    "description" : "Model version label on the configure inference form"
+  },
+  "At3XhS" : {
+    "defaultMessage" : "Heure de création",
+    "description" : "Label name for the created time under details tab on the model view page"
+  },
+  "Ay+ZP/" : {
+    "defaultMessage" : "Échec de la suppression du tag. Erreur : {userVisibleError}",
+    "description" : "Text for user visible error when deleting tag in model version view"
+  },
+  "B7RMVW" : {
+    "defaultMessage" : "Annulée",
+    "description" : "Job status for most recent run: cancelled"
+  },
+  "B80MC6" : {
+    "defaultMessage" : "Tracé de contour",
+    "description" : "Tab pane title for contour plots on the compare runs page"
+  },
+  "BAVJrI" : {
+    "defaultMessage" : "Table des métriques d'analyse",
+    "description" : "Link to analysis metrics table"
+  },
+  "BQVmNZ" : {
+    "defaultMessage" : "Valeurs uniformément réparties dans les colonnes catégorielles",
+    "description" : "AutoML warning shown when categorical columns are uniformly distributed"
+  },
+  "BQt0TQ" : {
+    "defaultMessage" : "Ce modèle est également inscrit dans le <link>répertoire des modèles</link>.",
+    "description" : "Sub text to tell the users where the registered models are located "
+  },
+  "BldEXx" : {
+    "defaultMessage" : "Dernière modification par",
+    "description" : "Title text for the feature table last modified by metadata field."
+  },
+  "Brd8VL" : {
+    "defaultMessage" : "Boutique en ligne",
+    "description" : "Title text for the online store name column."
+  },
+  "Bw2fr8" : {
+    "defaultMessage" : "AutoML expiré",
+    "description" : "AutoML warning shown when AutoML times before any trials are completed"
+  },
+  "BwyYS1" : {
+    "defaultMessage" : "Valeur",
+    "description" : "Column title for value column for displaying the value of the metrics for the experiment run "
+  },
+  "C4y1fv" : {
+    "defaultMessage" : "-∞",
+    "description" : "Label displaying negative infinity symbol displayed on a plot UI element"
+  },
+  "C6JEqI" : {
+    "defaultMessage" : "Relancez AutoML avec un jeu de données contenant au moins 5 lignes par libellé cible",
+    "description" : "Recommended action when AutoML is run with dataset with all invalid rows"
+  },
+  "CBuKSa" : {
+    "defaultMessage" : "Pour obtenir les données de profil les plus récentes pour cette table de fonctionnalités, assurez-vous d'exécuter à nouveau le job qui recalcule les profils à l'aide de la dernière configuration",
+    "description" : "Alert description for configuration changes in feature table monitoring"
+  },
+  "CGVHLD" : {
+    "defaultMessage" : "Paramètres",
+    "description" : "Label for the collapsible area to display the parameters used during the experiment run"
+  },
+  "CQoA6b" : {
+    "defaultMessage" : "Démarrage d’AutoML...",
+    "description" : "AutoML Step subtitle pending training"
+  },
+  "CYs020" : {
+    "defaultMessage" : "Valeurs nulles dans la colonne d'heure",
+    "description" : "AutoML warning shown when the time column has null values"
+  },
+  "Cb+zij" : {
+    "defaultMessage" : "Notebook du job",
+    "description" : "Link to jobs notebook"
+  },
+  "CcZmhi" : {
+    "defaultMessage" : "Annuler",
+    "description" : "Button text for canceling pending request on the model version page"
+  },
+  "CgfGuB" : {
+    "defaultMessage" : "Annuler",
+    "description" : "Text on the feature table deletion modal to cancel deletion of the feature table."
+  },
+  "CkCjt2" : {
+    "defaultMessage" : "Afficher le notebook pour le meilleur modèle",
+    "description" : "Button to navigate to the notebook with the best AutoML trial"
+  },
+  "ClUzUX" : {
+    "defaultMessage" : "ID d'exécution",
+    "description" : "Label for displaying the ID of the experiment run"
+  },
+  "CpLnGS" : {
+    "defaultMessage" : "Métriques",
+    "description" : "Table title text for metrics table in the model comparison page"
+  },
+  "Ct2SbD" : {
+    "defaultMessage" : "Valeurs nulles dans la colonne cible",
+    "description" : "AutoML warning shown when the target column has null values"
+  },
+  "CyjF09" : {
+    "defaultMessage" : "Utilisation du CPU (%)",
+    "description" : "Graph title for cpu usage metrics graph"
+  },
+  "D/alNf" : {
+    "defaultMessage" : "Toutes les nouvelles activités",
+    "description" : "Text for dropdown for all notifications on model view page"
+  },
+  "D5w45H" : {
+    "defaultMessage" : "Les modèles {productionTag} utiliseront le calcul suivant :",
+    "description" : "Compute config message for production compute"
+  },
+  "DMtkZp" : {
+    "defaultMessage" : "AutoML a effectué une exploration de données et des essais sur un échantillon du jeu de données d'origine.",
+    "description" : "Text for dataset sampled before exploration"
+  },
+  "DPXZ6v" : {
+    "defaultMessage" : "L'affichage des métriques récemment émises peut prendre quelques minutes. Le graphique est automatiquement mis à jour toutes les 10 secondes. Veuillez noter que ces métriques ne comprennent pas les demandes à vitesse limitée ainsi que les demandes qui échouent lors de l'authentification. En outre, des pics temporaires peuvent survenir dans le nombre de répliques lorsque la modification de la configuration d'un calcul est en attente.",
+    "description" : "Tooltip for metrics section"
+  },
+  "DUZykM" : {
+    "defaultMessage" : "Service activé",
+    "description" : "Selection item text in model registry to filter models by serving enabled"
+  },
+  "DUnrWL" : {
+    "defaultMessage" : "Nom de l’exécution :",
+    "description" : "Row title for the run name on the experiment compare runs page"
+  },
+  "Dhn7Mb" : {
+    "defaultMessage" : "Affichage des exécutions de {numExperiments} expériences",
+    "description" : "Message shown when displaying runs from multiple experiments"
+  },
+  "DkYbf8" : {
+    "defaultMessage" : "Colonnes d'ID",
+    "description" : "Model monitoring configuration text for id columns"
+  },
+  "DxWJOS" : {
+    "defaultMessage" : "Relancez AutoML avec un jeu de données qui ne possède que des noms de colonne uniques.",
+    "description" : "Action that AutoML took given a dataset with duplicate column names"
+  },
+  "Dxwvus" : {
+    "defaultMessage" : "Transition d’étape",
+    "description" : "Title text for model version stage transitions in confirm modal"
+  },
+  "DzGXnD" : {
+    "defaultMessage" : "Copier",
+    "description" : "Copy tooltip to copy experiment name from experiment runs table header"
+  },
+  "E2etXv" : {
+    "defaultMessage" : "Supprimer",
+    "description" : "Ok button text for deleting a comment under activities list on the model version page"
+  },
+  "E7mv3b" : {
+    "defaultMessage" : "Enregistrer",
+    "description" : "Text for saving changes on rows in editable form table in MLflow"
+  },
+  "ECH4Hu" : {
+    "defaultMessage" : "Effacer",
+    "description" : "String for the clear button to clear the text for searching models"
+  },
+  "EDi/qe" : {
+    "defaultMessage" : "Boutiques en ligne ({length})",
+    "description" : "Title text for the feature table online stores section."
+  },
+  "EI7moF" : {
+    "defaultMessage" : "L'année dernière",
+    "description" : "Option for the start select dropdown to filter runs since the last 1 year"
+  },
+  "EK5JxG" : {
+    "defaultMessage" : "Paramètres",
+    "description" : "Field name text for parameters table in the model comparison page"
+  },
+  "EKyt+3" : {
+    "defaultMessage" : "Métriques :",
+    "description" : "Label text for metrics in parallel coordinates plot in MLflow"
+  },
+  "EMNpby" : {
+    "defaultMessage" : "Afficher uniquement les différences",
+    "description" : "Switch to select only columns with different values across runs"
+  },
+  "ERatIe" : {
+    "defaultMessage" : "Autorisations",
+    "description" : "Text for the permissions button."
+  },
+  "ERcJ7Q" : {
+    "defaultMessage" : "Table des métriques de drift",
+    "description" : "Link to the drift metrics table"
+  },
+  "ES952j" : {
+    "defaultMessage" : "Pas un nombre ({metricKey})",
+    "description" : "Label indicating \"not-a-number\" used as a hover text in a plot UI element"
+  },
+  "EVfjgv" : {
+    "defaultMessage" : "Dernière modification",
+    "description" : "Title text for the feature page last modified metadata field."
+  },
+  "EYj+v2" : {
+    "defaultMessage" : "Regrouper les données en fenêtres temporelles ou grouper en un seul profil",
+    "description" : "Hint text for window granularity in update config modal"
+  },
+  "EfbHm9" : {
+    "defaultMessage" : "Enregistrer la configuration",
+    "description" : "Ok text for update data profile config modal"
+  },
+  "EqNhV6" : {
+    "defaultMessage" : "a approuvé une transition d’étape",
+    "description" : "Activity title text for approved transition request in model versions page"
+  },
+  "EsjlN/" : {
+    "defaultMessage" : "Aucune table de fonctionnalités pour le moment.",
+    "description" : "Text on the table section describing no feature table exists yet."
+  },
+  "EtOcLm" : {
+    "defaultMessage" : "Notifications désactivées",
+    "description" : "Notification setting status message when disabled on the model view page"
+  },
+  "EwcVCu" : {
+    "defaultMessage" : "Effacer",
+    "description" : "String for the clear button to clear any filters or sorting that we may have applied on the experiment table"
+  },
+  "F/EzKI" : {
+    "defaultMessage" : "Transition des versions de modèle {currentStage} existantes vers {archivedStage}",
+    "description" : "Description text for checkbox for archiving existing model versions\n                    in the toStage for model version stage transition"
+  },
+  "F0VQH7" : {
+    "defaultMessage" : "AutoML n'équilibrera pas le jeu de données. Nous vous recommandons de choisir une autre métrique, telle que <code>{appropriateMetric}</code>.",
+    "description" : "Text shown when AutoML does not balance the data with an unsupported metric"
+  },
+  "F16DNA" : {
+    "defaultMessage" : "Version {versionNum}",
+    "description" : "Title text for model version page"
+  },
+  "F6uRM6" : {
+    "defaultMessage" : "Durée de vie",
+    "description" : "Title text for the online store time to live metadata field."
+  },
+  "FZubuU" : {
+    "defaultMessage" : "Saisissez un nom d'expérimentation",
+    "description" : "Input placeholder to enter experiment name for create experiment"
+  },
+  "FdDWTo" : {
+    "defaultMessage" : "Effacer tout",
+    "description" : "String for the clear button to clear any selected parameters and metrics"
+  },
+  "FpjDSq" : {
+    "defaultMessage" : "Comparer",
+    "description" : "Text for compare button to compare versions under details tab\n                       on the model view page"
+  },
+  "FpzEE0" : {
+    "defaultMessage" : "Date",
+    "description" : "Label for displaying the start time of the experiment ran"
+  },
+  "FwBInP" : {
+    "defaultMessage" : "Chargement…",
+    "description" : "Loading state text for the artifact model view"
+  },
+  "G0Vn7R" : {
+    "defaultMessage" : "Endpoints du modèle serverless",
+    "description" : "Feature name for serving v2 used in error message in enable serving\n            button popover."
+  },
+  "G0cL1N" : {
+    "defaultMessage" : "Boutique en ligne",
+    "description" : "Title text for the feature table online stores column."
+  },
+  "G0gYkS" : {
+    "defaultMessage" : "Heure de fin :",
+    "description" : "Row title for the end time of runs on the experiment compare runs page"
+  },
+  "G1CN04" : {
+    "defaultMessage" : "Statut",
+    "description" : "Title text for the producer status column."
+  },
+  "GAJL1v" : {
+    "defaultMessage" : "Schéma d'entrée et de sortie pour votre modèle. <link>En savoir plus</link>",
+    "description" : "Input and output params of the model that is registered from the experiment run"
+  },
+  "GB5GqC" : {
+    "defaultMessage" : "Nouvelle tentative demandée",
+    "description" : "Retry requested label for the state of the model scoring service"
+  },
+  "GDenB3" : {
+    "defaultMessage" : "Métriques",
+    "description" : "Field name text for metrics table in the model comparison page"
+  },
+  "GFJzUl" : {
+    "defaultMessage" : "AutoML a éliminé les lignes avec une valeur nulle dans la colonne d'heure",
+    "description" : "Action that AutoML took for rows with null time column"
+  },
+  "GFPC97" : {
+    "defaultMessage" : "Vous devez disposer d'une autorisation pour créer des clusters à usage général afin d'activer {featureNameText}.",
+    "description" : "Error message when user does not have cluster create permissions in\n              enable serving button popover."
+  },
+  "GGWJ6D" : {
+    "defaultMessage" : "Type sémantique textuel détecté pour les colonnes",
+    "description" : "AutoML warning shown when columns have text semantic type"
+  },
+  "GJWVBA" : {
+    "defaultMessage" : "Entrées",
+    "description" : "Table subtitle for schema inputs in the model comparison page"
+  },
+  "GKiPV1" : {
+    "defaultMessage" : "Heure de début :",
+    "description" : "Text for start time row header in the main table in the model comparison\n                page"
+  },
+  "GX9Yb8" : {
+    "defaultMessage" : "Statut",
+    "description" : "Label for displaying status of the experiment run to see if its running or finished"
+  },
+  "GXayIF" : {
+    "defaultMessage" : "Prédire sur un DataFrame Pandas :",
+    "description" : "Section heading to display the code block on how we can use registered model to predict using pandas DataFrame"
+  },
+  "GZNIJ6" : {
+    "defaultMessage" : "Table de journalisation",
+    "description" : "Link to logging table"
+  },
+  "Gg/vLZ" : {
+    "defaultMessage" : "Supprimer le modèle",
+    "description" : "Title text for delete model modal on model view page"
+  },
+  "GjbOyj" : {
+    "defaultMessage" : "Pour plus d’informations, consultez <link>l’exécution de la tâche AutoML.</link>",
+    "description" : "Info text about AutoML failed with details about finding more information"
+  },
+  "Gk26O9" : {
+    "defaultMessage" : "Message",
+    "description" : "Column title text for event message in model version events table"
+  },
+  "GozNR3" : {
+    "defaultMessage" : "Source Git",
+    "description" : "Label for displaying the Databricks Repo Git Lineage"
+  },
+  "GqEyUv" : {
+    "defaultMessage" : "Les notebooks d'entraînement ont converti chaque colonne en type numérique et ont encodé les features en fonction des transformations numériques.",
+    "description" : "Action that AutoML took for columns that have numeric semantic type"
+  },
+  "GrrT4e" : {
+    "defaultMessage" : "Échec de l'ajout du tag. Erreur : {errorTrace}",
+    "description" : "Error message when add to tag feature fails"
+  },
+  "GuWIIX" : {
+    "defaultMessage" : "Version",
+    "description" : "Column title text for version name in model version events table"
+  },
+  "GwsMuc" : {
+    "defaultMessage" : "Parcourir",
+    "description" : "Button text for browsing tables on the configure inference form"
+  },
+  "H+4gFh" : {
+    "defaultMessage" : "Afficher la différence uniquement",
+    "description" : "Toggle text that determines whether to show diff only in the model\n                      comparison page"
+  },
+  "H/rbzt" : {
+    "defaultMessage" : "Créé par",
+    "description" : "Title text for the online store created by metadata field."
+  },
+  "H7bCb9" : {
+    "defaultMessage" : "Configuration enregistrée",
+    "description" : "Toast message for successful updating of monitoring configs"
+  },
+  "HBOFi3" : {
+    "defaultMessage" : "Transition vers",
+    "description" : "Text for transition under request column in the pending\n               requests table"
+  },
+  "HDj/uX" : {
+    "defaultMessage" : "Surveiller",
+    "description" : "Title for model monitoring page"
+  },
+  "HGG+BI" : {
+    "defaultMessage" : "Échelle logarithmique de l'axe Y",
+    "description" : "Label for the radio button to toggle the Log scale on the Y-axis of the metric graph for the experiment"
+  },
+  "HHxM0O" : {
+    "defaultMessage" : "Erreur",
+    "description" : "Error replica status label for serving V2 logs panel"
+  },
+  "HNLDYl" : {
+    "defaultMessage" : "Impossible de définir le tag. Erreur : {userVisibleError}",
+    "description" : "Text for user visible error when setting tag in model version view"
+  },
+  "HO9pRw" : {
+    "defaultMessage" : "Taille de l'instance",
+    "description" : "Instance size label for compute configuration"
+  },
+  "HUf9qJ" : {
+    "defaultMessage" : "Voulez-vous vraiment supprimer {modelName} ? Cette opération est irréversible.",
+    "description" : "Confirmation message for delete model modal on model view page"
+  },
+  "HZqm8e" : {
+    "defaultMessage" : "Activités",
+    "description" : "Title text for the activities section on the model versions view page"
+  },
+  "Hk0RSH" : {
+    "defaultMessage" : "Axe Y :",
+    "description" : "Label text for Y-axis in box plot comparison in MLflow"
+  },
+  "HrS270" : {
+    "defaultMessage" : "Pour en savoir plus, consultez le <link>notebook d'exploration des données</link>.",
+    "description" : "Informational text directing users to the data exploration notebook for more AutoML warnings"
+  },
+  "HsaxHP" : {
+    "defaultMessage" : "Répliques :",
+    "description" : "Replicas label for compute config"
+  },
+  "HtzD+r" : {
+    "defaultMessage" : "Description",
+    "description" : "Title text for the feature page description section field."
+  },
+  "HvDYaH" : {
+    "defaultMessage" : "URI du compte",
+    "description" : "Title text for the online store account uri metadata field."
+  },
+  "HyBP+D" : {
+    "defaultMessage" : "Tags",
+    "description" : "Title text for the tags section under details tab on the model view\n                   page"
+  },
+  "HyYya/" : {
+    "defaultMessage" : "Modèles",
+    "description" : "Title text for the feature model consumers column."
+  },
+  "I2oT/6" : {
+    "defaultMessage" : "Utiliser les mêmes paramètres de calcul pour chaque étape du modèle",
+    "description" : "Description for same compute settings checkbox"
+  },
+  "I4vohS" : {
+    "defaultMessage" : "Vous devez supprimer les tables en ligne publiées et la table Delta sous-jacente séparément. <link>En savoir plus</link>",
+    "description" : "Text on the feature table deletion modal describing consequences of this operation."
+  },
+  "ICtiKS" : {
+    "defaultMessage" : "Supprimer",
+    "description" : "OK button text for model version deletion modal in model versions view page"
+  },
+  "IEIzml" : {
+    "defaultMessage" : "Table d'entrée",
+    "description" : "Input table placeholder on the configure inference form"
+  },
+  "IEORCP" : {
+    "defaultMessage" : "Comparaison de {numRuns} exécutions de {numExperiments} expériences",
+    "description" : "Breadcrumb title for compare runs page with multiple experiments"
+  },
+  "IGmuER" : {
+    "defaultMessage" : "1 mois",
+    "description" : "1 month window granularity for data profiles"
+  },
+  "IHyeUr" : {
+    "defaultMessage" : "Étape",
+    "description" : "Label name for stage metadata in model version page"
+  },
+  "IKx3DN" : {
+    "defaultMessage" : "Prédire sur un DataFrame Pandas.",
+    "description" : "Code comment which states on how we can predict using pandas DataFrame"
+  },
+  "IOWt+E" : {
+    "defaultMessage" : "Modifiez les configurations de calcul utilisées pour desservir cet endpoint.",
+    "description" : "Compute config tab description"
+  },
+  "IWuVOI" : {
+    "defaultMessage" : "Échec de l'ajout du tag. Erreur : {userVisibleError}",
+    "description" : "Text for user visible error when adding tag in model version view"
+  },
+  "Ik96R6" : {
+    "defaultMessage" : "Modifier",
+    "description" : "Text for the edit button next to the description section title on\n             the model version view page"
+  },
+  "It3jsH" : {
+    "defaultMessage" : "Demandes en attente",
+    "description" : "Title text for the pending requests section on the model version\n                 view page"
+  },
+  "Itbhj7" : {
+    "defaultMessage" : "Colonne de timestamp",
+    "description" : "Model monitoring configuration text for timestamp column"
+  },
+  "Iw/M16" : {
+    "defaultMessage" : "AutoML sampled the dataset. Try a cluster with memory-optimized instance types to increase the sample size.",
+    "description" : "Action that AutoML took given a dataset that was too large, and give users a suggestion on what to do."
+  },
+  "J/Hg7I" : {
+    "defaultMessage" : "Relancez AutoML avec un jeu de données contenant suffisamment de lignes par libellé cible ou réduisez le nombre de libellés cibles",
+    "description" : "Action that AutoML took when there is insufficient data per target label"
+  },
+  "JCOS4u" : {
+    "defaultMessage" : "Nom",
+    "description" : "Title text for the producer name column."
+  },
+  "JChRnq" : {
+    "defaultMessage" : "Dernières 24 heures",
+    "description" : "Option for the start select dropdown to filter runs from the last 24 hours"
+  },
+  "JYz0Gi" : {
+    "defaultMessage" : "Suivre le statut",
+    "description" : "Label name text for following status metadata in model versions page"
+  },
+  "JhpyGF" : {
+    "defaultMessage" : "Aucun",
+    "description" : "Empty state text for when job history does not have any successful runs"
+  },
+  "JqO8jQ" : {
+    "defaultMessage" : "Type sémantique numérique détecté pour les colonnes",
+    "description" : "AutoML warning shown when columns have numeric semantic type"
+  },
+  "JrSG9X" : {
+    "defaultMessage" : "Colonne de prédiction",
+    "description" : "Model monitoring configuration text for the prediction column"
+  },
+  "JsPNNv" : {
+    "defaultMessage" : "Jeu de données vide",
+    "description" : "AutoML warning shown when the input dataset is empty"
+  },
+  "Ju/2R+" : {
+    "defaultMessage" : "Le calcul actuel est toujours actif. Vous pouvez relancer cette mise à jour de configuration ou passer à une autre configuration via <linkButton>l'onglet Paramètres de calcul</linkButton>.",
+    "description" : "Message for compute config update failure"
+  },
+  "K+s7ez" : {
+    "defaultMessage" : "Dernière modification",
+    "description" : "Column title for last modified timestamp for a model in the registered model page"
+  },
+  "K4Ujb4" : {
+    "defaultMessage" : "Afficher uniquement les colonnes présentant des différences",
+    "description" : "Switch to select only columns with different values across runs"
+  },
+  "KEL9Js" : {
+    "defaultMessage" : "Actif",
+    "description" : "Tab text to view active versions under details tab\n                               on the model view page"
+  },
+  "KioET2" : {
+    "defaultMessage" : "Toutes les exécutions sont terminées et ont été ajoutées au tableau ci-dessous. Cliquez sur une exécution spécifique pour afficher les détails ou consulter le <link>carnet d’exploration des données.</link>",
+    "description" : "Info text about AutoML evaluation completion and instructions for next steps"
+  },
+  "KkkVnN" : {
+    "defaultMessage" : "AutoML a déduit un libellé positif à partir des données. Consultez les données affectées pour le libellé déduit. Utilisez le paramètre <code>{posLabel}</code> pour utiliser un libellé positif différent.",
+    "description" : "Action that AutoML took for binary classification"
+  },
+  "KoHj5A" : {
+    "defaultMessage" : "Exécution la plus récente :",
+    "description" : "Title for the most recent run of the job in the monitoring pane"
+  },
+  "Krq903" : {
+    "defaultMessage" : "Voulez-vous vraiment supprimer ce commentaire ? Cette opération est irréversible.",
+    "description" : "Modal text for deleting a comment under activities list on the model\n                 version page"
+  },
+  "KsDW9O" : {
+    "defaultMessage" : "Demander la transition vers",
+    "description" : "Text for requesting transition to a different stage for a model version\n                 under dropdown menu in model version page"
+  },
+  "KwMekr" : {
+    "defaultMessage" : "Télécharger au format CSV",
+    "description" : "String for the download csv button to download metrics from this run offline in a CSV format"
+  },
+  "L26D19" : {
+    "defaultMessage" : "Axe X :",
+    "description" : "Label for the radio button to toggle the control on the X-axis of the metric graph for the experiment"
+  },
+  "L3YRZk" : {
+    "defaultMessage" : "Exécution parente",
+    "description" : "Label for displaying a link to the parent experiment run if any present"
+  },
+  "LCxyXG" : {
+    "defaultMessage" : "Échec",
+    "description" : "Job status for most recent run: failed"
+  },
+  "LI6iO0" : {
+    "defaultMessage" : "Les lignes des colonnes contenant des tableaux ne sont pas de même longueur",
+    "description" : "AutoML warning shown when rows of array columns are not of the same length"
+  },
+  "LJxdDA" : {
+    "defaultMessage" : "Échec de la mise à jour",
+    "description" : "Failed label for compute config in version sidebar"
+  },
+  "LLm5Bo" : {
+    "defaultMessage" : "Affichage des exécutions de {numExperiments} expériences",
+    "description" : "Breadcrumb nav item to link to the compare-experiments page on compare runs page"
+  },
+  "LNdnVe" : {
+    "defaultMessage" : "moyenne dans les répliques",
+    "description" : "Label for line on cpu graph"
+  },
+  "LQoiHn" : {
+    "defaultMessage" : "Calculer les profils globaux",
+    "description" : "Checkbox text for including global data profiles for feature tables"
+  },
+  "LTpUmZ" : {
+    "defaultMessage" : "Chargement…",
+    "description" : "Text to be displayed when waiting for RPC call to fetch events to return"
+  },
+  "LW7qpO" : {
+    "defaultMessage" : "En cours d'exécution",
+    "description" : "Running replica status label for serving V2 logs panel"
+  },
+  "LYEd8B" : {
+    "defaultMessage" : "Consulter le carnet d’exploration des données",
+    "description" : "Button to navigate to the data exploration notebook"
+  },
+  "Lr4nLK" : {
+    "defaultMessage" : "Réexécutez AutoML avec une colonne {t} de type accepté.",
+    "description" : "Action message for unsupported target or time type warning"
+  },
+  "LvYpQ4" : {
+    "defaultMessage" : "Aucun",
+    "description" : "Empty state text for when job history does not have any runs"
+  },
+  "LxOLzI" : {
+    "defaultMessage" : "Job d'analyse",
+    "description" : "Link text for the analysis job for model monitoring"
+  },
+  "M/O79Q" : {
+    "defaultMessage" : "Aucun changement de configuration n'a été spécifié pour les versions de test et de production du modèle",
+    "description" : "Tooltip message for when no configuration changes are specified"
+  },
+  "M4N7PH" : {
+    "defaultMessage" : "a annulé sa demande de transition d’étape",
+    "description" : "Activity title text for cancelled transition request in model versions page"
+  },
+  "M7oW8u" : {
+    "defaultMessage" : "Type de {t} non accepté",
+    "description" : "AutoML warning text shown when the user selects a target or time column with an unsupported type"
+  },
+  "MEUk2a" : {
+    "defaultMessage" : "Importé par",
+    "description" : "Title text for the feature table imported metadata field."
+  },
+  "MGkDjM" : {
+    "defaultMessage" : "Fonctionnalités",
+    "description" : "Option group title for features in update config modal"
+  },
+  "MOZ+tG" : {
+    "defaultMessage" : "Activer le dimensionnement automatique",
+    "description" : "Checkbox text for enabling autoscaling"
+  },
+  "MVQrOG" : {
+    "defaultMessage" : "Latence (ms)",
+    "description" : "Graph title for latency metrics graph"
+  },
+  "MatV9u" : {
+    "defaultMessage" : "Créer",
+    "description" : "Create button text for creating model in the model registry"
+  },
+  "MeZb2m" : {
+    "defaultMessage" : "Type sémantique date-heure détecté pour les colonnes",
+    "description" : "AutoML warning shown when columns have datetime semantic type"
+  },
+  "MkuIi5" : {
+    "defaultMessage" : "Aucune demande en attente.",
+    "description" : "Default text in pending requests table when no pending requests\n                   for the model version"
+  },
+  "MmQM3C" : {
+    "defaultMessage" : "Vitesses de la demande et de l'erreur (par seconde)",
+    "description" : "Graph title for request and error rates metrics graph"
+  },
+  "MriySc" : {
+    "defaultMessage" : "<link>En savoir plus</link>",
+    "description" : "Learn more link with cloud specific links to the feature store documentation."
+  },
+  "MvooBc" : {
+    "defaultMessage" : "Activer un service de modèle en temps réel diffusant derrière une interface API REST. Cette opération lancera un cluster à nœud unique qui hébergera toutes les versions actives de ce modèle. <link>En savoir plus</link>",
+    "description" : "Enable serving description for serving v1 in enable serving page."
+  },
+  "N09YPq" : {
+    "defaultMessage" : "Le nombre de répliques doit être supérieur à 0",
+    "description" : "Validation error message for when there are too few replicas"
+  },
+  "N0MF7O" : {
+    "defaultMessage" : "Table des données de base",
+    "description" : "Link to baseline data table"
+  },
+  "N7gNch" : {
+    "defaultMessage" : "a demandé une transition d’étape",
+    "description" : "Activity title text for requested transition in model versions page"
+  },
+  "NEMZsy" : {
+    "defaultMessage" : "AutoML a ignoré les colonnes.",
+    "description" : "Action that AutoML took for large categories"
+  },
+  "NJ1bYP" : {
+    "defaultMessage" : "{fieldName} sont identiques",
+    "description" : "Default text in data table where items are identical in the model comparison page"
+  },
+  "NN0ScV" : {
+    "defaultMessage" : "Comparaison de {numRuns} exécutions d'une expérience",
+    "description" : "Breadcrumb title for compare runs page with single experiment"
+  },
+  "NZqJUU" : {
+    "defaultMessage" : "Supprimer",
+    "description" : "Text for delete button for activities list on the model version page"
+  },
+  "Nj6Ez5" : {
+    "defaultMessage" : "Nom",
+    "description" : "Text for name column in schema table in model version page"
+  },
+  "Nm/Pjx" : {
+    "defaultMessage" : "Ajout au registre",
+    "description" : "Column title text for created at timestamp in model version table"
+  },
+  "NzV7O0" : {
+    "defaultMessage" : "Rejeter la demande en attente",
+    "description" : "Title text for reject pending request confirmation modal in model\n                   registry"
+  },
+  "O1rYVN" : {
+    "defaultMessage" : "Chargez le modèle au format UDF Spark. Remplacez result_type si le modèle ne renvoie pas de valeurs de type double.",
+    "description" : "Code comment which states how to load model using spark UDF"
+  },
+  "O9r1RR" : {
+    "defaultMessage" : "Heure de début :",
+    "description" : "Row title for the start time of runs on the experiment compare runs page"
+  },
+  "OEGyWZ" : {
+    "defaultMessage" : "Prédire sur un DataFrame Spark.",
+    "description" : "Code comment which states on how we can predict using spark DataFrame"
+  },
+  "OGWg8l" : {
+    "defaultMessage" : "État :",
+    "description" : "Filtering label to filter experiments based on state of active or deleted"
+  },
+  "OHcCcO" : {
+    "defaultMessage" : "Vous pouvez toujours utiliser le <link>service de modèle classique</link>. Cliquez sur <button>ce lien</button> pour l'activer.",
+    "description" : "Link to allow enabling of serving V1 when serving V2 is enabled in\n                enable serving page."
+  },
+  "OYXrDF" : {
+    "defaultMessage" : "Databricks AutoML entraînera les modèles ciblant « {targetCol} »{timeoutMinutes}. {cancelJobRun} À la fin des exécutions, les modèles présentant la meilleure valeur {evaluationMetric} seront ajoutés en haut de la table des exécutions.",
+    "description" : "Info text about AutoML running"
+  },
+  "OfLABN" : {
+    "defaultMessage" : "Fermer",
+    "description" : "Error modal close button text"
+  },
+  "Ofp7sL" : {
+    "defaultMessage" : "Aucun changement de configuration n'a été spécifié pour les versions {productionTag} du modèle.{br}{br} Lancer les ressources pour les versions {stagingTag} du modèle avec la configuration de calcul actuellement spécifiée ?",
+    "description" : "Confirmation message for updating staging compute config"
+  },
+  "OgDc6U" : {
+    "defaultMessage" : "Autorisations",
+    "description" : "Title dropdown text for permissions in registered model page"
+  },
+  "OimAJb" : {
+    "defaultMessage" : "Nuage de points",
+    "description" : "Tab pane title for scatterplots on the compare runs page"
+  },
+  "OsaUGL" : {
+    "defaultMessage" : "Annuler",
+    "description" : "Cancel button text for deleting a comment under activities list on the model version page"
+  },
+  "OzyPl3" : {
+    "defaultMessage" : "Veuillez sélectionner des paramètres",
+    "description" : "Placeholder text for parameters in parallel coordinates plot in MLflow"
+  },
+  "PDo/JT" : {
+    "defaultMessage" : "Le modèle est prêt à être enregistré et déployé. Vous pouvez aussi accéder au code source de l’entraînement du modèle afin d’effectuer des modifications en cliquant sur un carnet dans la colonne Source du tableau ci-dessous.",
+    "description" : "Info text about how to register and deploy a trained model or edit a model"
+  },
+  "PN5AOP" : {
+    "defaultMessage" : "Le service de modèle est désactivé par l'administrateur pour ce workspace.",
+    "description" : "Error message when model serving is not available in workspace in\n              enable serving button popover."
+  },
+  "PRe/8y" : {
+    "defaultMessage" : "Aucune",
+    "description" : "Default text for no content in an editable note in MLflow"
+  },
+  "PWk6rC" : {
+    "defaultMessage" : "Confirmer",
+    "description" : "OK text for button to confirm pending request action in model registry"
+  },
+  "PZGZHV" : {
+    "defaultMessage" : "ID d'expérience",
+    "description" : "Label for displaying the current experiment in view"
+  },
+  "PZN4J5" : {
+    "defaultMessage" : "Valeurs constantes dans les colonnes",
+    "description" : "AutoML warning shown when constant columns are detected, version 1"
+  },
+  "PaABx8" : {
+    "defaultMessage" : "Expériences",
+    "description" : "Breadcrumb nav item to link to the list of experiments page on compare runs page"
+  },
+  "PfK190" : {
+    "defaultMessage" : "Dernière publication par",
+    "description" : "Title text for the online store last published by metadata field."
+  },
+  "Potju2" : {
+    "defaultMessage" : "Restaurer",
+    "description" : "String for the restore button to undo the experiments that were deleted"
+  },
+  "PpAkk2" : {
+    "defaultMessage" : "Je suis propriétaire",
+    "description" : "Radio item text in model registry to filter models by models owned by me."
+  },
+  "Q1GbP9" : {
+    "defaultMessage" : "Rechercher par table de fonctionnalités, fonctionnalité ou source de données...",
+    "description" : "Placeholder text on the feature store page search box describing the attributes that the search could be based on."
+  },
+  "QAMBI9" : {
+    "defaultMessage" : "La fréquence de la série temporelle ne correspond pas à l'unité de fréquence donnée",
+    "description" : "AutoML warning shown when the time series does not match the given frequency unit in forecasting"
+  },
+  "QC5Vjq" : {
+    "defaultMessage" : "Axe Y :",
+    "description" : "Label where the users can choose the metric of the experiment run to be plotted on the Y-axis"
+  },
+  "QPADAU" : {
+    "defaultMessage" : "Dernière exécution",
+    "description" : "Title text for the producer last run column."
+  },
+  "QgMskz" : {
+    "defaultMessage" : "Activez la surveillance des modèles pour suivre les métriques de drift et de performance de vos charges de travail d'inférence par batch. Découvrez comment créer un moniteur <link>ici</link>.",
+    "description" : "Empty state text for the monitor tab"
+  },
+  "QklAjw" : {
+    "defaultMessage" : "Hôte",
+    "description" : "Title text for the online store host metadata field."
+  },
+  "Ql/b/2" : {
+    "defaultMessage" : "Stockage",
+    "description" : "Title text for the online store storage column."
+  },
+  "QnIZCn" : {
+    "defaultMessage" : "Réexécutez AutoML en utilisant un horizon de prévision plus court.",
+    "description" : "Recommended action for user when AutoML finds not enough historical data"
+  },
+  "QpARq0" : {
+    "defaultMessage" : "Nom du modèle",
+    "description" : "Model monitoring details header text for model name"
+  },
+  "Qpjcu0" : {
+    "defaultMessage" : "{ttl, plural, one {{ttl,number} seconde} other {{ttl,number} secondes}}",
+    "description" : "Text content for the online store table time to live metadata field in seconds."
+  },
+  "Qsgg+9" : {
+    "defaultMessage" : "Nom de l'expérience :",
+    "description" : "Row title for the experiment IDs of runs on the experiment compare runs page"
+  },
+  "Qtuy4V" : {
+    "defaultMessage" : "Une seule catégorie dans la colonne cible",
+    "description" : "AutoML warning shown when the target column only has 1 category"
+  },
+  "QuU1sl" : {
+    "defaultMessage" : "Tracé de coordonnées parallèles",
+    "description" : "Tab text for parallel coordinates plot on the model comparison page"
+  },
+  "R7Bw0l" : {
+    "defaultMessage" : "Le nombre de demandes pouvant être traitées simultanément.",
+    "description" : "Tooltip for workload size dropdown"
+  },
+  "RGyatu" : {
+    "defaultMessage" : "Annuler la demande de transition vers",
+    "description" : "Text for transition cancel request under request column in the\n               pending requests table"
+  },
+  "RZTZyO" : {
+    "defaultMessage" : "Commentaire",
+    "description" : "Placeholder text for transition request form to add comments for model version stage transition request"
+  },
+  "RaGnOQ" : {
+    "defaultMessage" : "Comparer",
+    "description" : "String for the compare button to compare experiment runs to find an ideal model"
+  },
+  "RlRsah" : {
+    "defaultMessage" : "chargement…",
+    "description" : "Loading spinner text to show that the artifact loading is in progress"
+  },
+  "RzfjpI" : {
+    "defaultMessage" : "Plus de {count} autres",
+    "description" : "Indicates how many additional columns an autoML warning applies to"
+  },
+  "S6yLL1" : {
+    "defaultMessage" : "Données historiques insuffisantes",
+    "description" : "AutoML warning shown when the dataset does not have enough historical data for forecasting"
+  },
+  "S7ESYH" : {
+    "defaultMessage" : "Visualisations",
+    "description" : "Tabs title for plots on the compare runs page"
+  },
+  "SAD2Mj" : {
+    "defaultMessage" : "OK",
+    "description" : "Text for OK button on the confirmation page for stage transition\n                 on the model versions page"
+  },
+  "SCYMXw" : {
+    "defaultMessage" : "Annuler",
+    "description" : "Cancel button text for creating model in the model registry"
+  },
+  "SCnPMH" : {
+    "defaultMessage" : "Auteur",
+    "description" : "Title text for the feature table creator column."
+  },
+  "SJZAR7" : {
+    "defaultMessage" : "Clés de partition",
+    "description" : "Title text for the feature table partition keys metadata field."
+  },
+  "SK8RBp" : {
+    "defaultMessage" : "Trier par",
+    "description" : "Sort by default option for sort by select dropdown for experiment runs"
+  },
+  "SZCN9V" : {
+    "defaultMessage" : "Seules les exécutions terminées associées à un cluster Databricks et disposant de métadonnées de révision de notebook peuvent être reproduites",
+    "description" : "Tooltip message for more information on the reproduce runs button for the experiment run"
+  },
+  "Shv28w" : {
+    "defaultMessage" : "Enregistrer",
+    "description" : "Default text for save button on editable notes in MLflow"
+  },
+  "SkMpFS" : {
+    "defaultMessage" : "La surveillance du modèle est en prévisualisation publique.",
+    "description" : "Feedback back link for model monitoring"
+  },
+  "SvFmvX" : {
+    "defaultMessage" : "Moniteurs",
+    "description" : "Column title for model monitoring in the registered model page"
+  },
+  "SzvvXl" : {
+    "defaultMessage" : "Échec de l'envoi",
+    "description" : "Message text for failing to save changes in editable note in MLflow"
+  },
+  "T4eipT" : {
+    "defaultMessage" : "Lissage des lignes",
+    "description" : "Label for the smoothness slider for the graph plot for metrics"
+  },
+  "TB3nMW" : {
+    "defaultMessage" : "Le jeu de données contient de longues séries temporelles",
+    "description" : "AutoML warning shown when AutoML truncate the dateset for forecasting"
+  },
+  "TBuDVy" : {
+    "defaultMessage" : "Horizon tronqué pour la formation et la validation",
+    "description" : "AutoML warning shown when the horizon is truncated for training and validation"
+  },
+  "TLkF+q" : {
+    "defaultMessage" : "Enregistrement en attente",
+    "description" : "Tooltip text for registration pending model version status icon in\n         model view page"
+  },
+  "TOG+VQ" : {
+    "defaultMessage" : "Approuver",
+    "description" : "Button text for approving pending requests on the model version page"
+  },
+  "TRdM2s" : {
+    "defaultMessage" : "Le ratio entre le libellé le moins fréquent (<code>{leastFrequentLabel}</code>) et le libellé le plus fréquent (<code>{mostFrequentLabel}</code>) est de <code>{ratio}</code>",
+    "description" : "AutoML warning that is shown for classification problems as information"
+  },
+  "TYFnnM" : {
+    "defaultMessage" : "Prêt",
+    "description" : "Ready label for the state of the model scoring service"
+  },
+  "TZMSC3" : {
+    "defaultMessage" : "Valeurs uniques dans les colonnes de chaîne de caractères",
+    "description" : "AutoML warning shown when string columns have unique values"
+  },
+  "ThrXMh" : {
+    "defaultMessage" : "Entrées",
+    "description" : "Table section name for schema inputs in the model comparison page"
+  },
+  "TjgwyX" : {
+    "defaultMessage" : "Détails",
+    "description" : "Tab name for the details tab on the model view main panel"
+  },
+  "TlFUsN" : {
+    "defaultMessage" : "Tags",
+    "description" : "Title text for the tags section on the model versions view page"
+  },
+  "TnXWt2" : {
+    "defaultMessage" : "Le notebook d'exploration des données a été exécuté sur un sous-ensemble de colonnes parce que le jeu de données est trop volumineux",
+    "description" : "AutoML warning data exploration notebook ran on a subset of columns"
+  },
+  "Tqtctv" : {
+    "defaultMessage" : "Réexécutez AutoML avec des données de série temporelle plus longues.",
+    "description" : "Recommended action for user when AutoML finds not enough historical data"
+  },
+  "Trd9L3" : {
+    "defaultMessage" : "Renommer",
+    "description" : "Text for rename button on experiment view page header"
+  },
+  "TviAln" : {
+    "defaultMessage" : "1 semaine",
+    "description" : "1 week window granularity for data profiles"
+  },
+  "U+Jzcv" : {
+    "defaultMessage" : "<link>Version {versionNumber}</link>",
+    "description" : "Row entry for version columns in the registered model page"
+  },
+  "U1JZTB" : {
+    "defaultMessage" : "Afficher le tableau de bord",
+    "description" : "Link text for the generated model monitoring dashboard"
+  },
+  "U6cPEB" : {
+    "defaultMessage" : "Échec du chargement des artefacts",
+    "description" : "Error message rendered when loading the artifacts for the experiment fails"
+  },
+  "U7peTi" : {
+    "defaultMessage" : "Utiliser le modèle pour l’inférence",
+    "description" : "Button to use model for batch or streaming inference"
+  },
+  "U82iv6" : {
+    "defaultMessage" : "Modèles ajoutés au registre",
+    "description" : "Text for registered model link in the title for model comparison page"
+  },
+  "UEDZPq" : {
+    "defaultMessage" : "Transition vers",
+    "description" : "Text for activity description under confirmation modal for model\n               version stage transition"
+  },
+  "UEDu0c" : {
+    "defaultMessage" : "L'interface utilisateur MLflow récupère automatiquement les historiques de métriques pour les exécutions actives et met à jour le graphique des métriques avec un intervalle de {interval} secondes.",
+    "description" : "Helpful tooltip message to explain the automatic metrics plot update"
+  },
+  "UFr0CH" : {
+    "defaultMessage" : "Modifier",
+    "description" : "Text for the edit button next to the description section title on the feature view page."
+  },
+  "UGAKJp" : {
+    "defaultMessage" : "Axe X :",
+    "description" : "Label text for x-axis in contour plot comparison in MLflow"
+  },
+  "UIG12B" : {
+    "defaultMessage" : "La dernière fois qu'un producteur a écrit dans cette table.",
+    "description" : "Text on the tooltip of the feature table last written column describing the definition of the column title."
+  },
+  "UVcwn9" : {
+    "defaultMessage" : "Confirmer les nouveaux paramètres",
+    "description" : "Title for confirm compute config update modal"
+  },
+  "UXlXyf" : {
+    "defaultMessage" : "Lancer les ressources pour les versions {productionTag}et {stagingTag}du modèle avec la configuration de calcul actuellement spécifiée ?",
+    "description" : "Confirmation message for updating production and staging compute config"
+  },
+  "Ugx2bZ" : {
+    "defaultMessage" : "<link>En savoir plus</link>",
+    "description" : "Popover link to learn more about the artifact root location"
+  },
+  "UhdPmo" : {
+    "defaultMessage" : "Transition vers",
+    "description" : "Text for transitioning a model version to a different stage under\n                 dropdown menu in model version page"
+  },
+  "Ux8CTl" : {
+    "defaultMessage" : "Modèles associés :",
+    "description" : "Filtering label for filtering experiments based on if the models are linked or not to the experiment"
+  },
+  "Uyl7hP" : {
+    "defaultMessage" : "Créé par",
+    "description" : "Title text for the feature table created metadata field."
+  },
+  "V/17L+" : {
+    "defaultMessage" : "Demande de",
+    "description" : "Column name text for requester in pending requests table in model\n                   registry"
+  },
+  "V5tYhr" : {
+    "defaultMessage" : "Valeurs manquantes dans les séries temporelles imputées pour ARIMA.",
+    "description" : "Action that AutoML took when there are missing time steps in a forecasting problem."
+  },
+  "VAwUi9" : {
+    "defaultMessage" : "AutoML n'a pas entraîné les modèles ARIMA. Pour inclure ARIMA, définissez la fréquence correspondante à celle des données (<code>{frequency}</code>) ou prétraitez les données afin d'obtenir la fréquence souhaitée.",
+    "description" : "Action that AutoML took when the time series frequency is different from the specified one."
+  },
+  "VKao5t" : {
+    "defaultMessage" : "Les configurations du moniteur ont changé",
+    "description" : "Alert title for configuration changes in feature table monitoring"
+  },
+  "VP+qFF" : {
+    "defaultMessage" : "Afficher la différence uniquement",
+    "description" : "Label next to the switch that controls displaying only differing values in comparision tables on the compare runs page"
+  },
+  "VbEMGm" : {
+    "defaultMessage" : "Ajouter le modèle au registre",
+    "description" : "Button text to register the model for deployment"
+  },
+  "VbKQta" : {
+    "defaultMessage" : "Reproduire l'exécution",
+    "description" : "A button label to reproduce the experiment run with the same params and data to reproduce a constant run"
+  },
+  "VbTRBn" : {
+    "defaultMessage" : "Supprimer",
+    "description" : "Text on the feature table deletion modal to confirm deletion of the feature table."
+  },
+  "VdDI/f" : {
+    "defaultMessage" : "Le ratio entre le libellé le moins fréquent (<code>{leastFrequentLabel}</code>) et le libellé le plus fréquent (<code>{mostFrequentLabel}</code>) est de <code>{ratio}</code>, mais la métrique spécifiée <code>{metric}</code> n'est pas appropriée pour un jeu de données déséquilibré",
+    "description" : "AutoML warning shown when an inappropriate metric is used for an imbalanced dataset"
+  },
+  "Vk52J6" : {
+    "defaultMessage" : "Mise à jour",
+    "description" : "Pending label for compute config in version sidebar"
+  },
+  "Vm9CvZ" : {
+    "defaultMessage" : "Description",
+    "description" : "Column title text for description in model version table"
+  },
+  "Vrm3OM" : {
+    "defaultMessage" : "Aucune boutique en ligne trouvée.",
+    "description" : "Text describing no online stores exists for the feature table."
+  },
+  "VyDMFy" : {
+    "defaultMessage" : "Le nombre de répliques doit être supérieur à 0.",
+    "description" : "Validation error message for when there are too few max replicas"
+  },
+  "W1Dion" : {
+    "defaultMessage" : "Nouveau",
+    "description" : "New tag label for data profile in feature store table view"
+  },
+  "W73Euz" : {
+    "defaultMessage" : "Opération réussie",
+    "description" : "Job status for most recent run: succeeded"
+  },
+  "WDnDfU" : {
+    "defaultMessage" : "Activer le service"
+  },
+  "WGhlnW" : {
+    "defaultMessage" : "Utilisateur",
+    "description" : "Label for displaying the user who created the experiment run"
+  },
+  "WJF+wY" : {
+    "defaultMessage" : "Axe Z :",
+    "description" : "Label text for z-axis in contour plot comparison in MLflow"
+  },
+  "WL3e0K" : {
+    "defaultMessage" : "Rejeter",
+    "description" : "Button text for rejecting pending requests on the model version page"
+  },
+  "WQoyB3" : {
+    "defaultMessage" : "Modèle avec le meilleur {evaluationMetric}",
+    "description" : "Title to indicate the best AutoML model"
+  },
+  "WRbkh9" : {
+    "defaultMessage" : "Dernier écrit par",
+    "description" : "Title text for the feature table last written by metadata field."
+  },
+  "WVFb+Y" : {
+    "defaultMessage" : "Supprimer la table des fonctionnalités",
+    "description" : "Text for the feature table deletion modal title."
+  },
+  "WYkCR/" : {
+    "defaultMessage" : "Planning",
+    "description" : "Title text for the producer schedule column."
+  },
+  "Wd8Tga" : {
+    "defaultMessage" : "Aucun schéma. Consultez les <link>documents MLflow</link> pour savoir comment inclure le schéma d’entrée et de sortie à votre modèle.",
+    "description" : "Text for schema table when no schema exists in the model version\n                     page"
+  },
+  "Wf+ORy" : {
+    "defaultMessage" : "Créé",
+    "description" : "Title text for the feature table created metadata field."
+  },
+  "WqtISN" : {
+    "defaultMessage" : "Résultat du job",
+    "description" : "Label for displaying the output logs for the experiment run job"
+  },
+  "WvHAEg" : {
+    "defaultMessage" : "Indiquez un emplacement d'artefact (facultatif)",
+    "description" : "Input placeholder to enter artifact location for create experiment"
+  },
+  "X+boXI" : {
+    "defaultMessage" : "Copié",
+    "description" : "Tooltip text shown when copy operation completes"
+  },
+  "X/425G" : {
+    "defaultMessage" : "AutoML effectue une exploration de données et des essais sur un échantillon du jeu de données d'origine.",
+    "description" : "Text for dataset sampled when running"
+  },
+  "X0vZ1h" : {
+    "defaultMessage" : "AutoML entraîne le modèle",
+    "description" : "Title text about AutoML running"
+  },
+  "X3F7x3" : {
+    "defaultMessage" : "Aucun artefact enregistré",
+    "description" : "Empty state string when there are no artifacts record for the experiment"
+  },
+  "X48mIf" : {
+    "defaultMessage" : "Demande",
+    "description" : "Column name text for requests in pending requests table in model\n                   registry"
+  },
+  "X620F4" : {
+    "defaultMessage" : "Planning des producteurs du job.",
+    "description" : "Text on the tooltip of the feature table scheduled jobs column title describing the definition of the column title."
+  },
+  "X6XurQ" : {
+    "defaultMessage" : "<bold>REMARQUE :</bold> Vous devez disposer d'autorisations pour créer des clusters à usage général afin d'activer {featureNameText}.",
+    "description" : "Error message description when failing to fetch cluster permissions in\n                  enable serving page."
+  },
+  "XBtNVo" : {
+    "defaultMessage" : "Expériences",
+    "description" : "Breadcrumb nav item to link to the list of experiments page"
+  },
+  "XIOnOe" : {
+    "defaultMessage" : "Version {versionNum}",
+    "description" : "Text for current version under the header on the model version view page"
+  },
+  "XVmgNn" : {
+    "defaultMessage" : "Impossible de trouver le moniteur",
+    "description" : "Alert header text for when monitor is not available"
+  },
+  "XZyekD" : {
+    "defaultMessage" : "Le nombre minimal de répliques doit être inférieur ou égal à {max}.",
+    "description" : "Validation error message for when there are too many min replicas"
+  },
+  "XaD7FM" : {
+    "defaultMessage" : "Select parameters/metrics to plot.",
+    "description" : "Text to show when x or y axis is not selected on box plot"
+  },
+  "Xbu03a" : {
+    "defaultMessage" : "terminé",
+    "description" : "Icon text to indicate AutoML evaluation is complete"
+  },
+  "Xi2jOv" : {
+    "defaultMessage" : "AutoML essaiera d'équilibrer les libellés cibles avant l'entraînement des modèles",
+    "description" : "Action that AutoML took for imbalanced dataset"
+  },
+  "Xqs6q2" : {
+    "defaultMessage" : "Sans versions de modèle",
+    "description" : "Linked model dropdown option to show experiment runs without model versions only"
+  },
+  "XrgL6Q" : {
+    "defaultMessage" : "Vous suivez cette version du modèle parce que vous l’avez créée.",
+    "description" : "Tooltip text message for model version creator in model registry"
+  },
+  "XzoBvA" : {
+    "defaultMessage" : "Annuler",
+    "description" : "Text for cancel button on the confirmation page for stage\n                transitions on the model versions page"
+  },
+  "Y+3ncX" : {
+    "defaultMessage" : "Recalculer automatiquement les profils lors de la mise à jour de la table des fonctionnalités",
+    "description" : "Checkbox text for auto recomputing global data profiles for feature tables"
+  },
+  "Y7zUQp" : {
+    "defaultMessage" : "Dernière publication",
+    "description" : "Title text for the online store last published column."
+  },
+  "Y9ZFyN" : {
+    "defaultMessage" : "Télécharger l'artefact",
+    "description" : "Link to download the artifact of the experiment"
+  },
+  "YBFyOi" : {
+    "defaultMessage" : "Il est possible que la dernière exécution du job ne se soit pas correctement écrite dans cette table de fonctionnalités.",
+    "description" : "Text on the warning icon of the last written column describing the last job run may have not written to the feature table."
+  },
+  "YINJEO" : {
+    "defaultMessage" : "Métrique",
+    "description" : "Column title for the column displaying the metric names for a run"
+  },
+  "YJO3SV" : {
+    "defaultMessage" : "Entraînement",
+    "description" : "AutoML Step title train"
+  },
+  "YKojwe" : {
+    "defaultMessage" : "Activer les endpoints du modèle serverless derrière une interface API REST. Cette opération lancera les endpoints pour toutes les versions intermédiaires et de production de ce modèle.",
+    "description" : "Enable serving description for serving v2 in enable serving page."
+  },
+  "YLvpXM" : {
+    "defaultMessage" : "Suivez les exécutions d'entraînement de machine learning dans les expériences. <link>En savoir plus</link>",
+    "description" : "Information banner text to provide more information about experiments runs page"
+  },
+  "YO5QXy" : {
+    "defaultMessage" : "Les modèles {stagingTag} utiliseront le calcul suivant :",
+    "description" : "Compute config message for staging compute"
+  },
+  "YOH2W5" : {
+    "defaultMessage" : "Affichez les endpoints d'inférence en temps réel existante pour ce modèle dans la page du registre des modèles.",
+    "description" : "Text for form description on viewing real-time inference"
+  },
+  "YRFAGK" : {
+    "defaultMessage" : "Infinité négative ({metricKey})",
+    "description" : "Label indicating negative infinity used as a hover text in a plot UI element"
+  },
+  "YY32KO" : {
+    "defaultMessage" : "Partagez et gérez des fonctionnalités de machine learning.",
+    "description" : "Text on the tooltip for feature store onboarding."
+  },
+  "YZ1bYT" : {
+    "defaultMessage" : "Tous les utilisateurs du workspace ont accès au chemin de sortie par défaut sur DBFS. Modifiez le notebook de façon à désactiver l'écriture des données sur DBFS.",
+    "description" : "Legal disclaimer for output table location"
+  },
+  "YgIXC1" : {
+    "defaultMessage" : "Emplacement de la table de sortie",
+    "description" : "Output table location placleholder on the configure inference form"
+  },
+  "YkcoeV" : {
+    "defaultMessage" : "Affichage des exécutions de {numExperiments} expériences",
+    "description" : "Breadcrumb nav item to link to compare-experiments page on compare runs page"
+  },
+  "YkptyI" : {
+    "defaultMessage" : "Taille de l'instance :",
+    "description" : "Instance label for compute config"
+  },
+  "Yx7fMC" : {
+    "defaultMessage" : "Rechercher",
+    "description" : "Placeholder text for input box to search for the columns names that could be selected or unselected to be rendered on the experiment runs table"
+  },
+  "YzN7kN" : {
+    "defaultMessage" : "Version de modèle",
+    "description" : "Model version placeholder on configure inference form"
+  },
+  "Z5en2d" : {
+    "defaultMessage" : "Versions",
+    "description" : "Title text for the versions section under details tab on the\n                       model view page"
+  },
+  "Z5jUmP" : {
+    "defaultMessage" : "AutoML a exclu le modèle ARIMA de l'entraînement. ARIMA ne fonctionne pas pour les séries temporelles à fréquence incohérente.",
+    "description" : "Action that AutoML took when there is inconsistent frequency in a forecasting problem"
+  },
+  "Z8WY05" : {
+    "defaultMessage" : "Réexécutez AutoML sur un jeu de données non vide.",
+    "description" : "Recommended action for user when AutoML is given an empty dataset"
+  },
+  "ZEGaN7" : {
+    "defaultMessage" : "Toutes les fonctionnalités",
+    "description" : "Label text for features in update config modal"
+  },
+  "ZEp/ot" : {
+    "defaultMessage" : "Dernière publication par",
+    "description" : "Title text for the online store last published by column."
+  },
+  "ZNqi/B" : {
+    "defaultMessage" : "Le nombre minimal de répliques doit être supérieur ou égal à 0.",
+    "description" : "Validation error message for when there are too few min replicas"
+  },
+  "ZPc4rM" : {
+    "defaultMessage" : "Les libellés cibles ne contiennent pas suffisamment de données",
+    "description" : "AutoML warning shown when some target labels have insufficient data"
+  },
+  "ZYBoeF" : {
+    "defaultMessage" : "Transition vers",
+    "description" : "Text for activity description under confirmation modal for model\n             version stage transition"
+  },
+  "Zc48NC" : {
+    "defaultMessage" : "(inconnu)",
+    "description" : "Filler text when run's time information is unavailable"
+  },
+  "Zk0h+O" : {
+    "defaultMessage" : "Noms de colonne en double",
+    "description" : "AutoML warning shown when the there are multiple columns with the same name"
+  },
+  "ZmTtO0" : {
+    "defaultMessage" : "Cette version a subi une transition à partir de",
+    "description" : "Activity title text for system transition in model versions page"
+  },
+  "ZnVxv9" : {
+    "defaultMessage" : "Avertissements",
+    "description" : "Tab header for AutoML Warnings dashboard"
+  },
+  "ZvBSjw" : {
+    "defaultMessage" : "Valeur",
+    "description" : "Column title for value column for displaying the value of the params for the experiment run "
+  },
+  "ZwAzmu" : {
+    "defaultMessage" : "Créer un modèle",
+    "description" : "Create button to register a new model"
+  },
+  "a/TbnY" : {
+    "defaultMessage" : "Toutes périodes",
+    "description" : "Option for the start select dropdown to render all runs"
+  },
+  "a3rEfZ" : {
+    "defaultMessage" : "Description",
+    "description" : "Label for the notes editable content for the experiment run"
+  },
+  "a8rS4O" : {
+    "defaultMessage" : "Supprimer",
+    "description" : "OK text for delete model modal on model view page"
+  },
+  "aB6xFd" : {
+    "defaultMessage" : "Sorties",
+    "description" : "Table subtitle for schema outputs in the model comparison page"
+  },
+  "aGxvDa" : {
+    "defaultMessage" : "Pour effectuer une recherche par balises ou par noms et par balises, utilisez la <link>syntaxe de recherche MLflow</link>.{newline}Exemples :{examples}",
+    "description" : "Tooltip string to explain how to search models from the model registry table"
+  },
+  "aHh9dI" : {
+    "defaultMessage" : "Région",
+    "description" : "Title text for the online store region metadata field."
+  },
+  "aIP7Kb" : {
+    "defaultMessage" : "Annuler",
+    "description" : "Cancel button text for confirmation pop-up to delete a tag from\n                     table in MLflow"
+  },
+  "aJvfWR" : {
+    "defaultMessage" : "Le ratio entre le libellé le moins fréquent (<code>{leastFrequentLabel}</code>) et le libellé le plus fréquent (<code>{mostFrequentLabel}</code>) est de <code>{ratio}</code>",
+    "description" : "AutoML warning shown for classification problem when the labels have an imbalanced ratio"
+  },
+  "aNnPar" : {
+    "defaultMessage" : "Temps (relatif)",
+    "description" : "Radio button option to choose the time relative control option for the X-axis for metric graph on the experiment runs"
+  },
+  "aOW396" : {
+    "defaultMessage" : "{timeSince, plural, one {Il y a 1 heure} other {Il y a {timeSince,number} heures}}",
+    "description" : "Text for time in hours since given date for MLflow views"
+  },
+  "aUoi8K" : {
+    "defaultMessage" : "Tags ({length})",
+    "description" : "Title text for the feature page tags section."
+  },
+  "aXJNz8" : {
+    "defaultMessage" : "Logs de build",
+    "description" : "Tab text for build logs on the model version's serving page"
+  },
+  "aXw0NO" : {
+    "defaultMessage" : "Veuillez sélectionner des métriques",
+    "description" : "Placeholder text where one can select metrics from the list of available metrics to render on the graph"
+  },
+  "aYsI8a" : {
+    "defaultMessage" : "<link>En savoir plus</link>",
+    "description" : "Learn more link on the model list page with cloud-specific link"
+  },
+  "ag05Pe" : {
+    "defaultMessage" : "Actualiser",
+    "description" : "refresh button text to refresh the experiment runs"
+  },
+  "ah2bY9" : {
+    "defaultMessage" : "Créé",
+    "description" : "Title text for the feature page created timestamp field."
+  },
+  "aiBJcU" : {
+    "defaultMessage" : "Aucun changement de configuration n'a été spécifié pour les versions {stagingTag} du modèle.{br}{br} Lancer les ressources pour les versions {productionTag} du modèle avec la configuration de calcul actuellement spécifiée ?",
+    "description" : "Confirmation message for updating production compute config"
+  },
+  "aiWz6l" : {
+    "defaultMessage" : "Entre 1 024 et 65 536 valeurs différentes dans les colonnes catégorielles",
+    "description" : "AutoML warning shown when columns with very high cardinalty are detected"
+  },
+  "aj/X1B" : {
+    "defaultMessage" : "Le notebook d'exploration des données a été exécuté sur un sous-ensemble de lignes parce que le jeu de données est trop volumineux",
+    "description" : "AutoML warning data exploration notebook ran on a subset of rows"
+  },
+  "ao9KQl" : {
+    "defaultMessage" : "Cluster qui se redimensionne automatiquement entre le nombre minimal et le nombre maximal de nœuds, en fonction de la charge.",
+    "description" : "Definition of autoscaling clusters for MLflow serving"
+  },
+  "at1Htb" : {
+    "defaultMessage" : "URI du conteneur",
+    "description" : "Title text for the online store container uri field."
+  },
+  "awLbAc" : {
+    "defaultMessage" : "Journaux",
+    "description" : "Link to the logs for the job output"
+  },
+  "axF2gD" : {
+    "defaultMessage" : "Chemin complet :",
+    "description" : "Label to display the full path of where the artifact of the experiment runs is located"
+  },
+  "b/TI6t" : {
+    "defaultMessage" : "Cloud",
+    "description" : "Title text for the online store cloud column."
+  },
+  "b3PDXs" : {
+    "defaultMessage" : "Cloud",
+    "description" : "Title text for the online store cloud metadata field."
+  },
+  "b8VxLg" : {
+    "defaultMessage" : "Tous les utilisateurs de l'espace de travail ont accès à l'emplacement racine de cet artefact",
+    "description" : "Popover text to explain more about the artifact location"
+  },
+  "bFDQJ0" : {
+    "defaultMessage" : "Paramètres de calcul",
+    "description" : "Compute config tab title"
+  },
+  "bGzQsG" : {
+    "defaultMessage" : "Impossible de dresser la liste des artefacts stockés sous <code>{artifactUri}</code> pour l'exécution actuelle. Seuls les artefacts stockés dans un répertoire DBFS standard peuvent être visualisés dans l'interface utilisateur MLflow (remarque : il est impossible de visualiser les emplacements de stockage externes montés sur DBFS).",
+    "description" : "Error message when the artifact is unable to load. This message is displayed for databricks users only"
+  },
+  "bHuphj" : {
+    "defaultMessage" : "Consultez les documents ci-dessous pour apprendre à personnaliser ce modèle et à le déployer pour un scoring par lots ou en temps réel en utilisant la version pyfunc du modèle.",
+    "description" : "Subtext heading for a list of documents that describe how to customize the model using the mlflow.pyfunc module"
+  },
+  "bIZ/La" : {
+    "defaultMessage" : "AutoML a imputé les valeurs nulles.",
+    "description" : "Action that AutoML took for null values of large null columns"
+  },
+  "bSx/er" : {
+    "defaultMessage" : "Paramètres",
+    "description" : "Table title text for parameters table in the model comparison page"
+  },
+  "bhgG7S" : {
+    "defaultMessage" : "Exécuter la commande",
+    "description" : "Label for the collapsible area to display the run command used for the experiment run"
+  },
+  "bi26D5" : {
+    "defaultMessage" : "ID d’exécution :",
+    "description" : "Text for run ID header in the main table in the model comparison page"
+  },
+  "biE0Wq" : {
+    "defaultMessage" : "Génère un notebook dans votre dossier de départ que vous pouvez modifier.",
+    "description" : "Form description for generating a batch inference notebook"
+  },
+  "bjoGjg" : {
+    "defaultMessage" : "Dernière heure",
+    "description" : "Option for the start select dropdown to filter runs from the last hour"
+  },
+  "bq+LYL" : {
+    "defaultMessage" : "Aucune exécution pour l’instant. <link>En savoir plus</link> sur les exécutions d’entraînements de modèle ML {newLine} dans cette expérience.",
+    "description" : "Empty state text for experiment runs page"
+  },
+  "bqn2bk" : {
+    "defaultMessage" : "Sorties",
+    "description" : "Table section name for schema outputs in the model comparison page"
+  },
+  "bsD2VQ" : {
+    "defaultMessage" : "Taille du workload",
+    "description" : "Workload size label for compute configuration"
+  },
+  "bv2Lem" : {
+    "defaultMessage" : "Importée",
+    "description" : "Title text for the feature table imported metadata field."
+  },
+  "c5yGeS" : {
+    "defaultMessage" : "Suivi",
+    "description" : "Text for the following status metadata in the model versions page"
+  },
+  "c8ulzO" : {
+    "defaultMessage" : "Feature Store",
+    "description" : "Text for the feature store page header title."
+  },
+  "cBDYla" : {
+    "defaultMessage" : "Actions",
+    "description" : "Column title for actions column in editable form table in MLflow"
+  },
+  "cF/rZT" : {
+    "defaultMessage" : "Tous les modèles",
+    "description" : "Selection item text in model registry to filter models by all models"
+  },
+  "cI+F/q" : {
+    "defaultMessage" : "Nom",
+    "description" : "Column title for name column in editable tags table view in MLflow"
+  },
+  "cK6riy" : {
+    "defaultMessage" : "Schéma",
+    "description" : "Table title text for schema table in the model comparison page"
+  },
+  "cTFkkR" : {
+    "defaultMessage" : "Demander la transition vers",
+    "description" : "Text for activity description under confirmation modal for model\n             version stage transition request"
+  },
+  "cigkRk" : {
+    "defaultMessage" : "Dimensionnement automatique",
+    "description" : "Autoscaling title for compute container"
+  },
+  "cmuOjw" : {
+    "defaultMessage" : "Dernière écriture",
+    "description" : "Title text for the feature table last written column."
+  },
+  "cnzeNX" : {
+    "defaultMessage" : "Colonne de libellé",
+    "description" : "Model monitoring configuration text for the label column"
+  },
+  "co/oIf" : {
+    "defaultMessage" : "Non suivi",
+    "description" : "Text for the not following status metadata in the model versions page"
+  },
+  "cyx8LQ" : {
+    "defaultMessage" : "Sous-répertoire",
+    "description" : "Input description for the subdirectory field on the configure inference form"
+  },
+  "d/cZ34" : {
+    "defaultMessage" : "Modifier",
+    "description" : "Text for the edit button next to the description section title on the run view"
+  },
+  "d/f0Dg" : {
+    "defaultMessage" : "Table des données notées",
+    "description" : "Link to scored data table"
+  },
+  "d1Ou4x" : {
+    "defaultMessage" : "Exécuter",
+    "description" : "Column title for the column displaying the run names for a metric"
+  },
+  "d3Pvg1" : {
+    "defaultMessage" : "Configurer",
+    "description" : "AutoML Step title configure"
+  },
+  "d78wwA" : {
+    "defaultMessage" : "Envoyer des commentaires",
+    "description" : "Link to a survey for users to give feedback"
+  },
+  "dNrn1u" : {
+    "defaultMessage" : "Pour commencer, activez les profils pour cette table d'entités et exécutez la tâche pour calculer les profils avec la configuration spécifiée. En savoir plus <link>ici</link>",
+    "description" : "Alert description for configuration changes in feature table monitoring"
+  },
+  "dZNHLL" : {
+    "defaultMessage" : "Horodatage",
+    "description" : "Column title text for created at timestamp in model (version) events table"
+  },
+  "dfMCmy" : {
+    "defaultMessage" : "Aucun profil trouvé pour cette table de caractéristiques",
+    "description" : "Alert title for empty state of feature table monitoring"
+  },
+  "dq8MJd" : {
+    "defaultMessage" : "Tracé de contour",
+    "description" : "Tab text for contour plot on the model comparison page"
+  },
+  "dtzF73" : {
+    "defaultMessage" : "AutoML n'a pas entraîné les modèles ARIMA. Pour inclure ARIMA, prétraitez les données afin d'obtenir la fréquence souhaitée.",
+    "description" : "Action that AutoML took when there are extra time steps in a forecasting problem."
+  },
+  "dwTTNK" : {
+    "defaultMessage" : "Voulez-vous vraiment quitter cet écran ? Les modifications de texte en cours seront perdues.",
+    "description" : "Prompt text for navigating away before saving changes in editable note in MLflow"
+  },
+  "e8cUzg" : {
+    "defaultMessage" : "Dernière version",
+    "description" : "Column title for latest model version in the registered model page"
+  },
+  "eBGO2d" : {
+    "defaultMessage" : "Aucune métrique à afficher.",
+    "description" : "Text shown when there are no metrics to display"
+  },
+  "eBqELq" : {
+    "defaultMessage" : "Les possibles problèmes de données identifiés par AutoML sont indiqués ci-dessous.",
+    "description" : "Informational description of AutoML warnings shown in the warnings dashboard"
+  },
+  "eDWtdW" : {
+    "defaultMessage" : "Jeu de données trop volumineux",
+    "description" : "AutoML warning shown when the input dataset too large"
+  },
+  "eFCjOp" : {
+    "defaultMessage" : "Métriques",
+    "description" : "Label for the collapsible area to display the output metrics after the experiment run"
+  },
+  "eKAKGN" : {
+    "defaultMessage" : "Découpage des expressions",
+    "description" : "Model monitoring configuration text for slice expressions"
+  },
+  "eNUbaN" : {
+    "defaultMessage" : "Axe Y :",
+    "description" : "Label text for y-axis in scatter plot comparison in MLflow"
+  },
+  "eOxs/C" : {
+    "defaultMessage" : "Paramètres",
+    "description" : "Row group title for parameters of runs on the experiment compare runs page"
+  },
+  "eQQfK+" : {
+    "defaultMessage" : "Détails",
+    "description" : "Tab pane name for feature table details"
+  },
+  "eQgPEi" : {
+    "defaultMessage" : "{value} (step={step})",
+    "description" : "Formats a metric value along with the step number it corresponds to"
+  },
+  "eQsXm7" : {
+    "defaultMessage" : "7 derniers jours",
+    "description" : "Option for the start select dropdown to filter runs from the last 7 days"
+  },
+  "eWyRrF" : {
+    "defaultMessage" : "Dernière écriture",
+    "description" : "Title text for the producer last written column."
+  },
+  "eXigMr" : {
+    "defaultMessage" : "AutoML a tenté d'effectuer une exploration de données et des essais sur un échantillon du jeu de données d'origine.",
+    "description" : "Text for dataset sampled after exploration"
+  },
+  "epBpp2" : {
+    "defaultMessage" : "Pipeline Delta Live Tables",
+    "description" : "Link text for the Delta Live Table pipeline for model monitoring"
+  },
+  "erqoIC" : {
+    "defaultMessage" : "Nom de l’exécution :",
+    "description" : "Text for run name row header in the main table in the model comparison\n                page"
+  },
+  "esASWb" : {
+    "defaultMessage" : "Calculer",
+    "description" : "Compute dropdown title for compute container"
+  },
+  "ev6aiR" : {
+    "defaultMessage" : "Dernière mise à jour des métadonnées de cette table de fonctionnalités.",
+    "description" : "Text on the tooltip describing the definition of last modified timestamp field."
+  },
+  "eyGoqW" : {
+    "defaultMessage" : "Nom de l'expérience",
+    "description" : "Label for create experiment modal to enter a valid experiment name"
+  },
+  "f+VJMF" : {
+    "defaultMessage" : "Durée",
+    "description" : "Label for displaying the duration of the experiment run"
+  },
+  "f/An1W" : {
+    "defaultMessage" : "Prêt.",
+    "description" : "Default status message for model versions that are ready"
+  },
+  "fETAS9" : {
+    "defaultMessage" : "<bold>{userId}</bold> a appliqué une transition d’étape",
+    "description" : "Activity title text for applied transition in model versions page"
+  },
+  "fIziil" : {
+    "defaultMessage" : "AutoML a tronqué le jeu de données.",
+    "description" : "Action that AutoML took given a dataset that contains long time series"
+  },
+  "fL9439" : {
+    "defaultMessage" : "Certains modèles n'ont peut-être pas été entraînés. Réexécutez AutoML en utilisant un horizon de prévision plus court.",
+    "description" : "Recommended action for user when AutoML is given time series that are too\n          short"
+  },
+  "fZPf0W" : {
+    "defaultMessage" : "Inverser la couleur :",
+    "description" : "Label text for reverse color toggle in contour plot comparison\n                      in MLflow"
+  },
+  "fbK+ir" : {
+    "defaultMessage" : "Valeurs uniques dans les colonnes catégorielles",
+    "description" : "AutoML warning shown when categorical columns have unique values"
+  },
+  "fcr9me" : {
+    "defaultMessage" : "Afficher l'inférence en temps réel existante",
+    "description" : "View existing real-time inference button text"
+  },
+  "fg3SRm" : {
+    "defaultMessage" : "Commit Git",
+    "description" : "Label for displaying the tag or the commit hash of the git commit"
+  },
+  "fojdp2" : {
+    "defaultMessage" : "Global (profil unique)",
+    "description" : "global window granularity for data profiles"
+  },
+  "frPtD/" : {
+    "defaultMessage" : "Métriques",
+    "description" : "Row group title for metrics of runs on the experiment compare runs page"
+  },
+  "fv7vQf" : {
+    "defaultMessage" : "Renommer",
+    "description" : "Menu item to rename an experiment run"
+  },
+  "g17Es2" : {
+    "defaultMessage" : "Nom",
+    "description" : "Column title for model name in the registered model page"
+  },
+  "gJQwoH" : {
+    "defaultMessage" : "Indiquez si les paramètres de calcul des modèles {stagingTag} et {productionTag}doivent être identiques ou différents.",
+    "description" : "Tooltip for same compute checkbox toggle"
+  },
+  "gUdmaJ" : {
+    "defaultMessage" : "Schéma",
+    "description" : "Title text for the schema section on the model versions view page"
+  },
+  "gVxisd" : {
+    "defaultMessage" : "Le tag « {value} » existe déjà.",
+    "description" : "Validation message for tags that already exist in tags table in MLflow"
+  },
+  "gh1B0R" : {
+    "defaultMessage" : "Endpoints du modèle serverless",
+    "description" : "Feature name for serving v2 used in error message in enable serving page."
+  },
+  "gqvy5V" : {
+    "defaultMessage" : "Plus de 65 535 valeurs différentes dans les colonnes catégorielles",
+    "description" : "AutoML warning shown when columns with very high cardinalty are detected"
+  },
+  "h6jAnw" : {
+    "defaultMessage" : "Partagez et gérez des modèles de machine learning.",
+    "description" : "Text for model registry onboarding on the model list page on GCP"
+  },
+  "hT7e6J" : {
+    "defaultMessage" : "Répliques :",
+    "description" : "Replicas label for compute configuration"
+  },
+  "hU4+wc" : {
+    "defaultMessage" : "Type de modèle",
+    "description" : "Model monitoring details header text for model type"
+  },
+  "hcDB9U" : {
+    "defaultMessage" : "+∞",
+    "description" : "Label displaying positive infinity symbol displayed on a plot UI element"
+  },
+  "hgZcqQ" : {
+    "defaultMessage" : "Évaluation AutoML",
+    "description" : "Title to indicate AutoML evaluation is complete"
+  },
+  "hmugVp" : {
+    "defaultMessage" : "Aucune colonne de caractéristiques",
+    "description" : "AutoML warning shown when the input dataset has no feature columns"
+  },
+  "hnbkyz" : {
+    "defaultMessage" : "AutoML a ignoré l'échec et a poursuivi.",
+    "description" : "Text shown when AutoML ignores data exploration failures"
+  },
+  "i7fVw0" : {
+    "defaultMessage" : "Dernière exécution réussie :",
+    "description" : "Title for the last successful run of the job in the monitoring pane"
+  },
+  "iA52uJ" : {
+    "defaultMessage" : "Faible",
+    "description" : "Text describing a low severity AutoML warning"
+  },
+  "iQzwqe" : {
+    "defaultMessage" : "Min",
+    "description" : "Column title for the column displaying the minimum metric values for a metric"
+  },
+  "iXb99e" : {
+    "defaultMessage" : "Box Plot",
+    "description" : "Tab pane title for box plot on the compare runs page"
+  },
+  "iZm6YQ" : {
+    "defaultMessage" : "<link>En savoir plus</link>",
+    "description" : "Learn more link on the form for creating model in the model registry"
+  },
+  "id6Wmi" : {
+    "defaultMessage" : "Une erreur s'est produite",
+    "description" : "Page level error boundary alert header."
+  },
+  "ir96eY" : {
+    "defaultMessage" : "Aucune autre exécution à charger.",
+    "description" : "Tooltip text for load more button when there are no more experiment runs to load"
+  },
+  "iwD/Dv" : {
+    "defaultMessage" : "Annuler",
+    "description" : "Cancel button text to cancel the flow to register the model"
+  },
+  "iyuf0l" : {
+    "defaultMessage" : "Port",
+    "description" : "Title text for the online store port metadata field."
+  },
+  "j/pJM6" : {
+    "defaultMessage" : "Dernière modification",
+    "description" : "Label name for the last modified time under details tab on the model view page"
+  },
+  "j3xzFF" : {
+    "defaultMessage" : "Le nombre maximal de répliques doit être supérieur ou égal à {max}.",
+    "description" : "Validation error message for when there are too many max replicas"
+  },
+  "jBUFA+" : {
+    "defaultMessage" : "Suspendu -",
+    "description" : "Text for the status and schedule of this Databricks job."
+  },
+  "jPdZ2S" : {
+    "defaultMessage" : "Heure de début de la dernière exécution du job.",
+    "description" : "Text on the tooltip of the last run column describing the start time of the last job run."
+  },
+  "jh4lDz" : {
+    "defaultMessage" : "Activité liée aux versions que je suis",
+    "description" : "Text for dropdown for notifications that user follows on model view page"
+  },
+  "jhiG9a" : {
+    "defaultMessage" : "Type de données",
+    "description" : "Title text for the feature data type column."
+  },
+  "jjuya2" : {
+    "defaultMessage" : "Aucune fonctionnalité trouvée.",
+    "description" : "Text describing no feature exists for the online store."
+  },
+  "jk5LNk" : {
+    "defaultMessage" : "Les notifications par e-mail ne sont pas activées pour votre espace de travail. Pour accéder à cette fonctionnalité, veuillez contacter l'administrateur de votre espace de travail.",
+    "description" : "Tooltip text for notifications when not enabled for workspace in the\n               model view page"
+  },
+  "js4/Y8" : {
+    "defaultMessage" : "Vous pouvez également <link>l'inscrire dans le registre des modèles</link> pour le contrôle des versions",
+    "description" : "Sub text to tell the users where one can go to register the model artifact"
+  },
+  "kBl8Er" : {
+    "defaultMessage" : "Nous préparons l’entraînement",
+    "description" : "AutoML Step description pending training"
+  },
+  "kCE4Z6" : {
+    "defaultMessage" : "1 heure",
+    "description" : "1 hour window granularity for data profiles"
+  },
+  "kFpx6j" : {
+    "defaultMessage" : "Avec les versions de modèle",
+    "description" : "Linked model dropdown option to show experiment runs with model versions only"
+  },
+  "kH0JxD" : {
+    "defaultMessage" : "Vous suivez cette version du modèle parce que vous avec interagi avec elle (avec des commentaires, des demandes de transition, etc.)",
+    "description" : "Tooltip text message for user that interacted with the model version\n           in the model registry"
+  },
+  "kJKZ+a" : {
+    "defaultMessage" : "Supprimer",
+    "description" : "Text for delete button on experiment view page header"
+  },
+  "kJjZ5l" : {
+    "defaultMessage" : "Table des métriques de dérive",
+    "description" : "Link text for the drift metrics table for model monitoring"
+  },
+  "kV2Dw/" : {
+    "defaultMessage" : "Charger le modèle comme un PyFuncModel.",
+    "description" : "Code comment which states how to load model using PyFuncModel"
+  },
+  "kX6Kdv" : {
+    "defaultMessage" : "Représentation graphique",
+    "description" : "Link to the view the plot chart for the experiment run"
+  },
+  "kXu9xm" : {
+    "defaultMessage" : "Nom du catalogue",
+    "description" : "Model monitoring details header text for catalog name"
+  },
+  "kiSt83" : {
+    "defaultMessage" : "AutoML a interrompu l'entraînement prématurément car la métrique d'évaluation ne s'améliorait pas.",
+    "description" : "Action that AutoML took when training is stopped early"
+  },
+  "kjxsOJ" : {
+    "defaultMessage" : "Recherche par noms de modèles ou balises",
+    "description" : "Placeholder text inside model search bar"
+  },
+  "km6ehx" : {
+    "defaultMessage" : "AutoML a ignoré les colonnes.",
+    "description" : "Action that AutoML took"
+  },
+  "ktiuki" : {
+    "defaultMessage" : "Obtenir le lien",
+    "description" : "Title text for get-link modal"
+  },
+  "l/GKwW" : {
+    "defaultMessage" : "Types de colonnes non acceptés",
+    "description" : "AutoML warning shown when columns are unsupported"
+  },
+  "l4q0t9" : {
+    "defaultMessage" : "AutoML a ignoré les annotations de type sémantique incompatibles.",
+    "description" : "Action that AutoML took for columns with incompatible annotations"
+  },
+  "lBfJSk" : {
+    "defaultMessage" : "Répliques min.",
+    "description" : "Min replicas label for compute configuration"
+  },
+  "lEMqfE" : {
+    "defaultMessage" : "La dernière fois que le producteur a écrit dans cette table.",
+    "description" : "Text on the tooltip of the last written column describing the last time the producer wrote to this table."
+  },
+  "lISqyJ" : {
+    "defaultMessage" : "Détails de l'exécution",
+    "description" : "Compare table title on the compare runs page"
+  },
+  "lK1I+m" : {
+    "defaultMessage" : "Source de données",
+    "description" : "Title text for the feature table data sources column."
+  },
+  "lNO3kK" : {
+    "defaultMessage" : "Aucun paramètre à afficher.",
+    "description" : "Text shown when there are no parameters to display"
+  },
+  "lOfzvM" : {
+    "defaultMessage" : "Les notebooks d'entraînement ont encodé les features en fonction des transformations catégorielles.",
+    "description" : "Action that AutoML took for columns that have categorical semantic type"
+  },
+  "lSnvCt" : {
+    "defaultMessage" : "Actions",
+    "description" : "Column name text for actions in pending requests table in model\n                   registry"
+  },
+  "ldGXXD" : {
+    "defaultMessage" : "Surveillance",
+    "description" : "Tab name for the monitoring tab on the model view main panel"
+  },
+  "ljfJW4" : {
+    "defaultMessage" : "L'horizon que vous avez fourni est trop long pour une ou plusieurs séries temporelles. AutoML a utilisé un horizon plus court pour la formation et la validation sur ces séries temporelles.",
+    "description" : "Action that AutoML took when user-provided horizon is too long for\n          one or more time series"
+  },
+  "llVQ2r" : {
+    "defaultMessage" : "Sorties ({numOutputs})",
+    "description" : "Input section header for schema table in model version page"
+  },
+  "lrmKxO" : {
+    "defaultMessage" : "Mettre à jour",
+    "description" : "Compute config update button text"
+  },
+  "lvCKIZ" : {
+    "defaultMessage" : "Modifier",
+    "description" : "Text for the edit button next to the description section title on the feautre table view page."
+  },
+  "lyDeCG" : {
+    "defaultMessage" : "Dernière mise à jour par {userId} à {timestamp}",
+    "description" : "Last updated message for compute config"
+  },
+  "lz3IoV" : {
+    "defaultMessage" : "Notebook des jobs d'analyse",
+    "description" : "Link text for the analysis job notebook for model monitoring"
+  },
+  "m9e01X" : {
+    "defaultMessage" : "Aucun tag à afficher.",
+    "description" : "Text shown when there are no tags to display"
+  },
+  "mC2BT1" : {
+    "defaultMessage" : "Vous devez disposer d'autorisations pour créer des clusters à usage général, ainsi que d'autorisations « CAN_MANAGE » sur ce modèle afin d'activer {featureNameText}.",
+    "description" : "Error message when user has neither cluster create nor model manage\n              permissions in enable serving button popover."
+  },
+  "mC7uxG" : {
+    "defaultMessage" : "Service de modèle en temps réel hébergé diffusant derrière une interface API REST. <link> En savoir plus</link>",
+    "description" : "Text for tooltip for model serving in the registered model page"
+  },
+  "mDg5TV" : {
+    "defaultMessage" : "AutoML a interrompu son exécution. Augmentez le délai d'expiration afin que AutoML ait le temps d'entraîner un modèle.",
+    "description" : "Action that AutoML took when it timed out"
+  },
+  "mGzCoq" : {
+    "defaultMessage" : "Nom de la base de données",
+    "description" : "Model monitoring details header text for database name"
+  },
+  "mI1o3S" : {
+    "defaultMessage" : "Artefacts",
+    "description" : "Label for the collapsible area to display the artifacts page"
+  },
+  "mIk1MU" : {
+    "defaultMessage" : "Créer un modèle",
+    "description" : "Title text for creating model in the model registry"
+  },
+  "meoYKZ" : {
+    "defaultMessage" : "Emplacement de l'artefact",
+    "description" : "Label for create experiment modal to enter a artifact location"
+  },
+  "mfxai2" : {
+    "defaultMessage" : "Colonnes contenant des tableaux non numériques",
+    "description" : "AutoML warning shown when array columns are not of numerical type"
+  },
+  "mhohOA" : {
+    "defaultMessage" : "Voulez-vous vraiment supprimer {name} ? Cette opération est irréversible.",
+    "description" : "Text on the feature table deletion modal describing consequences of this operation."
+  },
+  "mjF6Y3" : {
+    "defaultMessage" : "Consommateurs",
+    "description" : "Title text for the feature consumers column."
+  },
+  "mnY5Xo" : {
+    "defaultMessage" : "AutoML a éliminé les lignes avec une valeur nulle dans la colonne cible",
+    "description" : "Action that AutoML took for rows with null target column"
+  },
+  "mpHsCg" : {
+    "defaultMessage" : "Taille :",
+    "description" : "Label to display the size of the artifact of the experiment"
+  },
+  "mrZMO/" : {
+    "defaultMessage" : "Transition vers",
+    "description" : "Text for transitioning a model version to a different stage under\n                   dropdown menu in model version page"
+  },
+  "myb+e+" : {
+    "defaultMessage" : "AutoML ne prend pas en charge ces colonnes et les a supprimées.",
+    "description" : "Text shown when AutoML drops a column"
+  },
+  "myewla" : {
+    "defaultMessage" : "Producteurs ({length})",
+    "description" : "Title text for the feature table producers section."
+  },
+  "n7IWOP" : {
+    "defaultMessage" : "AutoML a ignoré les colonnes.",
+    "description" : "Text shown when AutoML drops a column"
+  },
+  "n9wjGx" : {
+    "defaultMessage" : "Clés principales",
+    "description" : "Title text for the feature table primary keys metadata field."
+  },
+  "nC54Nf" : {
+    "defaultMessage" : "Tags",
+    "description" : "Column title for model tags in the registered model page"
+  },
+  "nEoTsR" : {
+    "defaultMessage" : "Exécutions terminées",
+    "description" : "Label for the progress bar to show the number of completed runs"
+  },
+  "nQoUED" : {
+    "defaultMessage" : "Étape",
+    "description" : "Radio button option to choose the step control option for the X-axis for metric graph on the experiment runs"
+  },
+  "nR/D0a" : {
+    "defaultMessage" : "Simultanéité provisionnée",
+    "description" : "Graph title for provisioned concurrency metrics graph"
+  },
+  "nVndit" : {
+    "defaultMessage" : "Enregistré le {registeredDate}",
+    "description" : "Label to display at what date the model was registered"
+  },
+  "nYKZy4" : {
+    "defaultMessage" : "<link>En savoir plus</link>",
+    "description" : "Learn more tooltip link to learn more on how to search in an experiments run table"
+  },
+  "nam2iP" : {
+    "defaultMessage" : "Cet affichage est obsolète et sera supprimé dans une prochaine version.",
+    "description" : "Deprecation of compact view"
+  },
+  "nfUwqn" : {
+    "defaultMessage" : "Tags ({length})",
+    "description" : "Title text for the feature table tags section."
+  },
+  "nkNESK" : {
+    "defaultMessage" : "État :",
+    "description" : "Status label for compute config"
+  },
+  "noUGy/" : {
+    "defaultMessage" : "Veuillez fournir une table d'entrée.",
+    "description" : "Error message for missing input table when generating a batch inference notebook"
+  },
+  "npFKje" : {
+    "defaultMessage" : "Surveiller les détails",
+    "description" : "Title for model monitoring panel"
+  },
+  "nq8Zd9" : {
+    "defaultMessage" : "Toutes les lignes contiennent des données non valides",
+    "description" : "AutoML warning shown when all rows have invalid data"
+  },
+  "nu7Cns" : {
+    "defaultMessage" : "Type",
+    "description" : "Column header of AutoML warnings table. Describes type of warning."
+  },
+  "nxBcY/" : {
+    "defaultMessage" : "Étape",
+    "description" : "Column title text for stage in model version events table"
+  },
+  "ny+fBZ" : {
+    "defaultMessage" : "Colonnes",
+    "description" : "Dropdown text to display columns names that could to be rendered for the experiment runs table"
+  },
+  "o1BTcp" : {
+    "defaultMessage" : "Classification binaire détectée, mais libellé positif non spécifié",
+    "description" : "AutoML warning shown when no positive label is specified for binary classification"
+  },
+  "o7dzKo" : {
+    "defaultMessage" : "Dernière modification",
+    "description" : "Label name for last modified timestamp metadata in model version page"
+  },
+  "oBKd1E" : {
+    "defaultMessage" : "Valeur",
+    "description" : "Column title for value column in editable tags table view in MLflow"
+  },
+  "oBpBjm" : {
+    "defaultMessage" : "Impossible de dresser la liste des artefacts stockés sous <code>{artifactUri}</code> pour l'exécution actuelle. Veuillez contacter l'administrateur de votre serveur de suivi pour lui signaler cette erreur, qui peut se produire lorsque le serveur de suivi n'est pas autorisé à dresser la liste des artefacts présents dans le répertoire racine des artefacts de l'exécution actuelle.",
+    "description" : "Error message when the artifact is unable to load. This message is displayed in the open source ML flow only"
+  },
+  "oHW+ks" : {
+    "defaultMessage" : "Description",
+    "description" : "Title text for the description section under details tab on the model\n                   view page"
+  },
+  "ocSYN1" : {
+    "defaultMessage" : "Accessibles par moi",
+    "description" : "Radio item text in model registry to filter models by models accessible by me."
+  },
+  "od6bUm" : {
+    "defaultMessage" : "Supprimer le commentaire",
+    "description" : "Modal title text for deleting a comment under activities list on the model version page"
+  },
+  "oipM0r" : {
+    "defaultMessage" : "en service"
+  },
+  "okQ1oB" : {
+    "defaultMessage" : "Veuillez saisir un nouveau nom pour la nouvelle expérimentation.",
+    "description" : "Error message for name requirement in create experiment for MLflow"
+  },
+  "osC+NN" : {
+    "defaultMessage" : "Notebooks",
+    "description" : "Title text for the feature notebook consumer column."
+  },
+  "p1H1KR" : {
+    "defaultMessage" : "30 derniers jours",
+    "description" : "Option for the start select dropdown to filter runs from the last 30 days"
+  },
+  "p72Sll" : {
+    "defaultMessage" : "Jobs",
+    "description" : "Title text for the feature job consumers column."
+  },
+  "pBUaAK" : {
+    "defaultMessage" : "Voulez-vous vraiment supprimer ce tag ?",
+    "description" : "Title text for confirmation pop-up to delete a tag from table\n                     in MLflow"
+  },
+  "pG2LOv" : {
+    "defaultMessage" : "Modifiez le notebook d'exploration des données et réexécutez-le pour établir un profil de l'ensemble du jeu de données.",
+    "description" : "Recommended action when data exploration notebook truncate rows."
+  },
+  "pGL+V/" : {
+    "defaultMessage" : "Commentaire",
+    "description" : "Title text for stage transition form to add comments for model version stage transitions"
+  },
+  "pIrFtK" : {
+    "defaultMessage" : "Historique",
+    "description" : "Title for job history section of the monitoring page"
+  },
+  "pLDynC" : {
+    "defaultMessage" : "Consommateurs",
+    "description" : "Title text for the feature consumers section in feature page."
+  },
+  "peyOdH" : {
+    "defaultMessage" : "Annuler",
+    "description" : "Text for canceling changes on rows in editable form table in MLflow"
+  },
+  "pl1bdY" : {
+    "defaultMessage" : "Modèles ajoutés au registre",
+    "description" : "Text for link back to models page under the header on the model version\n             view page"
+  },
+  "pqTUMf" : {
+    "defaultMessage" : "Table des métriques d'analyse",
+    "description" : "Link text for the analysis metrics table for model monitoring"
+  },
+  "pt1fjo" : {
+    "defaultMessage" : "Dernière mise à jour des métadonnées de cette fonctionnalité.",
+    "description" : "Text on the tooltip describing the definition of last modified timestamp field."
+  },
+  "pvnK0e" : {
+    "defaultMessage" : "Nombre de répliques",
+    "description" : "Graph title for number of replicas metrics graph"
+  },
+  "pwphBo" : {
+    "defaultMessage" : "Tous les modèles {productionTag} et {stagingTag} utiliseront le calcul suivant :",
+    "description" : "Compute config message for configurations with same compute"
+  },
+  "q0e4qI" : {
+    "defaultMessage" : "Point d'entrée",
+    "description" : "Label for displaying entry point of the project"
+  },
+  "q82PwF" : {
+    "defaultMessage" : "Fonctionnalité",
+    "description" : "Title text for the online store published feature column."
+  },
+  "q9k/7D" : {
+    "defaultMessage" : "Expirée",
+    "description" : "Job status for most recent run: timed out"
+  },
+  "qI6w1P" : {
+    "defaultMessage" : "Pipeline Delta Live Tables",
+    "description" : "Link to jobs Delta Live Tables pipeline"
+  },
+  "qMwRy3" : {
+    "defaultMessage" : "Modèles ajoutés au registre",
+    "description" : "Header for displaying models in the model registry"
+  },
+  "qeemlg" : {
+    "defaultMessage" : "Importée",
+    "description" : "Title text for the feature page imported timestamp field."
+  },
+  "qpEAFw" : {
+    "defaultMessage" : "Fonctionnalités ({length})",
+    "description" : "Title text for the feature table features section."
+  },
+  "qpPAyQ" : {
+    "defaultMessage" : "Série temporelle trop courte",
+    "description" : "AutoML warning shown when the input time series identities are too short for forecasting"
+  },
+  "queiUn" : {
+    "defaultMessage" : "Répliques max.",
+    "description" : "Max replicas label for compute configuration"
+  },
+  "r3/K3V" : {
+    "defaultMessage" : "Réaliser des prédictions",
+    "description" : "Heading text for the prediction section on the registered model from the experiment run"
+  },
+  "r4Xd+6" : {
+    "defaultMessage" : "Veuillez sélectionner une étape ou une version de modèle.",
+    "description" : "Error message for missing model stage or version input when generating a batch inference notebook"
+  },
+  "r5JI+N" : {
+    "defaultMessage" : "Veuillez sélectionner des métriques",
+    "description" : "Placeholder text for metrics in parallel coordinates plot in MLflow"
+  },
+  "rAJDzz" : {
+    "defaultMessage" : "Transition de la version de modèle {currentStage} existante vers {archivedStage}",
+    "description" : "Description text for checkbox for archiving existing model versions\n                  in the toStage for model version stage transition request"
+  },
+  "rC/9u5" : {
+    "defaultMessage" : "Charger la table de prédiction",
+    "description" : "Title to load the prediction result"
+  },
+  "rMo+i0" : {
+    "defaultMessage" : "Trier par",
+    "description" : "Sort label for the sort select dropdown for experiment runs view"
+  },
+  "rOnjGB" : {
+    "defaultMessage" : "Télécharger au format CSV",
+    "description" : "String for the download csv button to download experiments offline in a CSV format"
+  },
+  "rPUkxG" : {
+    "defaultMessage" : "Modifier",
+    "description" : "Text for edit button for activities list on the model version page"
+  },
+  "rQzSrC" : {
+    "defaultMessage" : "Échec de la récupération des autorisations de création de cluster : {errorMessage}",
+    "description" : "Error message when failing to fetch cluster permissions in\n                  enable serving page."
+  },
+  "rRwpY5" : {
+    "defaultMessage" : "Source de données",
+    "description" : "Title text for the feature table data sources metadata field."
+  },
+  "rYDNcw" : {
+    "defaultMessage" : "Modifier le planning",
+    "description" : "Link to jobs edit schedule"
+  },
+  "raZ/7t" : {
+    "defaultMessage" : "En attente",
+    "description" : "Pending replica status label for serving V2 logs panel"
+  },
+  "raa3Ij" : {
+    "defaultMessage" : "Modèles ajoutés au registre",
+    "description" : "Text for link back to model page under the header on the model view page"
+  },
+  "rfrJ1h" : {
+    "defaultMessage" : "Utiliser le modèle pour l’inférence de lot",
+    "description" : "Use model button text for generating batch inference notebooks"
+  },
+  "rj8GxY" : {
+    "defaultMessage" : "Échec",
+    "description" : "Failed label for the state of the model scoring service"
+  },
+  "rmzffu" : {
+    "defaultMessage" : "AutoML a supprimé les lignes contenant moins de 5 lignes par libellé cible",
+    "description" : "Action that AutoML took when there is insufficient data per target label"
+  },
+  "rnpmHV" : {
+    "defaultMessage" : "Si l’expérience prend trop de temps, vous pouvez l’arrêter.",
+    "description" : "Info text about canceling AutoML"
+  },
+  "s+W0ov" : {
+    "defaultMessage" : "Autorisations",
+    "description" : "Text for permissions button on model view page header"
+  },
+  "s4GemG" : {
+    "defaultMessage" : "<link>Boutique de fonctionnalités</link>",
+    "description" : "Text link on the breadcrumbs section that links to the feature store home page."
+  },
+  "sCC/a6" : {
+    "defaultMessage" : "La série temporelle comprend des phases supplémentaires par rapport à la <code>{frequency}</code> donnée",
+    "description" : "AutoML warning shown when the time series includes extra time steps compared to specified frequency in forecasting"
+  },
+  "sHMQzu" : {
+    "defaultMessage" : "{length, plural, =0 {{length} exécutions correspondantes affichées} one {{length} exécution correspondante affichée} other {{length} exécutions correspondantes affichées}}",
+    "description" : "Message for displaying how many runs match search criteria on experiment page"
+  },
+  "sMxFx9" : {
+    "defaultMessage" : "Valeurs constantes dans les colonnes",
+    "description" : "AutoML warning shown when constant columns are detected, version 2"
+  },
+  "sQi+4T" : {
+    "defaultMessage" : "Valeurs très asymétriques",
+    "description" : "AutoML warning shown when columns are highly skewed"
+  },
+  "sTp/V3" : {
+    "defaultMessage" : "Tracé de coordonnées parallèles",
+    "description" : "Tab pane title for parallel coordinate plots on the compare runs page"
+  },
+  "sUR69N" : {
+    "defaultMessage" : "Évaluer",
+    "description" : "AutoML Step title evaluate"
+  },
+  "sXjD3p" : {
+    "defaultMessage" : "La fonctionnalité de recherche utilise une version simplifiée de la clause SQL {whereBold}",
+    "description" : "Tooltip string to explain how to search runs from the experiments table"
+  },
+  "sXqvoN" : {
+    "defaultMessage" : "Ignorer l’ordre des colonnes",
+    "description" : "Toggle text that determines whether to ignore column order in the\n                      model comparison page"
+  },
+  "sZ7ebp" : {
+    "defaultMessage" : "Annuler la demande en attente",
+    "description" : "Title text for cancel pending request confirmation modal in model\n                   registry"
+  },
+  "sezz5e" : {
+    "defaultMessage" : "La suppression d'une table de fonctionnalités peut engendrer des défaillances imprévues auprès des producteurs en amont et des consommateurs en aval (modèles, endpoints et jobs planifiés).",
+    "description" : "Text on the feature table deletion modal describing consequences of this operation."
+  },
+  "smcAv3" : {
+    "defaultMessage" : "Colonnes à corrélation élevée",
+    "description" : "AutoML warning shown when high correlation is detected"
+  },
+  "sqNarP" : {
+    "defaultMessage" : "Emplacement de l'artefact",
+    "description" : "Label for the popover explaining access level for the artifact"
+  },
+  "ss//L4" : {
+    "defaultMessage" : "{subMessage}, retournez à la <link>page d'accueil</link>.",
+    "description" : "Default error message for error views in MLflow"
+  },
+  "swGuWh" : {
+    "defaultMessage" : "Table d'entrée",
+    "description" : "Input table label on the configure inference form"
+  },
+  "sxlGRc" : {
+    "defaultMessage" : "Entrées ({numInputs})",
+    "description" : "Input section header for schema table in model version page"
+  },
+  "t64lsB" : {
+    "defaultMessage" : "Sélectionnez l’inférence par lot ou l’inférence en temps réel.",
+    "description" : "Text for form description on using the model for batch or real-time inference"
+  },
+  "t8BXC5" : {
+    "defaultMessage" : "Tags",
+    "description" : "Label for the collapsible area to display the tags for the experiment run"
+  },
+  "tD0/e2" : {
+    "defaultMessage" : "Le modèle {modelName} n'existe pas",
+    "description" : "Sub-message text for error message on overall model page"
+  },
+  "tLb7+M" : {
+    "defaultMessage" : "{timeSince, plural, one {Il y a 1 jour} other {Il y a {timeSince,number} jours}}",
+    "description" : "Text for time in days since given date for MLflow views"
+  },
+  "tP/v7L" : {
+    "defaultMessage" : "Veuillez fournir un chemin de sortie.",
+    "description" : "Error message for missing output table when generating a batch inference notebook"
+  },
+  "tc9+eK" : {
+    "defaultMessage" : "Ajouter le modèle au registre",
+    "description" : "Register model modal title to register the model for deployment"
+  },
+  "thYqEs" : {
+    "defaultMessage" : "Exécution AutoML annulée. Il est possible que le notebook d'exploration des données et certains essais soient complets. Consultez les liens ci-après pour en savoir plus.",
+    "description" : "Info text about AutoML is canceled and instructions for next steps"
+  },
+  "tikw83" : {
+    "defaultMessage" : "En service",
+    "description" : "Column title for model serving in the registered model page"
+  },
+  "tstu7I" : {
+    "defaultMessage" : "Remarque : Cette action modifiera également les autorisations pour le notebook correspondant à cet expérimentation.",
+    "description" : "Experiment permission: in a notebook experiment"
+  },
+  "u/+K4k" : {
+    "defaultMessage" : "Activer les endpoints du modèle serverless",
+    "description" : "Button text to enable serving v2."
+  },
+  "u0h8PG" : {
+    "defaultMessage" : "Vous recevez à votre adresse e-mail des notifications automatisées concernant l'activité du registre de modèles. <link>En savoir plus</link>",
+    "description" : "Tooltip text for email notifications when turned on in the model view\n                 page"
+  },
+  "u29Rt6" : {
+    "defaultMessage" : "Corrélations détectées. Pour en savoir plus, consultez le notebook d'exploration des données.",
+    "description" : "Action that AutoML took for correlation columns"
+  },
+  "u2iNee" : {
+    "defaultMessage" : "Granularité de la fenêtre horaire",
+    "description" : "Label text for window granularity in update config modal"
+  },
+  "u95taW" : {
+    "defaultMessage" : "(édité)",
+    "description" : "Text signaling whether comment had been edited or not on the\n                   model version page"
+  },
+  "uAGDqM" : {
+    "defaultMessage" : "Avancé",
+    "description" : "Advanced section heading in update config modal"
+  },
+  "uAnanv" : {
+    "defaultMessage" : "Arrêter l’expérience",
+    "description" : "Button to stop an AutoML run"
+  },
+  "uICVmD" : {
+    "defaultMessage" : "Planning des producteurs du job.",
+    "description" : "Text on the tooltip of the scheduled jobs column title describing the definition of the column title."
+  },
+  "uMkq/n" : {
+    "defaultMessage" : "Recevoir des notifications pour",
+    "description" : "Notification setting status message when enabled on the model view page"
+  },
+  "ubGTUL" : {
+    "defaultMessage" : "Veuillez renseigner un nom.",
+    "description" : "Error message for name requirement in editable tags table view in MLflow"
+  },
+  "ufRiXB" : {
+    "defaultMessage" : "Medium",
+    "description" : "Text describing a medium severity AutoML warning"
+  },
+  "ufamzi" : {
+    "defaultMessage" : "Comparaison de {runs} exécutions MLflow",
+    "description" : "Page title for the compare runs page"
+  },
+  "umDXbF" : {
+    "defaultMessage" : "Il n'existe peut-être pas ou a été supprimé. Veuillez sélectionner un autre moniteur dans le menu déroulant.",
+    "description" : "Alert description text for when monitor is not available"
+  },
+  "umeTwG" : {
+    "defaultMessage" : "Dernière métrique",
+    "description" : "Column title for the column displaying the latest metric values for a metric"
+  },
+  "uuiai8" : {
+    "defaultMessage" : "Databricks Feature Store est un repository centralisé qui vous aide à gérer et à partager les fonctionnalités.",
+    "description" : "Text on the table section describing the feature store product."
+  },
+  "uxbtqB" : {
+    "defaultMessage" : "Configuration du profil de données",
+    "description" : "Data profile config update modal title"
+  },
+  "v/BU6z" : {
+    "defaultMessage" : "Enregistrer un modèle pour utiliser l'inférence",
+    "description" : "Tooltip text to suggest to register a model when no model versions are available"
+  },
+  "v1javB" : {
+    "defaultMessage" : "En cours",
+    "description" : "Job status for most recent run: still in progress"
+  },
+  "v5l25i" : {
+    "defaultMessage" : "moyenne dans les répliques",
+    "description" : "Label for line on memory graph"
+  },
+  "vFeVcH" : {
+    "defaultMessage" : "La dernière fois qu'un producteur a écrit dans cette table de fonctionnalités.",
+    "description" : "Text on the tooltip describing the definition of last written timestamp field."
+  },
+  "vLCGXc" : {
+    "defaultMessage" : "Logs de service",
+    "description" : "Tab text for service logs on the model version's serving page"
+  },
+  "vi2MM7" : {
+    "defaultMessage" : "Tout",
+    "description" : "Tab text to view all versions under details tab on the model view page"
+  },
+  "vlxeiA" : {
+    "defaultMessage" : "Confirmer",
+    "description" : "OK button text for confirmation pop-up to delete a tag from table\n                     in MLflow"
+  },
+  "voq99T" : {
+    "defaultMessage" : "Points de terminaison",
+    "description" : "Title text for the feature endpoint consumers column."
+  },
+  "vowsp3" : {
+    "defaultMessage" : "Approuver la demande en attente",
+    "description" : "Title text for approve pending request confirmation modal in model\n                   registry"
+  },
+  "vrYdzG" : {
+    "defaultMessage" : "AutoML annulé",
+    "description" : "Title to indicate AutoML is canceled"
+  },
+  "vryAGK" : {
+    "defaultMessage" : "Annuler",
+    "description" : "Cancel text for update data profile config modal"
+  },
+  "vt75ua" : {
+    "defaultMessage" : "Échec de l’enregistrement",
+    "description" : "Tooltip text for registration failed model version status icon in\n         model view page"
+  },
+  "w3Eapi" : {
+    "defaultMessage" : "La fréquence détectée ne correspond pas à la <code>{frequency}</code> indiquée",
+    "description" : "AutoML warning shown when the time series frequency is different from the specified one."
+  },
+  "w3g0Nd" : {
+    "defaultMessage" : "Phases manquantes dans la série temporelle",
+    "description" : "AutoML warning shown when there are missing time steps in a forecasting problem."
+  },
+  "w3r0WZ" : {
+    "defaultMessage" : "Données concernées",
+    "description" : "Column header of AutoML warnings table. Describes what data of a dataset that a warning applies to."
+  },
+  "w6erlb" : {
+    "defaultMessage" : "Source",
+    "description" : "Label for displaying source notebook of the experiment run"
+  },
+  "w6zksH" : {
+    "defaultMessage" : "Terminé(e)",
+    "description" : "Terminated replica status label for serving V2 logs panel"
+  },
+  "wBFfWW" : {
+    "defaultMessage" : "Ajouter au registre",
+    "description" : "Register button text to register the model"
+  },
+  "wDwAdX" : {
+    "defaultMessage" : "Description",
+    "description" : "Header for displaying notes for the experiment table"
+  },
+  "wI9LM8" : {
+    "defaultMessage" : "Impossible d'échantillonner les données sans fausser la distribution du libellé cible",
+    "description" : "AutoML warning shown when data cannot be sampled without skewing the target label distribution"
+  },
+  "wMhQ6H" : {
+    "defaultMessage" : "Type d'événement",
+    "description" : "Column title text for event type in model version events table"
+  },
+  "wbRVln" : {
+    "defaultMessage" : "Métriques",
+    "description" : "Title for metrics page"
+  },
+  "weY3Kh" : {
+    "defaultMessage" : "Le jeu de données a été échantillonné à {samplePercentage} % avec l'échantillonnage {sampleType} en utilisant la méthode <code>{sampleMethod}</code> de pyspark",
+    "description" : "Indicate sampling method details"
+  },
+  "wt3t+h" : {
+    "defaultMessage" : "En service",
+    "description" : "Tab name for the serving tab on the model view main panel"
+  },
+  "x+PwWK" : {
+    "defaultMessage" : "AutoML a imputé les valeurs nulles.",
+    "description" : "Action that AutoML took for null values of small null columns"
+  },
+  "xEJj8d" : {
+    "defaultMessage" : "L’enregistrement a échoué.",
+    "description" : "Default status message for model versions that have failed registration"
+  },
+  "xIildU" : {
+    "defaultMessage" : "Stockage",
+    "description" : "Title text for the online store storage metadata field."
+  },
+  "xR655i" : {
+    "defaultMessage" : "Copier",
+    "description" : "Copy tooltip in model monitoring pane"
+  },
+  "xRw7H2" : {
+    "defaultMessage" : "Créé par",
+    "description" : "Column title text for creator username in model version table"
+  },
+  "xaeEZk" : {
+    "defaultMessage" : "Confirmer",
+    "description" : "Update compute config confirm button text"
+  },
+  "xcro5y" : {
+    "defaultMessage" : "Les résultats de prédiction du meilleur modèle sont enregistrés dans <link>{table_name}</link>. Charger la table de prédiction :",
+    "description" : "Text message when user provide the output database"
+  },
+  "xd3prT" : {
+    "defaultMessage" : "En attente",
+    "description" : "Pending label for the state of the model scoring service"
+  },
+  "xgLBAH" : {
+    "defaultMessage" : "Les versions de modèles à l’étape {currentStage} passeront à l’étape Archivé.",
+    "description" : "Tooltip text for transitioning existing model versions in stage to archived\n       in the model versions page"
+  },
+  "xmPKKq" : {
+    "defaultMessage" : "Version de modèle :",
+    "description" : "Text for model version row header in the main table in the model\n                comparison page"
+  },
+  "xndk0K" : {
+    "defaultMessage" : "Tableau des fonctionnalités",
+    "description" : "Title text for the feature table name column."
+  },
+  "xqd0rS" : {
+    "defaultMessage" : "Ajouter un commentaire",
+    "description" : "Placeholder text for add comment section in activities list on model version page"
+  },
+  "y2sSNa" : {
+    "defaultMessage" : "ARN de la table",
+    "description" : "Title text for the online store table ARN metadata field."
+  },
+  "yGH3Oz" : {
+    "defaultMessage" : "Créé",
+    "description" : "Title text for the online store created metadata field."
+  },
+  "yJpGwW" : {
+    "defaultMessage" : "Supprimé",
+    "description" : "Linked model dropdown option to show deleted experiment runs"
+  },
+  "yK/6vg" : {
+    "defaultMessage" : "Annuler",
+    "description" : "Cancel text for delete model modal on model view page"
+  },
+  "yL9JKm" : {
+    "defaultMessage" : "Non numérique",
+    "description" : "Label displaying \"not-a-number\" symbol displayed on a plot UI element"
+  },
+  "ySno61" : {
+    "defaultMessage" : "Les extraits de code ci-dessous montrent comment réaliser des prédictions en utilisant le modèle enregistré.",
+    "description" : "Subtext heading explaining the below section of the model artifact view on how users can prediction using the registered logged model"
+  },
+  "yV9Slo" : {
+    "defaultMessage" : "Rechercher",
+    "description" : "String for the search button to search objects in MLflow"
+  },
+  "ybzBAU" : {
+    "defaultMessage" : "Les notebooks d'entraînement ont converti chaque colonne en un vecteur de features de longueur fixe.",
+    "description" : "Action that AutoML took for columns that have text semantic type"
+  },
+  "yhoq4a" : {
+    "defaultMessage" : "Demander la transition vers",
+    "description" : "Text for transition request under request column in the pending\n               requests table"
+  },
+  "yjerKR" : {
+    "defaultMessage" : "<link>Version {versionNumber}</link>",
+    "description" : "Link to model version in the model version table"
+  },
+  "ywUU5Q" : {
+    "defaultMessage" : "Lancement de la configuration de calcul…",
+    "description" : "Compute config successful update request notification title"
+  },
+  "yzxYIm" : {
+    "defaultMessage" : "Points :",
+    "description" : "Label for the toggle button to toggle to show points or not for the metric experiment run"
+  },
+  "z1RZwl" : {
+    "defaultMessage" : "Aperçu",
+    "description" : "Preview badge shown for features which are under preview"
+  },
+  "z2Gyuw" : {
+    "defaultMessage" : "Modèle MLflow",
+    "description" : "Heading text for mlflow model artifact"
+  },
+  "z9UqPZ" : {
+    "defaultMessage" : "Description",
+    "description" : "Title text for the description section on the model version view page"
+  },
+  "zAvilr" : {
+    "defaultMessage" : "Prêt",
+    "description" : "Tooltip text for ready model version status icon in model view page"
+  },
+  "zMhOr3" : {
+    "defaultMessage" : "Annuler",
+    "description" : "Cancel button text for model version deletion modal in model versions view page"
+  },
+  "zWGmon" : {
+    "defaultMessage" : "Infinité positive ({metricKey})",
+    "description" : "Label indicating positive infinity used as a hover text in a plot UI element"
+  },
+  "za/k4p" : {
+    "defaultMessage" : "simultanéité provisionnée",
+    "description" : "Label for line on concurrency graph"
+  },
+  "zeXiq+" : {
+    "defaultMessage" : "Planning",
+    "description" : "Title for job schedule section of the monitoring page"
+  },
+  "zeuGuG" : {
+    "defaultMessage" : "Les notebooks d'entraînement ont converti chaque colonne en type date-heure et ont encodé les features en fonction des transformations temporelles.",
+    "description" : "Action that AutoML took for columns that have datetime semantic type"
+  },
+  "zs09yI" : {
+    "defaultMessage" : "Vous ne suivez pas cette version de modèle. Interagissez avec la version de modèle pour la suivre, ou abonnez-vous à toute l’activité sur le modèle enregistré.",
+    "description" : "Tooltip text message for a non-follower of a model version in\n                   model registry"
+  },
+  "zw1f9W" : {
+    "defaultMessage" : "Créé par",
+    "description" : "Title text for the feature page created by field."
+  },
+  "zx+KWt" : {
+    "defaultMessage" : "Métriques",
+    "description" : "Title text for metrics section on model version's serving page"
+  }
+}

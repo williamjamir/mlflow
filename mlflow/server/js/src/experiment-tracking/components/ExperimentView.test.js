@@ -12,6 +12,9 @@ import {
   emptyState,
 } from '../utils/test-utils/ReduxStoreFixtures';
 import Utils from '../../common/utils/Utils';
+// BEGIN-EDGE
+import DatabricksUtils from '../../common/utils/DatabricksUtils';
+// END-EDGE
 import { Spinner } from '../../common/components/Spinner';
 import { getUUID } from '../../common/utils/ActionUtils';
 import { Metric, Param, RunTag, RunInfo } from '../sdk/MlflowMessages';
@@ -28,6 +31,9 @@ import {
   DEFAULT_LIFECYCLE_FILTER,
   DEFAULT_MODEL_VERSION_FILTER,
 } from '../constants';
+// BEGIN-EDGE
+import { registerRecent } from '@databricks/web-shared-bundle/recents';
+// END-EDGE
 
 const EXPERIMENT_ID = '3';
 
@@ -38,8 +44,14 @@ let handleColumnSelectionCheckSpy;
 let handleDiffSwitchChangeSpy;
 let updateUrlWithViewStateSpy;
 
+// BEGIN-EDGE
+jest.mock('@databricks/web-shared-bundle/recents');
+// END-EDGE
 beforeEach(() => {
   onSearchSpy = jest.fn();
+  // BEGIN-EDGE
+  jest.spyOn(DatabricksUtils, 'isArtifactAclsEnabled').mockImplementation(() => true);
+  // END-EDGE
   historyPushSpy = jest.fn();
   onClearSpy = jest.fn();
   handleColumnSelectionCheckSpy = jest.fn();
@@ -97,6 +109,12 @@ const getDefaultExperimentViewProps = () => {
     location: { pathname: '/' },
     modelVersionsByRunUuid: {},
     compareExperiments: false,
+    // BEGIN-EDGE
+    showEditPermissionModal: jest.fn(),
+    userHasManagePermissions: false,
+    showRenameModal: jest.fn(),
+    showDeleteModal: jest.fn(),
+    // END-EDGE
     numberOfNewRuns: 0,
   };
 };
@@ -181,6 +199,78 @@ test("mapStateToProps doesn't blow up if the searchRunsApi is pending", () => {
     modelVersionsByRunUuid: {},
   });
 });
+// BEGIN-EDGE
+
+describe('AutoML', () => {
+  test('Does not appear by default', () => {
+    const wrapper = getExperimentViewMock();
+    expect(wrapper.find('AutoMLExperimentPanel')).toHaveLength(0);
+  });
+
+  test('Appears if shouldRenderAutoMLExperimentPanel', () => {
+    jest.spyOn(DatabricksUtils, 'autoMLEnabled').mockImplementation(() => true);
+    const wrapper = getExperimentViewMock({ shouldRenderAutoMLExperimentPanel: true });
+    expect(wrapper.find('AutoMLExperimentPanel')).toHaveLength(1);
+  });
+});
+
+describe('Page Header', () => {
+  test('Share button appears regardless of manage permission', () => {
+    const wrapper_without_modify_permission = getExperimentViewMock({
+      experiments: [Fixtures.createExperiment({ experiment_id: EXPERIMENT_ID })],
+    });
+    expect(wrapper_without_modify_permission.exists('[data-test-id="share-button"]')).toBe(true);
+    const wrapper_with_modify_permission = getExperimentViewMock({
+      experiments: [
+        Fixtures.createExperiment({
+          experiment_id: EXPERIMENT_ID,
+          allowed_actions: ['MODIFIY_PERMISSION'],
+        }),
+      ],
+    });
+    expect(wrapper_with_modify_permission.exists('[data-test-id="share-button"]')).toBe(true);
+  });
+
+  test('Share button appears in compare-experiments view', () => {
+    const wrapper = getExperimentViewMock({
+      compareExperiments: true,
+      experiments: [
+        Fixtures.createExperiment({ experiment_id: EXPERIMENT_ID }),
+        Fixtures.createExperiment({ experiment_id: '1234' }),
+      ],
+    });
+    expect(wrapper.exists('[data-test-id="share-button"]')).toBe(true);
+  });
+
+  test('Dropdown appears if user has manage permission', () => {
+    const wrapper = getExperimentViewMock({
+      experiments: [
+        Fixtures.createExperiment({
+          experiment_id: EXPERIMENT_ID,
+          allowed_actions: ['RENAME', 'DELETE', 'MODIFIY_PERMISSION'],
+        }),
+      ],
+    });
+    expect(wrapper.exists('[data-test-id="share-button"]')).toBe(true);
+  });
+
+  test('Rename and Delete actions are rendered correctly', () => {
+    const wrapper = getExperimentViewMock({
+      experiments: [
+        Fixtures.createExperiment({
+          experiment_id: EXPERIMENT_ID,
+          allowed_actions: ['RENAME', 'DELETE', 'MODIFIY_PERMISSION'],
+        }),
+      ],
+    });
+    const overflowMenu = wrapper.find('[data-test-id="experiment-view-page-header"]');
+    expect(overflowMenu.props()['menu'].map((menuItems) => menuItems.id)).toMatchObject([
+      'rename',
+      'delete',
+    ]);
+  });
+});
+// END-EDGE
 
 describe('Download CSV', () => {
   const mlflowSystemTags = {
@@ -495,3 +585,14 @@ describe('handleDiffSwitchChange', () => {
     });
   });
 });
+// BEGIN-EDGE
+describe('register experiment to recents cache', () => {
+  beforeEach(() => {
+    getExperimentViewMock();
+  });
+
+  test('Once component is rendered, the registerRecent method should have been called at least once', () => {
+    expect(registerRecent).toHaveBeenCalled();
+  });
+});
+// END-EDGE

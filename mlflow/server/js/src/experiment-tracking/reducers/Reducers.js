@@ -12,6 +12,10 @@ import {
   SET_TAG_API,
   DELETE_TAG_API,
   SET_COMPARE_EXPERIMENTS,
+  // BEGIN-EDGE
+  BATCH_GET_EXPERIMENTS_API,
+  MARK_DESCENDANTS_AS_DELETED,
+  // END-EDGE
 } from '../actions';
 import { Experiment, Param, RunInfo, RunTag, ExperimentTag } from '../sdk/MlflowMessages';
 import { ArtifactNode } from '../utils/ArtifactUtils';
@@ -22,6 +26,10 @@ import {
   maxMetricsByRunUuid,
 } from './MetricReducer';
 import modelRegistryReducers from '../../model-registry/reducers';
+// BEGIN-EDGE
+import modelServingReducers from '../../model-serving/reducers';
+import { MLFLOW_ROOT_RUN_ID_TAG, LIFECYCLE_FILTER } from '../constants';
+// END-EDGE
 import _ from 'lodash';
 import {
   fulfilled,
@@ -75,6 +83,24 @@ export const experimentsById = (state = {}, action) => {
         [experiment.experiment_id]: mergedExperiment,
       };
     }
+    // BEGIN-EDGE
+    case fulfilled(BATCH_GET_EXPERIMENTS_API): {
+      const { experiments_databricks = [] } = action.payload;
+      const experiments = experiments_databricks.reduce((experiment_mapping, eachExperiment) => {
+        return {
+          ...experiment_mapping,
+          [eachExperiment.experiment.experiment_id]: Experiment.fromJs({
+            allowed_actions: eachExperiment.allowed_actions,
+            ...eachExperiment.experiment,
+          }),
+        };
+      }, {});
+      return {
+        ...state,
+        ...experiments,
+      };
+    }
+    // END-EDGE
     default:
       return state;
   }
@@ -113,6 +139,26 @@ export const runInfosByUuid = (state = {}, action) => {
       }
       return newState;
     }
+    // BEGIN-EDGE
+    case MARK_DESCENDANTS_AS_DELETED: {
+      let newState = { ...state };
+      const { descendantRuns } = action.payload;
+      descendantRuns.forEach((runId) => {
+        if (runId in state) {
+          // Descendant runs may not be in runInfosByUuid ("state"). For example, the user may have
+          // issued a search query that causes not all descendantRuns to be displayed. In this case,
+          // If a descendant run is not in runInfosByUuid, ignore it. It is not being displayed. The
+          // backend will delete it, and on the next SearchRuns request it will not be returned.
+          const runInfo = state[runId];
+          const updatedRunInfo = runInfo.update('lifecycle_stage', () => {
+            return LIFECYCLE_FILTER.DELETED;
+          });
+          newState = amendRunInfosByUuid(newState, updatedRunInfo);
+        }
+      });
+      return newState;
+    }
+    // END-EDGE
     default:
       return state;
   }
@@ -197,6 +243,32 @@ export const paramsByRunUuid = (state = {}, action) => {
 
 export const getRunTags = (runUuid, state) => state.entities.tagsByRunUuid[runUuid] || {};
 
+// BEGIN-EDGE
+/**
+ * Get the root run id for the run with `runId`.
+ * Note: This only works for runs create after v3.18 platform release
+ * @param runId
+ * @param state
+ * @returns {*}
+ */
+export const getRootRunId = (runId, state) => {
+  const tags = getRunTags(runId, state);
+  return tags[MLFLOW_ROOT_RUN_ID_TAG] && tags[MLFLOW_ROOT_RUN_ID_TAG].value;
+};
+
+/**
+ * Check whether run with `runId` is a root run
+ * Note: This only works for runs create after v3.18 platform release
+ * @param runId
+ * @param state
+ * @returns {*}
+ */
+export const isRootRun = (runId, state) => {
+  const rootRunId = getRootRunId(runId, state);
+  return rootRunId && runId === rootRunId;
+};
+
+// END-EDGE
 export const getExperimentTags = (experimentId, state) => {
   const tags = state.entities.experimentTagsByExperimentId[experimentId];
   return tags || {};
@@ -281,6 +353,20 @@ export const experimentTagsByExperimentId = (state = {}, action) => {
       newState[experiment.experiment_id] = tagArrToObject(tags);
       return newState;
     }
+    // BEGIN-EDGE
+    case fulfilled(BATCH_GET_EXPERIMENTS_API): {
+      const { experiments_databricks = [] } = action.payload;
+      const newState = { ...state };
+      experiments_databricks.forEach((experimentDatabricks) => {
+        // Reported during ESLint upgrade
+        // eslint-disable-next-line prefer-destructuring
+        const experiment = experimentDatabricks.experiment;
+        const tags = experiment.tags || [];
+        newState[experiment.experiment_id] = tagArrToObject(tags);
+      });
+      return newState;
+    }
+    // END-EDGE
     case fulfilled(SET_EXPERIMENT_TAG_API): {
       const tag = { key: action.meta.key, value: action.meta.value };
       return amendExperimentTagsByExperimentId(state, [tag], action.meta.experimentId);
@@ -390,6 +476,9 @@ export const entities = combineReducers({
   artifactRootUriByRunUuid,
   modelVersionsByRunUuid,
   ...modelRegistryReducers,
+  // BEGIN-EDGE
+  ...modelServingReducers,
+  // END-EDGE
 });
 
 export const getSharedParamKeysByRunUuids = (runUuids, state) =>

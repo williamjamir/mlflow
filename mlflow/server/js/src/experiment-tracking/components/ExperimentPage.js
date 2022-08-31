@@ -38,6 +38,26 @@ import {
   MLFLOW_EXPERIMENT_PRIMARY_METRIC_NAME,
   MLFLOW_EXPERIMENT_PRIMARY_METRIC_GREATER_IS_BETTER,
 } from '../constants';
+// BEGIN-EDGE
+import {
+  AUTOML_TAG_PREFIX,
+  AUTOML_EVALUATION_METRIC_TAG,
+  AUTOML_EVALUATION_METRIC_ORDER_BY_ASC_TAG,
+} from './automl/AutoMLExperimentPanelPage';
+import { LoadingDescription } from '@databricks/web-shared-bundle/metrics';
+import DatabricksUtils from '../../common/utils/DatabricksUtils';
+import { batchGetExperimentsApi } from '../actions';
+import {
+  AUTOML_WARNING_PREFIX,
+  AUTOML_WARNING_PREFIX_DEPRECATED,
+  WARNING_NAMES,
+} from './automl/AutoMLWarningDashboard';
+import { UniverseFrontendApis } from '../../common/utils/UniverseFrontendApis';
+
+export const MLFLOW_NOTEBOOK_TYPE = 'NOTEBOOK';
+export const MLFLOW_EXPERIMENT_TYPE = 'MLFLOW_EXPERIMENT';
+export const EXPERIMENT_TYPE_TAG = 'mlflow.experimentType';
+// END-EDGE
 
 export const isNewRun = (lastRunsRefreshTime, run) => {
   if (run && run.info) {
@@ -54,6 +74,9 @@ export class ExperimentPage extends Component {
     experimentIds: PropTypes.arrayOf(PropTypes.string).isRequired,
     experiments: PropTypes.arrayOf(PropTypes.instanceOf(Experiment)),
     getExperimentApi: PropTypes.func.isRequired,
+    // BEGIN-EDGE
+    batchGetExperimentsApi: PropTypes.func.isRequired,
+    // END-EDGE
     searchRunsApi: PropTypes.func.isRequired,
     searchModelVersionsApi: PropTypes.func.isRequired,
 
@@ -122,6 +145,9 @@ export class ExperimentPage extends Component {
       }).toJSON(),
       pollingState: {
         newRuns: true,
+        // BEGIN-EDGE
+        autoMLEvaluationMetric: urlState.orderByKey === undefined,
+        // END-EDGE
       },
     };
   }
@@ -137,6 +163,9 @@ export class ExperimentPage extends Component {
     this.updateCompareExperimentsState();
     this.loadData();
     this.pollTimer = setInterval(() => this.pollInfo(), POLL_INTERVAL);
+    // BEGIN-EDGE
+    DatabricksUtils.logClientSideEvent('mlflowExperimentDetailsPageAction', 'pageView');
+    // END-EDGE
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -200,7 +229,122 @@ export class ExperimentPage extends Component {
   searchModelVersionsRequestId = getUUID();
   loadMoreRunsRequestId = getUUID();
 
+  // BEGIN-EDGE
+
+  getExperimentType() {
+    const experimentType = this.props.experiments[0].tags.find(
+      (tag) => tag.key === EXPERIMENT_TYPE_TAG,
+    );
+    if (experimentType) {
+      return experimentType.value;
+    }
+    return null;
+  }
+
+  hasExperimentType(type) {
+    const experimentType = this.props.experiments[0].tags.find(
+      (tag) => tag.key === EXPERIMENT_TYPE_TAG,
+    );
+    return experimentType && experimentType.value === type;
+  }
+
   generateGetExperimentRequestIds() {
+    // On Databricks, we can fetch multiple experiments with a single request using
+    // `batchGetExperimentsApi`
+    return [getUUID()];
+  }
+
+  async loadData() {
+    const { getExperimentRequestIds } = this.state;
+    try {
+      const batchGetResponse = await this.props.batchGetExperimentsApi(
+        this.props.experimentIds,
+        getExperimentRequestIds[0],
+      );
+      if (batchGetResponse.action.payload.experiments_databricks) {
+        this.sortRunsByPrimaryMetric(
+          batchGetResponse.action.payload.experiments_databricks[0].experiment,
+        );
+        await this.handleGettingRuns(this.props.searchRunsApi, this.state.searchRunsRequestId);
+      }
+    } catch (e) {
+      Utils.logErrorAndNotifyUser(e);
+    }
+
+    if (this.shouldRenderAutoMLExperimentPanel()) {
+      // AutoML experiments should automatically be sorted by their evaluation metric.
+      /*
+        TODO: The current implementation causes a very brief moment during which runs are not
+         sorted before the table refreshes and they are sorted correctly. Should investigate why
+         and fix it.
+       */
+      this.pollAutoMLEvaluationMetric(async () => {
+        // update state before loading data
+        this.updateUrlWithViewState();
+        await this.handleGettingRuns(this.props.searchRunsApi, this.state.searchRunsRequestId);
+      });
+    }
+  }
+
+  // Launch edit permission modal from Databricks window
+  showEditPermissionModal = () => {
+    if (this.hasExperimentType(MLFLOW_EXPERIMENT_TYPE)) {
+      UniverseFrontendApis.editExperimentPermission({
+        experiment: this.props.experimentIds[0],
+        experimentUrl: window.top.location.href,
+      });
+    } else if (this.hasExperimentType(MLFLOW_NOTEBOOK_TYPE)) {
+      UniverseFrontendApis.editNotebookPermission({
+        notebook: this.props.experimentIds[0],
+        experimentUrl: window.top.location.href,
+        helperText: this.props.intl.formatMessage({
+          defaultMessage:
+            // eslint-disable-next-line no-multi-str
+            'Note: This action will also modify the permissions on the notebook \
+              that corresponds to this experiment.',
+          description: 'Experiment permission: in a notebook experiment',
+        }),
+      });
+    }
+  };
+
+  showRenameModal = () => {
+    const experimentName = this.props.experiments[0].name.split('/').pop();
+
+    UniverseFrontendApis.renameExperiment({
+      id: this.props.experimentIds[0],
+      name: experimentName,
+      fullLocation: this.props.experiments[0].name,
+      experimentType: this.getExperimentType(),
+    }).then((res) => {
+      window.location.reload();
+    });
+  };
+
+  // This is the logic moved from webapp that navigates to the
+  // Databricks observatory after successful experiment deletion.
+  // Probably we would want to refactor it to be something
+  // better - ideally, MLFlow should be aware of the successful deletion
+  // and afterwards, send a signal to the webapp that would request navigating away.
+  resetToObservatoryPath = () => {
+    const observatoryPath = window.top.location.href.split('/').slice(0, -1).join('/');
+    window.top.location.assign(observatoryPath);
+  };
+
+  showDeleteModal = () => {
+    const experimentName = this.props.experiments[0].name.split('/').pop();
+    UniverseFrontendApis.deleteExperiment({
+      id: this.props.experimentIds[0],
+      name: experimentName,
+      fullLocation: this.props.experiments[0].name,
+      experimentType: this.getExperimentType(),
+    }).then(() => {
+      this.resetToObservatoryPath();
+    });
+  };
+
+  // END-EDGE
+  oss_generateGetExperimentRequestIds() {
     // On OSS, we need to call `getExperimentApi` for each experiment ID
     return this.props.experimentIds.map((_experimentId) => getUUID());
   }
@@ -228,7 +372,7 @@ export class ExperimentPage extends Component {
     }
   }
 
-  async loadData() {
+  async oss_loadData() {
     const { experimentIds } = this.props;
     await Promise.all([
       ...experimentIds.map((experimentId, index) =>
@@ -388,6 +532,164 @@ export class ExperimentPage extends Component {
     return this.handleGettingRuns(this.props.loadMoreRunsApi, this.loadMoreRunsRequestId);
   };
 
+  // BEGIN-EDGE
+  getAutoMLExperimentData() {
+    if (!this.shouldRenderAutoMLExperimentPanel() || !this.shouldGetAutoMLExpDataFromMlflow()) {
+      return null;
+    }
+
+    // some of the data obtained from the tags need to be
+    // changed to match the data returned by the AutoML service
+    const overrideAutoMLExperimentData = (key, value) => {
+      switch (key) {
+        // If the evaluation metric is better if higher then we want to order
+        // the runs by desc order so order by asc is false
+        case 'evaluationMetricOrderByAsc': {
+          return {
+            finalKey: 'evaluationMetricHigherIsBetter',
+            finalValue: !(value === 'True'),
+          };
+        }
+        // service has a different name for this key
+        case 'startTime': {
+          return {
+            finalKey: 'startTimeSeconds',
+            finalValue: value,
+          };
+        }
+        // service has a different name for this key
+        case 'errorMessage': {
+          return {
+            finalKey: 'jobRunErrorMessage',
+            finalValue: value,
+          };
+        }
+        // service returns the value as upper case since it's a proto enum
+        case 'problemType': {
+          return {
+            finalKey: 'problemType',
+            finalValue: value.toUpperCase(),
+          };
+        }
+        default:
+          return {
+            finalKey: key,
+            finalValue: value,
+          };
+      }
+    };
+
+    // some of the keys and values obtained from the tags for the warnings
+    // need to be changed to match the data returned by the AutoML service
+    const overrideAutoMLWarningData = (warningValue) => {
+      const { severity, ...otherFields } = warningValue;
+      return {
+        // service returns this value as upper case since it's a proto enum
+        severity: _.upperCase(severity),
+        ...otherFields,
+      };
+    };
+
+    const automlTags = {
+      warnings: [],
+    };
+    for (const { key, value } of this.props.experiments[0].tags) {
+      if (
+        key.startsWith(AUTOML_WARNING_PREFIX) ||
+        key.startsWith(AUTOML_WARNING_PREFIX_DEPRECATED)
+      ) {
+        const prefix = key.startsWith(AUTOML_WARNING_PREFIX)
+          ? AUTOML_WARNING_PREFIX
+          : AUTOML_WARNING_PREFIX_DEPRECATED;
+
+        // the + 1 gets rid of the "." after the prefix
+        const warningName = _.camelCase(key.substr(prefix.length + 1));
+        if (Object.values(WARNING_NAMES).includes(warningName)) {
+          try {
+            const warningValue = overrideAutoMLWarningData(JSON.parse(value));
+            automlTags.warnings.push({
+              name: warningName,
+              ...warningValue,
+            });
+          } catch (e) {
+            // swallow exception if value is not a JSON, do not push warning
+          }
+        }
+      } else if (key.startsWith(AUTOML_TAG_PREFIX)) {
+        // the + 1 gets rid of the "." after the prefix; also, tag `_databricks_automl` will
+        // have an empty substring hence we pass `automl` to camelCase instead
+        const camelCaseKey = _.camelCase(key.substr(AUTOML_TAG_PREFIX.length + 1) || 'automl');
+
+        // override the key and values if required
+        const { finalKey, finalValue } = overrideAutoMLExperimentData(camelCaseKey, value);
+
+        automlTags[finalKey] = finalValue;
+      }
+    }
+    return automlTags;
+  }
+
+  getAutoMLEvaluationMetricData() {
+    if (!this.shouldRenderAutoMLExperimentPanel()) {
+      return {};
+    }
+
+    const evaluationMetricData = {};
+
+    for (const { key, value } of this.props.experiments[0].tags) {
+      if (
+        key === AUTOML_EVALUATION_METRIC_TAG ||
+        key === AUTOML_EVALUATION_METRIC_ORDER_BY_ASC_TAG
+      ) {
+        const camelCaseKey = _.camelCase(key.substr(AUTOML_TAG_PREFIX.length + 1));
+        evaluationMetricData[camelCaseKey] = value;
+      }
+    }
+    return evaluationMetricData;
+  }
+
+  shouldRenderAutoMLExperimentPanel() {
+    if (
+      !DatabricksUtils.autoMLEnabled() ||
+      this.props.compareExperiments ||
+      !this.props.experiments[0]
+    ) {
+      return false;
+    }
+
+    const automlTag = this.props.experiments[0].tags.find((elem) => elem.key === AUTOML_TAG_PREFIX);
+    return !!automlTag;
+  }
+
+  shouldGetAutoMLExpDataFromMlflow() {
+    return !DatabricksUtils.getConf('autoMLServiceAPIUsed');
+  }
+
+  pollAutoMLEvaluationMetric(callback) {
+    const { pollingState } = this.state;
+    const { evaluationMetric, evaluationMetricOrderByAsc } = this.getAutoMLEvaluationMetricData();
+
+    if (evaluationMetric && pollingState && pollingState.autoMLEvaluationMetric) {
+      this.setState(
+        (prevState) => ({
+          ...prevState,
+          persistedState: {
+            ...prevState.persistedState,
+            orderByKey: `metrics.\`${evaluationMetric}\``,
+            orderByAsc: _.lowerCase(evaluationMetricOrderByAsc) === 'true',
+          },
+          nextPageToken: null,
+          pollingState: {
+            ...prevState.pollingState,
+            autoMLEvaluationMetric: false,
+          },
+        }),
+        callback,
+      );
+    }
+  }
+
+  // END-EDGE
   /*
     If this function returns true, the ExperimentView should nest children underneath their parents
     and fetch all root level parents of visible runs. If this function returns false, the views will
@@ -518,6 +820,20 @@ export class ExperimentPage extends Component {
       if (this.state.pollingState.newRuns) {
         promiseArray.push(this.pollNewRuns());
       }
+      // BEGIN-EDGE
+      if (
+        this.shouldRenderAutoMLExperimentPanel() &&
+        this.state.pollingState.autoMLEvaluationMetric
+      ) {
+        promiseArray.push(
+          this.pollAutoMLEvaluationMetric(async () => {
+            // update state before loading data
+            this.updateUrlWithViewState();
+            this.handleGettingRuns(this.props.searchRunsApi, this.state.searchRunsRequestId);
+          }),
+        );
+      }
+      // END-EDGE
       await Promise.all(promiseArray);
     }
   }
@@ -640,6 +956,13 @@ export class ExperimentPage extends Component {
       loadingMore: this.state.loadingMore,
       nestChildren: this.shouldNestChildrenAndFetchParents(orderByKey, searchInput),
       numberOfNewRuns: this.state.numberOfNewRuns,
+      // BEGIN-EDGE
+      automlExperimentData: this.getAutoMLExperimentData(),
+      shouldRenderAutoMLExperimentPanel: this.shouldRenderAutoMLExperimentPanel(),
+      showDeleteModal: this.showDeleteModal,
+      showEditPermissionModal: this.showEditPermissionModal,
+      showRenameModal: this.showRenameModal,
+      // END-EDGE
     };
 
     return <ExperimentView {...experimentViewProps} />;
@@ -652,6 +975,9 @@ export class ExperimentPage extends Component {
           shouldOptimisticallyRender
           requestIds={this.getRequestIds()}
           // eslint-disable-next-line no-trailing-spaces
+          // BEGIN-EDGE
+          description={LoadingDescription.MLFLOW_EXPERIMENT_DETAILS_PAGE}
+          // END-EDGE
         >
           {this.renderExperimentView}
         </RequestStateWrapper>
@@ -671,6 +997,9 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = {
   getExperimentApi,
+  // BEGIN-EDGE
+  batchGetExperimentsApi,
+  // END-EDGE
   searchRunsApi,
   loadMoreRunsApi,
   searchModelVersionsApi,

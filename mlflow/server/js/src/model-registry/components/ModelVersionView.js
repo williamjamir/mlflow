@@ -2,6 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { modelListPageRoute, getModelPageRoute } from '../routes';
+// BEGIN-EDGE
+import { Tooltip } from 'antd';
+import PermissionUtils from '../utils/PermissionUtils';
+import { PendingRequestsTableContainer } from './PendingRequestsTableContainer';
+import { ModelActivitiesList } from './ModelActivitiesList';
+import { ModelLevelEmailSubscriptionStatus } from './ModelPage';
+import { getModelVersionFollowSubscriptionTooltip } from '../utils';
+import DatabricksUtils from '../../common/utils/DatabricksUtils';
+import { ConfigureInferenceButton } from './ConfigureInferenceButton';
+// END-EDGE
 import { SchemaTable } from './SchemaTable';
 import Utils from '../../common/utils/Utils';
 import { ModelStageTransitionDropdown } from './ModelStageTransitionDropdown';
@@ -29,6 +39,13 @@ export class ModelVersionViewImpl extends React.Component {
     modelName: PropTypes.string,
     modelVersion: PropTypes.object,
     schema: PropTypes.object,
+    // BEGIN-EDGE
+    activities: PropTypes.arrayOf(Object),
+    transitionRequests: PropTypes.arrayOf(Object),
+    onCreateComment: PropTypes.func.isRequired,
+    onEditComment: PropTypes.func.isRequired,
+    onDeleteComment: PropTypes.func.isRequired,
+    // END-EDGE
     runInfo: PropTypes.object,
     runDisplayName: PropTypes.string,
     handleStageTransitionDropdownSelect: PropTypes.func.isRequired,
@@ -168,9 +185,70 @@ export class ModelVersionViewImpl extends React.Component {
   };
 
   shouldHideDeleteOption() {
+    // BEGIN-EDGE
+    const { status, permission_level } = this.props.modelVersion;
+    if (
+      status === ModelVersionStatus.PENDING_REGISTRATION ||
+      !PermissionUtils.permissionLevelCanManage(permission_level)
+    ) {
+      return true;
+    }
+    // END-EDGE
     return false;
   }
 
+  // BEGIN-EDGE
+  renderVersionFollowDescriptionItem() {
+    return (
+      <Descriptions.Item
+        key='description-key-follow-status'
+        label={this.props.intl.formatMessage({
+          defaultMessage: 'Follow Status',
+          description: 'Label name text for following status metadata in model versions page',
+        })}
+        className='follow-status'
+      >
+        {this.props.modelVersion.email_subscription_status ===
+        ModelLevelEmailSubscriptionStatus.ALL_EVENTS ? (
+          <Tooltip
+            className='follow-tooltip'
+            placement='left'
+            title={getModelVersionFollowSubscriptionTooltip(
+              this.props.modelVersion.user_id,
+              window,
+            )}
+          >
+            <i className='version-follow-icon fas fa-bell'></i>&nbsp;
+            <FormattedMessage
+              defaultMessage='Following'
+              description='Text for the following status metadata in the model versions page'
+            />
+          </Tooltip>
+        ) : (
+          <Tooltip
+            className='not-following-tooltip'
+            placement='left'
+            title={
+              <FormattedMessage
+                defaultMessage='You are not following this model version. Interact with model
+                   version to follow it, or subscribe to all activity on the registered model.'
+                description='Tooltip text message for a non-follower of a model version in
+                   model registry'
+              />
+            }
+          >
+            <i className='version-follow-icon fas fa-bell-slash'></i>&nbsp;
+            <FormattedMessage
+              defaultMessage='Not following'
+              description='Text for the not following status metadata in the model versions page'
+            />
+          </Tooltip>
+        )}
+      </Descriptions.Item>
+    );
+  }
+
+  // END-EDGE
   renderStageDropdown(modelVersion) {
     const { handleStageTransitionDropdownSelect } = this.props;
     return (
@@ -261,6 +339,21 @@ export class ModelVersionViewImpl extends React.Component {
       this.renderLastModifiedDescription(modelVersion.last_updated_timestamp),
       this.renderSourceRunDescription(),
     ];
+    // BEGIN-EDGE
+    if (
+      DatabricksUtils.modelRegistryEmailNotificationsEnabledInShard() &&
+      DatabricksUtils.modelRegistryEmailNotificationsEnabledForWorkspace()
+    ) {
+      return [
+        this.renderRegisteredTimestampDescription(modelVersion.creation_timestamp),
+        this.renderCreatorDescription(modelVersion.user_id),
+        this.renderVersionFollowDescriptionItem(),
+        this.renderLastModifiedDescription(modelVersion.last_updated_timestamp),
+        this.renderSourceRunDescription(),
+        this.renderStageDropdown(modelVersion),
+      ];
+    }
+    // END-EDGE
     return defaultOrder.filter((x) => x !== null);
   }
 
@@ -289,6 +382,12 @@ export class ModelVersionViewImpl extends React.Component {
   }
 
   renderDescriptionEditIcon() {
+    // BEGIN-EDGE
+    const { permission_level } = this.props.modelVersion;
+    if (!PermissionUtils.permissionLevelCanEdit(permission_level)) {
+      return null;
+    }
+    // END-EDGE
     return (
       <Button
         data-test-id='descriptionEditButton'
@@ -337,6 +436,22 @@ export class ModelVersionViewImpl extends React.Component {
     }
   }
 
+  // BEGIN-EDGE
+  renderConfigureInferenceButton() {
+    if (!DatabricksUtils.isGenerateBatchInferenceNotebookEnabled()) {
+      return null;
+    }
+    const { modelName, modelVersion } = this.props;
+    const { version, permission_level } = modelVersion;
+    return (
+      <ConfigureInferenceButton
+        modelName={modelName}
+        defaultVersion={version}
+        permissionLevel={permission_level}
+      />
+    );
+  }
+  // END-EDGE
   getPageHeader(title, breadcrumbs) {
     const menu = [
       {
@@ -354,12 +469,18 @@ export class ModelVersionViewImpl extends React.Component {
     return (
       <PageHeader title={title} breadcrumbs={breadcrumbs}>
         {!this.shouldHideDeleteOption() && <OverflowMenu menu={menu} />}
+        {/* BEGIN-EDGE */}
+        {this.renderConfigureInferenceButton()}
+        {/* END-EDGE */}
       </PageHeader>
     );
   }
 
   render() {
     const { modelName, modelVersion, tags, schema } = this.props;
+    // BEGIN-EDGE
+    const { activities, transitionRequests } = this.props;
+    // END-EDGE
     const { description } = modelVersion;
     const {
       isDeleteModalVisible,
@@ -423,6 +544,27 @@ export class ModelVersionViewImpl extends React.Component {
             showEditor={showDescriptionEditor}
           />
         </CollapsibleSection>
+        {/* BEGIN-EDGE */}
+        <CollapsibleSection
+          title={
+            <FormattedMessage
+              defaultMessage='Pending Requests'
+              description='Title text for the pending requests section on the model version
+                 view page'
+            />
+          }
+          showServerError
+          data-test-id='model-version-pending-requests-section'
+        >
+          <PendingRequestsTableContainer
+            currentStage={modelVersion.current_stage}
+            pendingRequests={transitionRequests}
+            permissionLevel={modelVersion.permission_level}
+            modelName={modelName}
+            version={modelVersion.version}
+          />
+        </CollapsibleSection>
+        {/* END-EDGE */}
         <div data-test-id='tags-section'>
           <CollapsibleSection
             title={
@@ -455,6 +597,24 @@ export class ModelVersionViewImpl extends React.Component {
         >
           <SchemaTable schema={schema} />
         </CollapsibleSection>
+        {/* BEGIN-EDGE */}
+        <CollapsibleSection
+          title={
+            <FormattedMessage
+              defaultMessage='Activities'
+              description='Title text for the activities section on the model versions view page'
+            />
+          }
+          data-test-id='model-version-activities-section'
+        >
+          <ModelActivitiesList
+            activities={activities}
+            onCreateComment={this.props.onCreateComment}
+            onEditComment={this.props.onEditComment}
+            onDeleteComment={this.props.onDeleteComment}
+          />
+        </CollapsibleSection>
+        {/* END-EDGE */}
         <Modal
           title={this.props.intl.formatMessage({
             defaultMessage: 'Delete Model Version',

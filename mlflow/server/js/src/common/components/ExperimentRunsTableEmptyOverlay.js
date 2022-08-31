@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 import { LoggingRunsDocUrl } from '../constants';
+// BEGIN-EDGE
+import { DatabricksLoggingRunsDocUrl } from '../constants-databricks';
+import DatabricksUtils from '../utils/DatabricksUtils';
+
+// END-EDGE
 import { FormattedMessage } from 'react-intl';
 
 /**
@@ -7,7 +12,13 @@ import { FormattedMessage } from 'react-intl';
  * empty.
  */
 export class ExperimentRunsTableEmptyOverlay extends Component {
-  getLearnMoreLinkUrl = () => LoggingRunsDocUrl;
+  // BEGIN-EDGE
+  getLearnMoreLinkUrl() {
+    const cloudProvider = DatabricksUtils.getCloudProvider();
+    return cloudProvider ? DatabricksLoggingRunsDocUrl[cloudProvider] : LoggingRunsDocUrl;
+  }
+  // END-EDGE
+  oss_getLearnMoreLinkUrl = () => LoggingRunsDocUrl;
 
   render() {
     const learnMoreLinkUrl = this.getLearnMoreLinkUrl();

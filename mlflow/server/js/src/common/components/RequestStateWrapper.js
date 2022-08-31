@@ -5,6 +5,9 @@ import { getApis } from '../../experiment-tracking/reducers/Reducers';
 import PropTypes from 'prop-types';
 import { Spinner } from './Spinner';
 import { ErrorCodes } from '../constants';
+// BEGIN-EDGE
+import { ReactInteractionHold, LoadingDescription } from '@databricks/web-shared-bundle/metrics';
+// END-EDGE
 
 export const DEFAULT_ERROR_MESSAGE = 'A request error occurred.';
 
@@ -25,6 +28,9 @@ export class RequestStateWrapper extends Component {
       PropTypes.element,
       PropTypes.arrayOf(PropTypes.element),
     ]),
+    // BEGIN-EDGE
+    description: PropTypes.oneOf(Object.values(LoadingDescription)),
+    // END-EDGE
   };
 
   static defaultProps = {
@@ -83,7 +89,21 @@ export class RequestStateWrapper extends Component {
     return customSpinner || <Spinner />;
   }
 
+  // BEGIN-EDGE
   render() {
+    const { shouldRender } = this.state;
+    const { description, requests } = this.props;
+    const isLoading = !shouldRender && requests.length > 0;
+
+    return (
+      <>
+        {this.getRenderedContent()}
+        <ReactInteractionHold loading={isLoading} description={description} />
+      </>
+    );
+  }
+  // END-EDGE
+  oss_render() {
     return this.getRenderedContent();
   }
 }

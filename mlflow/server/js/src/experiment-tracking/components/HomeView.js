@@ -10,9 +10,17 @@ import { NoExperimentView } from './NoExperimentView';
 import Utils from '../../common/utils/Utils';
 import { PageContainer } from '../../common/components/PageContainer';
 import Routes from '../routes';
+// BEGIN-EDGE
+import DatabricksUtils from '../../common/utils/DatabricksUtils';
+// END-EDGE
 
 // eslint-disable-next-line prefer-const
 let ExperimentPageComponent = ExperimentPage;
+// BEGIN-EDGE
+if (DatabricksUtils.getConf('databricks.fe.mlflow.newExperimentPage')) {
+  ExperimentPageComponent = React.lazy(() => import('./experiment-page/ExperimentPage'));
+}
+// END-EDGE
 
 export const getFirstActiveExperiment = (experiments) => {
   const sorted = experiments.concat().sort(Utils.compareExperiments);

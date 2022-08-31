@@ -12,6 +12,10 @@ import { Provider } from 'react-redux';
 import { mockRunInfo } from '../../experiment-tracking/utils/test-utils/ReduxStoreFixtures';
 import Routers from '../../experiment-tracking/routes';
 import { mountWithIntl } from '../../common/utils/TestUtils';
+// BEGIN-EDGE
+import { ModelVersionStatusIcons, PermissionLevels } from '../constants';
+import { Alert } from 'antd';
+// END-EDGE
 import { DesignSystemProvider } from '@databricks/design-system';
 
 describe('ModelVersionView', () => {
@@ -43,6 +47,13 @@ describe('ModelVersionView', () => {
         inputs: [],
         outputs: [],
       },
+      // BEGIN-EDGE
+      activities: [],
+      transitionRequests: [],
+      onCreateComment: jest.fn(),
+      onEditComment: jest.fn(),
+      onDeleteComment: jest.fn(),
+      // END-EDGE
     };
     minimalStoreRaw = {
       entities: {
@@ -77,6 +88,71 @@ describe('ModelVersionView', () => {
     expect(wrapper.length).toBe(1);
   });
 
+  // BEGIN-EDGE
+  // OSS does not have pending/failed registration states.
+  test('should display loading banner when model version is pending', () => {
+    const props = {
+      ...minimalProps,
+      modelVersion: mockModelVersionDetailed(
+        'Model A',
+        1,
+        Stages.NONE,
+        ModelVersionStatus.PENDING_REGISTRATION,
+      ),
+    };
+    wrapper = createComponentInstance(props);
+    expect(wrapper.find(Alert).length).toBe(1);
+    expect(wrapper.find(Alert).props().icon).toBe(
+      ModelVersionStatusIcons[ModelVersionStatus.PENDING_REGISTRATION],
+    );
+  });
+
+  test('should display error banner when model version failed to be registered', () => {
+    const props = {
+      ...minimalProps,
+      modelVersion: mockModelVersionDetailed(
+        'Model A',
+        1,
+        Stages.NONE,
+        ModelVersionStatus.FAILED_REGISTRATION,
+      ),
+    };
+    wrapper = createComponentInstance(props);
+    expect(wrapper.find(Alert).length).toBe(1);
+    expect(wrapper.find(Alert).props().icon).toBe(
+      ModelVersionStatusIcons[ModelVersionStatus.FAILED_REGISTRATION],
+    );
+  });
+
+  test('should render delete dropdown item when model version failed to be registered', () => {
+    const props = {
+      ...minimalProps,
+      modelVersion: mockModelVersionDetailed(
+        'Model A',
+        1,
+        Stages.NONE,
+        ModelVersionStatus.FAILED_REGISTRATION,
+      ),
+    };
+    wrapper = createComponentInstance(props);
+    expect(wrapper.find('button[data-test-id="overflow-menu-trigger"]').length).toBe(1);
+  });
+
+  test('should not render delete dropdown item when model version is pending registration', () => {
+    const props = {
+      ...minimalProps,
+      modelVersion: mockModelVersionDetailed(
+        'Model A',
+        1,
+        Stages.NONE,
+        ModelVersionStatus.PENDING_REGISTRATION,
+      ),
+    };
+    wrapper = createComponentInstance(props);
+    expect(wrapper.find('button[data-test-id="overflow-menu-trigger"]').length).toBe(0);
+  });
+
+  // END-EDGE
   test('should render delete dropdown item when model version is ready', () => {
     const props = {
       ...minimalProps,
@@ -135,6 +211,70 @@ describe('ModelVersionView', () => {
     }
   });
 
+  // BEGIN-EDGE
+  test('should render description edit button based on user permissions', () => {
+    // should render description edit button if user has edit permissions
+    const modelVersion = mockModelVersionDetailed(
+      'Model A',
+      1,
+      Stages.NONE,
+      ModelVersionStatus.READY,
+      [],
+      [],
+      PermissionLevels.CAN_EDIT,
+    );
+    const props = {
+      ...minimalProps,
+      modelVersion,
+    };
+    wrapper = createComponentInstance(props);
+    expect(wrapper.find('[data-test-id="descriptionEditButton"]').hostNodes().length).toBe(1);
+
+    // should not render description edit button if user does not have edit permissions
+    const readProps = {
+      ...minimalProps,
+      modelVersion: {
+        ...modelVersion,
+        permission_level: PermissionLevels.CAN_READ,
+      },
+    };
+    wrapper.setProps({
+      children: createComponentInstance(readProps),
+    });
+    expect(wrapper.find('[data-test-id="descriptionEditButton"]').length).toBe(0);
+  });
+
+  test('should render menu breadcrumb based on user permissions', () => {
+    // should render menu breadcrumb if user has manage permissions
+    const modelVersion = mockModelVersionDetailed(
+      'Model A',
+      1,
+      Stages.NONE,
+      ModelVersionStatus.READY,
+      [],
+      [],
+      PermissionLevels.CAN_MANAGE,
+    );
+    let props = {
+      ...minimalProps,
+      modelVersion: modelVersion,
+    };
+    wrapper = createComponentInstance(props);
+    expect(wrapper.find('button[data-test-id="overflow-menu-trigger"]').length).not.toBe(0);
+
+    // should not render menu breadcrumb if user does not have manage permissions
+    props = {
+      ...minimalProps,
+      modelVersion: {
+        ...modelVersion,
+        permission_level: PermissionLevels.CAN_EDIT,
+      },
+    };
+    wrapper = createComponentInstance(props);
+    expect(wrapper.find('button[data-test-id="overflow-menu-trigger"]').length).toBe(0);
+  });
+
+  // END-EDGE
   test('run link renders if set', () => {
     const runLink =
       'https://other.mlflow.hosted.instance.com/experiments/18722387/' +
@@ -145,6 +285,10 @@ describe('ModelVersionView', () => {
       Stages.NONE,
       ModelVersionStatus.READY,
       [],
+      // BEGIN-EDGE
+      [],
+      'CAN_MANAGE',
+      // END-EDGE
       runLink,
     );
     const runId = 'somerunid';
@@ -202,6 +346,10 @@ describe('ModelVersionView', () => {
         Stages.NONE,
         ModelVersionStatus.READY,
         [],
+        // BEGIN-EDGE
+        [],
+        'CAN_MANAGE',
+        // END-EDGE
         null,
         'b99a0fc567ae4d32994392c800c0b6ce',
         null,

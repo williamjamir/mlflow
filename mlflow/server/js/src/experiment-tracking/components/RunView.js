@@ -16,6 +16,11 @@ import { RenameRunModal } from './modals/RenameRunModal';
 import { EditableTagsTableView } from '../../common/components/EditableTagsTableView';
 import { Descriptions, message } from 'antd';
 import { Button } from '@databricks/design-system';
+// BEGIN-EDGE
+import DatabricksUtils from '../../common/utils/DatabricksUtils';
+import { Tooltip } from 'antd';
+import { UniverseFrontendApis } from '../../common/utils/UniverseFrontendApis';
+// END-EDGE
 import { CollapsibleSection } from '../../common/components/CollapsibleSection';
 import { EditableNote } from '../../common/components/EditableNote';
 import { setTagApi, deleteTagApi } from '../actions';
@@ -51,6 +56,14 @@ export class RunViewImpl extends Component {
 
   formRef = createRef();
 
+  // BEGIN-EDGE
+  constructor(props) {
+    super(props);
+    this.showCloneRunModal = this.showCloneRunModal.bind(this);
+    this.handleAddTag = this.handleAddTag.bind(this);
+  }
+
+  // END-EDGE
   componentDidMount() {
     const pageTitle = `${this.props.runDisplayName} - MLflow Run`;
     Utils.updatePageTitle(pageTitle);
@@ -86,6 +99,12 @@ export class RunViewImpl extends Component {
           />
         );
         message.error(errorMessage);
+        // BEGIN-EDGE
+        Utils.propagateErrorToParentFrame({
+          errorMessage: ex.renderHttpError(),
+          error: Error(ex.renderHttpError()),
+        });
+        // END-EDGE
       });
   };
 
@@ -101,6 +120,12 @@ export class RunViewImpl extends Component {
         />
       );
       message.error(errorMessage);
+      // BEGIN-EDGE
+      Utils.propagateErrorToParentFrame({
+        errorMessage: ex.renderHttpError(),
+        error: Error(ex.renderHttpError()),
+      });
+      // END-EDGE
     });
   };
 
@@ -116,6 +141,12 @@ export class RunViewImpl extends Component {
         />
       );
       message.error(errorMessage);
+      // BEGIN-EDGE
+      Utils.propagateErrorToParentFrame({
+        errorMessage: ex.renderHttpError(),
+        error: Error(ex.renderHttpError()),
+      });
+      // END-EDGE
     });
   };
 
@@ -187,7 +218,76 @@ export class RunViewImpl extends Component {
     return status !== 'RUNNING' ? status : 'UNFINISHED';
   }
 
-  handleCollapseChange() {}
+  // BEGIN-EDGE
+  renderCloneRunButton() {
+    if (DatabricksUtils.isCloneRunUIEnabled()) {
+      const hasNotebookId = Utils.getNotebookId(this.props.tags) !== undefined;
+      const hasNotebookRevisionId = !Number.isNaN(
+        parseInt(Utils.getNotebookRevisionId(this.props.tags), 10),
+      );
+      const hasClusterId = Utils.getClusterId(this.props.tags) !== undefined;
+      const shouldShowCloneRunButton = hasNotebookId && hasNotebookRevisionId && hasClusterId;
+      const innerButton = (
+        <Button
+          type='primary'
+          className='mlflow-cloneRun-button'
+          disabled={!shouldShowCloneRunButton}
+          onClick={this.showCloneRunModal}
+          style={{ marginBottom: '4px' }}
+        >
+          <FormattedMessage
+            defaultMessage='Reproduce Run'
+            // eslint-disable-next-line max-len
+            description='A button label to reproduce the experiment run with the same params and data to reproduce a constant run'
+          />
+        </Button>
+      );
+      const cloneRunButton = !shouldShowCloneRunButton ? (
+        <Tooltip
+          className='mlflow-cloneRun-disabled-tooltip'
+          title={this.props.intl.formatMessage({
+            defaultMessage:
+              // eslint-disable-next-line max-len
+              'Can only reproduce finished runs that have associated Databricks cluster and notebook revision metadata',
+            description:
+              // eslint-disable-next-line max-len
+              'Tooltip message for more information on the reproduce runs button for the experiment run',
+          })}
+        >
+          {innerButton}
+        </Tooltip>
+      ) : (
+        innerButton
+      );
+      return cloneRunButton;
+    }
+    return undefined;
+  }
+
+  // This method fires a message from the MLflow UI
+  //   (embedded in an iframe in the Databricks UI) on the window.
+  // This method is listened for by the Databricks UI.
+  showCloneRunModal() {
+    UniverseFrontendApis.showCloneRunModal({
+      notebookId: Utils.getNotebookId(this.props.tags),
+      notebookName: Utils.getSourceName(this.props.tags),
+      timestamp: parseInt(Utils.getNotebookRevisionId(this.props.tags), 10),
+      clusterSpecJson: Utils.getClusterSpecJson(this.props.tags),
+      clusterLibrariesJson: Utils.getClusterLibrariesJson(this.props.tags),
+      clusterId: Utils.getClusterId(this.props.tags),
+    });
+  }
+
+  handleCollapseChange(sectionName) {
+    return (antdArray) => {
+      const activeKey = '1'; // AntD uses this to indicate whether it's open or closed
+      const isSectionOpen = antdArray.includes(activeKey);
+      const eventName = `${sectionName}Section${isSectionOpen ? 'Opened' : 'Closed'}`;
+      DatabricksUtils.logClientSideEvent('MlflowRunsPageCollapsibleToggle', eventName);
+    };
+  }
+  // END-EDGE
+  oss_handleCollapseChange() {}
 
   renderSectionTitle(title, count = 0) {
     if (count === 0) {
@@ -242,6 +342,17 @@ export class RunViewImpl extends Component {
       defaultMessage: 'Plot chart',
       description: 'Link to the view the plot chart for the experiment run',
     });
+    // BEGIN-EDGE
+    breadcrumbs.unshift(
+      <Link to={Routes.experimentsObservatoryRoute} data-test-id='experiment-observatory-link'>
+        <FormattedMessage
+          defaultMessage='Experiments'
+          description='Breadcrumb nav item to link to the list of experiments page on runs page'
+        />
+      </Link>,
+    );
+    feedbackForm = 'https://databricks.sjc1.qualtrics.com/jfe/form/SV_ai8FcHsKsPQ3TH8';
+    // END-EDGE
 
     return (
       <div className='RunView'>
@@ -272,6 +383,9 @@ export class RunViewImpl extends Component {
             runName={this.props.runName}
             isOpen={this.state.showRunRenameModal}
           />
+          {/* BEGIN-EDGE */}
+          <div>{this.renderCloneRunButton()}</div>
+          {/* END-EDGE */}
         </div>
 
         {/* Metadata List */}
@@ -341,6 +455,18 @@ export class RunViewImpl extends Component {
               {duration}
             </Descriptions.Item>
           ) : null}
+          {/* BEGIN-EDGE */}
+          {Utils.isInDatabricksRepo(tags) ? (
+            <Descriptions.Item
+              label={this.props.intl.formatMessage({
+                defaultMessage: 'Git Source',
+                description: 'Label for displaying the Databricks Repo Git Lineage',
+              })}
+            >
+              {Utils.renderVersion(tags, false)}
+            </Descriptions.Item>
+          ) : null}
+          {/* END-EDGE */}
           <Descriptions.Item
             label={this.props.intl.formatMessage({
               defaultMessage: 'Status',

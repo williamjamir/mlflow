@@ -1,0 +1,229 @@
+.serving-main-panel {
+  display: flex;
+  flex-wrap: nowrap;
+  margin-bottom: 24px;
+}
+
+.serving-spinner {
+  height: 400px;
+}
+  
+.serving-versions-panel {
+  min-width: 220px;
+  max-width: 280px;
+  width: fit-content;
+  border: 1px solid #e6e8ea;
+}
+
+.serving-version-details-panel {
+  padding: 16px;
+  border-top: 1px solid #e6e8ea;
+  border-bottom: 1px solid #e6e8ea;
+  border-right: 1px solid #e6e8ea;
+  flex: 1;
+  overflow: auto;
+}
+
+.serving-version-compute-config-container-wrapper {
+  display: inline-flex;
+  flex-direction: column;
+  align-content: space-between;
+  margin-top: 16px;
+}
+
+.serving-version-compute-config-container {
+  padding: 16px;
+  border-radius: 5px;
+  border: 1px solid #e6e8ea;
+  display: inline-flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.serving-version-compute-config-row {
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  overflow: auto;
+}
+
+.serving-version-compute-config-container-child {
+  padding: 8px;
+  overflow: auto;
+}
+
+.break {
+  flex-basis: 100%;
+  height: 0;
+}
+
+.serving-version-container {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 10px 8px 10px;
+  border-bottom: 1px solid #e6e8ea;
+  height: 68px;
+  cursor: pointer;
+}
+
+.serving-version-container.selected {
+  background-color: #eee;
+}
+
+.model-details-link-button {
+  padding: 0px 3px 0px 3px;
+  border: none;
+  height: auto;
+}
+
+.serving-version-model-detail-cell {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 8px;
+  border-bottom: 1px;
+}
+
+.serving-version-model-detail-cell-content {
+  padding-top: 10px;
+  width: 80%;
+  text-align: center;
+}
+
+.serving-version-status-container {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 8px;
+}
+
+.serving-version-container:hover {
+  /* outline: 1px solid black; */
+  box-shadow: inset 1px 0 0 #dadce0, inset -1px 0 0 #dadce0, 0 1px 2px 0 rgba(60, 64, 67, 0.3), 0 1px 3px 1px rgba(60, 64, 67, 0.15);
+}
+
+.serving-stop-link {
+  color: #017fcb;
+  cursor: pointer;
+}
+
+.serving-version-status-indicator {
+  /* Float the status to the right. */
+  margin-left: auto;
+}
+
+.serving-model-url-container {
+  margin-bottom: 20px;
+}
+
+.serving-request-response-container {
+  display: flex;
+}
+
+.serving-request-container {
+  margin-right: 8px;
+  width: 50%;
+}
+.serving-response-container {
+  margin-left: 8px;
+  width: 50%;
+}
+
+.serving-request-textarea {
+  height: 150px; 
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.serving-response-textarea {
+  height: 150px; 
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.serving-response-textarea.failed {
+  background-color: #ffecec;
+}
+
+.serving-logs-textarea {
+  height: 400px;
+  width: 100%;
+}
+
+.serving-build-logs-textarea {
+  height: 400px;
+  width: 100%;
+  margin-top: 16px;
+}
+
+.serving-call-model-container {
+  margin-bottom: 16px;
+}
+
+.fa-spin.icon-pending {
+  color: #eba01e;
+}
+
+.pending-text {
+  color: #808080;
+  font-weight: 500;
+}
+
+.error-text {
+  color: #f05e57;
+  font-weight: 500;
+}
+
+.serving-tooltip .ant-popover-inner-content {
+  background-color: rgba(0, 0, 0, 0.75);
+  color: white;
+  border-radius: 4px;
+}
+
+.serving-tooltip-content a, .serving-tooltip-content a:visited {
+  color: #64C3FF;
+}
+.serving-tooltip-content a:hover, .serving-tooltip-content a:focus, .serving-tooltip-content a:active {
+  color: #64C3FF;
+  text-decoration: underline;
+}
+
+.serving-tooltip.ant-popover-placement-bottom > .ant-popover-content > .ant-popover-arrow {
+  border-top-color: rgba(0, 0, 0, 0.75);
+  border-left-color: rgba(0, 0, 0, 0.75);
+}
+
+.show-example-button {
+  margin-left: 5px
+}
+
+/* Note @alexcheng: pretty sure example-message no longer works as expected */
+.example-message .ant-popover-inner-content {
+  background-color: rgba(0, 0, 0, 0.75);
+  color: white;
+  border-radius: 4px;
+}
+
+.example-message-content a, .example-message-content a:visited {
+  color: #64C3FF;
+}
+.example-message-content a:hover, .example-message-content a:focus, .example-message-content a:active {
+  color: #64C3FF;
+  text-decoration: underline;
+}
+
+.example-message.ant-popover-placement-bottom > .ant-popover-content > .ant-popover-arrow {
+  border-top-color: rgba(0, 0, 0, 0.75);
+  border-left-color: rgba(0, 0, 0, 0.75);
+}
+
+.version-tabs .ant-tabs-tab {
+  min-width: 80px;
+}
+
+.compute-config-values {
+  font-weight: bold;
+}
+
+.update-compute-config-link {
+  padding: 0;
+}

@@ -15,6 +15,9 @@ import configureStore from 'redux-mock-store';
 import promiseMiddleware from 'redux-promise-middleware';
 import thunk from 'redux-thunk';
 import Utils from '../../common/utils/Utils';
+// BEGIN-EDGE
+import DatabricksUtils from '../../common/utils/DatabricksUtils';
+// END-EDGE
 
 const { Text } = Typography;
 
@@ -331,4 +334,124 @@ describe('ArtifactView', () => {
     expect(wrapper.find('.model-version-link')).toHaveLength(0);
     expect(wrapper.find('.artifact-info-link')).toHaveLength(1);
   });
+  // BEGIN-EDGE
+
+  test('should expand parent directory node when child path specified in url', () => {
+    const props = { ...minimalProps, initialSelectedArtifactPath: 'dir1/file2' };
+    wrapper = getWrapper(minimalStore, props);
+    // dir1/file2 is specified, so dir1 should be expanded. We should see 5 nodes.
+    expect(wrapper.find('NodeHeader')).toHaveLength(5);
+  });
+
+  test('should expand directory node when its path is specified in url', () => {
+    const props = { ...minimalProps, initialSelectedArtifactPath: 'dir1' };
+    wrapper = getWrapper(minimalStore, props);
+    expect(wrapper.find('NodeHeader')).toHaveLength(5);
+  });
+
+  test('should not select or expand any node when invalid artifactId specified in url', () => {
+    const props = { ...minimalProps, initialSelectedArtifactPath: 'dir1/hahahaha' };
+    wrapper = getWrapper(minimalStore, props);
+    expect(wrapper.find('NodeHeader')).toHaveLength(3);
+    expect(
+      wrapper.findWhere((elem) => elem.prop('node') && elem.prop('node')['active']).exists(),
+    ).toBeFalsy();
+  });
+
+  test('should render register model button when model path specified in url', () => {
+    expect(Utils.isModelRegistryEnabled()).toEqual(true);
+    const props = { ...minimalProps, initialSelectedArtifactPath: 'dir2' };
+    wrapper = getWrapper(minimalStore, props);
+    expect(wrapper.find('.artifact-info-path').html()).toContain('test_root/dir2');
+    expect(wrapper.find('.register-model-btn-wrapper')).toHaveLength(1);
+  });
+
+  test('should expand subdirectories correctly when specified in url', () => {
+    const rootNode = new ArtifactNode(true, undefined);
+    rootNode.isLoaded = true;
+    const file1 = new ArtifactNode(false, {
+      path: 'dir1/dir3/file1',
+      is_dir: false,
+      file_size: '67',
+    });
+    const dir3 = new ArtifactNode(false, { path: 'dir1/dir3', is_dir: true });
+    dir3.setChildren([file1.fileInfo]);
+    const dir1 = new ArtifactNode(false, { path: 'dir1', is_dir: true });
+    dir1.children = { dir3 };
+    dir1.isLoaded = true;
+    const dir2 = new ArtifactNode(false, { path: 'dir2', is_dir: true });
+    rootNode.children = { dir1, dir2 };
+
+    const props = {
+      ...minimalProps,
+      artifactNode: rootNode,
+      initialSelectedArtifactPath: 'dir1/dir3',
+    };
+    const minStore = getMockStore(rootNode);
+    wrapper = getWrapper(minStore, props);
+    expect(wrapper.find('NodeHeader')).toHaveLength(4);
+  });
+
+  test('should render model version link with orgID if in iframe', () => {
+    expect(Utils.isModelRegistryEnabled()).toEqual(true);
+
+    const modelVersionsBySource = {
+      'test_root/dir1': [
+        mockModelVersionDetailed('Model A', 1, Stages.PRODUCTION, ModelVersionStatus.READY),
+      ],
+    };
+    const props = { ...minimalProps, modelVersionsBySource };
+    const entities = {
+      ...minimalEntities,
+      modelVersionsByModel: {
+        'Model A': {
+          1: {
+            ...mockModelVersionDetailed('Model A', 1, Stages.PRODUCTION, ModelVersionStatus.READY),
+            source: 'test_root/dir1',
+          },
+        },
+      },
+    };
+    const store = mockStore({
+      entities: entities,
+    });
+
+    const originalParent = window.parent;
+    delete window.parent;
+    const mockedParent = {
+      ...originalParent,
+      location: {
+        href: 'https://shard.dev.azuredatabricks.net/?o=1111111111111#mlflow/experiments/info',
+      },
+    };
+    window.parent = mockedParent;
+    window.isTestingIframe = true;
+
+    wrapper = getWrapper(store, props);
+    const modelElement = wrapper.find('NodeHeader').at(1);
+    modelElement.simulate('click');
+    expect(wrapper.find('.artifact-info-path').html()).toContain('test_root/dir1');
+    expect(wrapper.find('.model-version-info')).toHaveLength(1);
+    expect(wrapper.find('.model-version-link')).toHaveLength(1);
+    expect(wrapper.find('.model-version-link').html()).toContain('o=1111111111111');
+    expect(wrapper.find('.model-version-link').props().title).toEqual('Model A, v1');
+    expect(wrapper.find('.register-model-btn-wrapper')).toHaveLength(0);
+    window.isTestingIframe = undefined;
+    window.parent = originalParent;
+  });
+
+  test('should disable artifact download button when artifactDownloadEnabled returns false', () => {
+    const disabledSpy = jest
+      .spyOn(DatabricksUtils, 'artifactDownloadEnabled')
+      .mockImplementation(() => false);
+    expect(DatabricksUtils.artifactDownloadEnabled()).toEqual(false);
+
+    wrapper = getWrapper(minimalStore, minimalProps);
+    const file1Element = wrapper.find('NodeHeader').at(0);
+    file1Element.simulate('click');
+
+    expect(wrapper.find('.artifact-info-link-disabled')).toHaveLength(1);
+    disabledSpy.mockRestore();
+  });
+  // END-EDGE
 });

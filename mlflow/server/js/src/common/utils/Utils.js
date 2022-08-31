@@ -13,6 +13,12 @@ import _ from 'lodash';
 import { ErrorCodes, SupportPageUrl } from '../constants';
 import { FormattedMessage } from 'react-intl';
 import { ErrorWrapper } from './ErrorWrapper';
+// BEGIN-EDGE
+import DatabricksUtils from './DatabricksUtils';
+import { DatabricksSupportPageUrl } from '../constants-databricks';
+import { CloudProvider } from '../../shared/constants-databricks';
+import { UniverseFrontendApis } from './UniverseFrontendApis';
+// END-EDGE
 
 message.config({
   maxCount: 1,
@@ -45,6 +51,22 @@ class Utils {
   static sourceNameTag = 'mlflow.source.name';
   static sourceTypeTag = 'mlflow.source.type';
   static gitCommitTag = 'mlflow.source.git.commit';
+  // BEGIN-EDGE
+  static mlflowDatabricksGitUrlTag = 'mlflow.databricks.gitRepoUrl';
+  static mlflowDatabricksGitCommitTag = 'mlflow.databricks.gitRepoCommit';
+  static mlflowDatabricksGitProviderTag = 'mlflow.databricks.gitRepoProvider';
+  static mlflowDatabricksGitRelativePathTag = 'mlflow.databricks.gitRepoRelativePath';
+  static mlflowDatabricksGitStatusTag = 'mlflow.databricks.gitRepoStatus';
+  static gitProviders = {
+    GITHUB: 'gitHub',
+    GITHUB_ENTERPRISE: 'gitHubEnterprise',
+    BB_CLOUD: 'bitbucketCloud',
+    BB_SERVER: 'bitbucketServer',
+    AZURE_DEV_OPS: 'azureDevOpsServices',
+    GITLAB: 'gitLab',
+    GITLAB_ENTERPRISE_EDITION: 'gitLabEnterpriseEdition',
+  };
+  // END-EDGE
   static entryPointTag = 'mlflow.project.entryPoint';
   static backendTag = 'mlflow.project.backend';
   static userTag = 'mlflow.user';
@@ -350,6 +372,25 @@ class Utils {
     }
     return queryParams;
   }
+  // BEGIN-EDGE
+  /**
+   * Check if the given workspaceId matches the current workspaceId.
+   * @param workspaceId
+   * @returns {boolean}
+   */
+  static isCurrentWorkspace(workspaceId) {
+    if (!workspaceId) {
+      return true;
+    }
+    const currentWorkspaceId = DatabricksUtils.getCurrentWorkspaceId();
+    // ST shards: there is only one workspace so this must be the current workspace
+    if (!currentWorkspaceId || currentWorkspaceId.toString() === '0') {
+      return true;
+    }
+    // MT shards: compare the workspace id with the current workspace id
+    return currentWorkspaceId.toString() === workspaceId.toString();
+  }
+  // END-EDGE
 
   static getDefaultJobRunName(jobId, runId, workspaceId = null) {
     if (!jobId) {
@@ -364,6 +405,21 @@ class Utils {
     }
     return name;
   }
+  // BEGIN-EDGE
+  static getDefaultPipelineUpdateName(pipelineId, updateId = null, workspaceId = null) {
+    if (!pipelineId) {
+      return '-';
+    }
+    let name = `pipeline ${pipelineId}`;
+    if (updateId) {
+      name = `update ${updateId} of ` + name;
+    }
+    if (workspaceId) {
+      name = `workspace ${workspaceId}: ` + name;
+    }
+    return name;
+  }
+  // END-EDGE
 
   static getDefaultNotebookRevisionName(notebookId, revisionId, workspaceId = null) {
     if (!notebookId) {
@@ -421,6 +477,53 @@ class Utils {
         </a>
       );
     }
+    // BEGIN-EDGE
+    const sourceType = Utils.getSourceType(tags);
+    if (sourceType === 'NOTEBOOK') {
+      const revisionId = Utils.getNotebookRevisionId(tags);
+      const notebookId = Utils.getNotebookId(tags);
+      const workspaceIdTag = 'mlflow.databricks.workspaceID';
+      const workspaceId = tags && tags[workspaceIdTag] && tags[workspaceIdTag].value;
+      if (Utils.isCurrentWorkspace(workspaceId)) {
+        return this.renderNotebookSource(
+          queryParams,
+          notebookId,
+          revisionId,
+          runUuid,
+          sourceName,
+          null,
+        );
+      } else {
+        const workspaceUrlTag = 'mlflow.databricks.workspaceURL';
+        const workspaceUrl = tags && tags[workspaceUrlTag] && tags[workspaceUrlTag].value;
+        const notebookQueryParams = Utils.addQueryParams(queryParams, { o: workspaceId });
+        return this.renderNotebookSource(
+          notebookQueryParams,
+          notebookId,
+          revisionId,
+          runUuid,
+          sourceName,
+          workspaceUrl,
+        );
+      }
+    }
+    if (sourceType === 'JOB') {
+      const jobIdTag = 'mlflow.databricks.jobID';
+      const jobRunIdTag = 'mlflow.databricks.jobRunID';
+      const jobId = tags && tags[jobIdTag] && tags[jobIdTag].value;
+      const jobRunId = tags && tags[jobRunIdTag] && tags[jobRunIdTag].value;
+      const workspaceIdTag = 'mlflow.databricks.workspaceID';
+      const workspaceId = tags && tags[workspaceIdTag] && tags[workspaceIdTag].value;
+      if (Utils.isCurrentWorkspace(workspaceId)) {
+        return this.renderJobSource(queryParams, jobId, jobRunId, res, null);
+      } else {
+        const workspaceUrlTag = 'mlflow.databricks.workspaceURL';
+        const workspaceUrl = tags && tags[workspaceUrlTag] && tags[workspaceUrlTag].value;
+        const jobQueryParams = Utils.addQueryParams(queryParams, { o: workspaceId });
+        return this.renderJobSource(jobQueryParams, jobId, jobRunId, res, workspaceUrl);
+      }
+    }
+    // END-EDGE
     return res;
   }
 
@@ -499,6 +602,40 @@ class Utils {
       return name;
     }
   }
+  // BEGIN-EDGE
+  /**
+   * Renders the DLT pipeline source name and entry point into an HTML element. Used for display.
+   * updateId is an optional parameter. If left null, the URL automatically redirects to the
+   * latest pipeline update.
+   */
+  static renderPipelineSource(
+    queryParams,
+    pipelineId,
+    pipelineName,
+    updateId = null,
+    workspaceUrl = null,
+    nameOverride = null,
+  ) {
+    const reformatPipelineName =
+      pipelineName || Utils.getDefaultPipelineUpdateName(pipelineId, updateId);
+    const name = nameOverride || reformatPipelineName;
+
+    if (pipelineId) {
+      let url = Utils.setQueryParams(workspaceUrl || window.location.origin, queryParams);
+      url += `#joblist/pipelines/${pipelineId}`;
+      if (updateId) {
+        url += `/updates/${updateId}`;
+      }
+      return (
+        <a title={reformatPipelineName} href={url} target='_top'>
+          {name}
+        </a>
+      );
+    } else {
+      return name;
+    }
+  }
+  // END-EDGE
 
   /**
    * Returns an svg with some styling applied.
@@ -596,6 +733,40 @@ class Utils {
     return '';
   }
 
+  // BEGIN-EDGE
+  static getDatabricksGitUrl(runTags) {
+    const gitUrl = runTags[Utils.mlflowDatabricksGitUrlTag];
+    if (gitUrl) {
+      return gitUrl.value;
+    }
+    return '';
+  }
+
+  static getDatabricksGitProvider(runTags) {
+    const gitProvider = runTags[Utils.mlflowDatabricksGitProviderTag];
+    if (gitProvider) {
+      return gitProvider.value;
+    }
+    return '';
+  }
+
+  static getDatabricksGitCommit(runTags) {
+    const commit = runTags[Utils.mlflowDatabricksGitCommitTag];
+    if (commit) {
+      return commit.value;
+    }
+    return '';
+  }
+
+  static getDatabricksGitRelativePath(runTags) {
+    const relativePath = runTags[Utils.mlflowDatabricksGitRelativePathTag];
+    if (relativePath) {
+      return relativePath.value;
+    }
+    return '';
+  }
+
+  // END-EDGE
   static getSourceType(runTags) {
     const sourceTypeTag = runTags[Utils.sourceTypeTag];
     if (sourceTypeTag) {
@@ -657,8 +828,14 @@ class Utils {
     const sourceVersion = Utils.getSourceVersion(tags);
     const sourceName = Utils.getSourceName(tags);
     const sourceType = Utils.getSourceType(tags);
+    // BEGIN-EDGE
+    const databricksRepoGitContext = Utils.databricksRepoContext(tags);
+    // END-EDGE
     // prettier-ignore
     return Utils.renderSourceVersion(
+      // BEGIN-EDGE
+      databricksRepoGitContext,
+      // END-EDGE
       sourceVersion,
       sourceName,
       sourceType,
@@ -666,13 +843,107 @@ class Utils {
     );
   }
 
+  // BEGIN-EDGE
+  static databricksRepoContext(tags) {
+    // If the GOC is disabled return false for isInDatabricksRepo;
+    if (!DatabricksUtils.isMlflowDatabricksGitLineageEnabled()) {
+      return { isInDatabricksRepo: false };
+    } else {
+      return {
+        isInDatabricksRepo: Utils.isInDatabricksRepo(tags),
+        url: Utils.getDatabricksGitUrl(tags),
+        commit: Utils.getDatabricksGitCommit(tags),
+        relativePath: Utils.getDatabricksGitRelativePath(tags),
+        provider: Utils.getDatabricksGitProvider(tags),
+      };
+    }
+  }
+
+  /**
+   * Checks whether the logged run captured a remote git repository's lineage.
+   *
+   * If 'mlflow.databricks.gitRepoUrl' and 'mlflow.databricks.gitRepoProvider' run tags are set,
+   * then we assume the run was logged from a git repo.
+   */
+  static isInDatabricksRepo(tags) {
+    // TODO: ML-22623 Use Jobs-Repos logic for generating provider specific url.
+    return (
+      tags[Utils.mlflowDatabricksGitUrlTag] !== undefined &&
+      tags[Utils.mlflowDatabricksGitProviderTag] !== undefined
+    );
+  }
+
+  static getDatabricksRepoNotebookUrl(databricksRepoGitContext) {
+    // TODO: ML-22623 Use Jobs-Repos logic for generating provider specific url.
+    switch (databricksRepoGitContext.provider) {
+      case Utils.gitProviders.GITHUB:
+      case Utils.gitProviders.GITHUB_ENTERPRISE:
+      case Utils.gitProviders.GITLAB:
+      case Utils.gitProviders.GITLAB_ENTERPRISE_EDITION:
+        return (
+          databricksRepoGitContext.url +
+          '/blob/' +
+          databricksRepoGitContext.commit +
+          '/' +
+          databricksRepoGitContext.relativePath +
+          '.py'
+        );
+      case Utils.gitProviders.BB_CLOUD:
+      case Utils.gitProviders.BB_SERVER:
+        return (
+          databricksRepoGitContext.url +
+          '/src/' +
+          databricksRepoGitContext.commit +
+          '/' +
+          databricksRepoGitContext.relativePath +
+          '.py'
+        );
+      case Utils.gitProviders.AZURE_DEV_OPS:
+        return (
+          databricksRepoGitContext.url +
+          '?path=' +
+          '/' +
+          databricksRepoGitContext.relativePath +
+          '.py' +
+          '&version=' +
+          databricksRepoGitContext.commit
+        );
+      default:
+        return '';
+    }
+  }
+
+  static renderDatabricksRepoVersion(databricksRepoGitContext) {
+    const url = Utils.getDatabricksRepoNotebookUrl(databricksRepoGitContext);
+    const content =
+      Utils.baseName(databricksRepoGitContext.relativePath) +
+      // TODO: ML-22623 Use Jobs-Repos logic for generating provider specific url.
+      '.py' +
+      '@' +
+      databricksRepoGitContext.commit.substring(0, 6);
+    return (
+      <a href={url} target='_top'>
+        {content}
+      </a>
+    );
+  }
+
+  // END-EDGE
   // prettier-ignore
   static renderSourceVersion(
+    // BEGIN-EDGE
+    databricksRepoGitContext,
+    // END-EDGE
     sourceVersion,
     sourceName,
     sourceType,
     shortVersion = true,
   ) {
+    // BEGIN-EDGE
+    if (databricksRepoGitContext.isInDatabricksRepo) {
+      return Utils.renderDatabricksRepoVersion(databricksRepoGitContext);
+    }
+    // END-EDGE
     if (sourceVersion) {
       const versionString = shortVersion ? sourceVersion.substring(0, 6) : sourceVersion;
       if (sourceType === 'PROJECT') {
@@ -930,15 +1201,41 @@ class Utils {
     // prettier-ignore
     e,
     passErrorToParentFrame = false,
+    // BEGIN-EDGE
+    exceptionService = 'mlflow',
+    // END-EDGE
   ) {
     console.error(e);
     if (typeof e === 'string') {
       message.error(e);
+      // BEGIN-EDGE
+      Utils.propagateErrorToParentFrame({
+        errorMessage: e,
+        error: Error(e),
+        jsExceptionService: exceptionService,
+      });
+      // END-EDGE
     } else if (e instanceof ErrorWrapper) {
       // not all error is wrapped by ErrorWrapper
       message.error(e.renderHttpError());
+      // BEGIN-EDGE
+      Utils.propagateErrorToParentFrame({
+        errorMessage: e.renderHttpError(),
+        error: Error(e.renderHttpError()),
+        jsExceptionService: exceptionService,
+      });
+      // END-EDGE
       // eslint-disable-next-line no-empty
     } else {
+      // BEGIN-EDGE
+      // Propagate all errors that are not wrapped in
+      // ErrorWrapper so we can track and fix them
+      Utils.propagateErrorToParentFrame({
+        errorMessage: `[Unknown error] ${e?.toString() ?? 'Empty'}`,
+        error: Error(e),
+        jsExceptionService: exceptionService,
+      });
+      // END-EDGE
     }
   }
 
@@ -1004,12 +1301,27 @@ class Utils {
     return idToNames;
   };
 
+  // BEGIN-EDGE
   static isModelRegistryEnabled() {
+    // eslint-disable-next-line no-restricted-globals
+    const { isModelRegistryEnabledInCurrentWorkspace } = top.settings || {};
+    // Only return false when it's set explicitly to a boolean false
+    return isModelRegistryEnabledInCurrentWorkspace !== false;
+  }
+
+  // END-EDGE
+  static oss_isModelRegistryEnabled() {
     return true;
   }
 
   // eslint-disable-next-line prettier/prettier
   static updatePageTitle(title) {
+    // BEGIN-EDGE
+    UniverseFrontendApis.updateTitle({
+      // Please keep this type name in sync with PostMessage.js
+      title,
+    });
+    // END-EDGE
   }
 
   /**
@@ -1052,7 +1364,16 @@ class Utils {
     return aId.localeCompare(bId);
   }
 
-  static getSupportPageUrl = () => SupportPageUrl;
+  static oss_getSupportPageUrl = () => SupportPageUrl;
+  // BEGIN-EDGE
+  static getSupportPageUrl = () => {
+    const cloud = DatabricksUtils.getCloudProvider();
+    if (Object.keys(CloudProvider).includes(cloud)) {
+      return DatabricksSupportPageUrl[cloud];
+    }
+    return SupportPageUrl;
+  };
+  // END-EDGE
 
   static getIframeCorrectedRoute(route) {
     if (window.self !== window.top || window.isTestingIframe) {
@@ -1073,6 +1394,39 @@ class Utils {
       return false;
     }
   }
+  // BEGIN-EDGE
+  // In order to leverage webapp's JS exception logging, we pass errors from the MLflow iframe to
+  // the parent frame, which handles logging to usage logging for us. See go/js-exception-triage for
+  // details.
+  // NB: error must be an Error instance, not an ErrorWrapper instance
+  static propagateErrorToParentFrame({
+    errorMessage,
+    error,
+    source = null,
+    lineno = null,
+    colno = null,
+    showErrorToUser = false,
+    jsExceptionService = 'mlflow',
+  }) {
+    // Opening an mlflow link within the iframe into a new tab removes the iframe.
+    // We only want to call window.top.onerror if it's accessible
+    // (ie. MLflow UI is within the iframe).
+    if (window.top && window.top.onerror) {
+      // ML-13056: Use webapp's error handler to report MLflow UI errors to Sentry.
+      if (error) {
+        const erCopy = error;
+        erCopy.isMlflowUiError = true;
+      }
+      const messageCopy = errorMessage
+        ? 'MLflow UI Error: ' + errorMessage.slice()
+        : 'Mlflow UI Error';
+      window.top.onerror(messageCopy, source, lineno, colno, error, {
+        showErrorToUser: showErrorToUser,
+        jsExceptionService: jsExceptionService,
+      });
+    }
+  }
+  // END-EDGE
 }
 
 export default Utils;

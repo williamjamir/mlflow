@@ -15,6 +15,9 @@ import Utils from '../../common/utils/Utils';
 import { getUUID } from '../../common/utils/ActionUtils';
 import './ArtifactPage.css';
 import { getLoggedModelPathsFromTags } from '../../common/utils/TagUtils';
+// BEGIN-EDGE
+import { LoadingDescription } from '@databricks/web-shared-bundle/metrics';
+// END-EDGE
 
 export class ArtifactPageImpl extends Component {
   static propTypes = {
@@ -31,7 +34,7 @@ export class ArtifactPageImpl extends Component {
     modelVersions: PropTypes.arrayOf(PropTypes.object),
   };
 
-  getFailedtoListArtifactsMsg = () => {
+  oss_getFailedtoListArtifactsMsg = () => {
     return (
       <span>
         <FormattedMessage
@@ -45,6 +48,21 @@ export class ArtifactPageImpl extends Component {
     );
   };
 
+  // BEGIN-EDGE
+  getFailedtoListArtifactsMsg = () => {
+    return (
+      <span>
+        <FormattedMessage
+          // eslint-disable-next-line max-len
+          defaultMessage='Unable to list artifacts stored under <code>{artifactUri}</code> for the current run. Only artifacts stored under a standard DBFS directory can be viewed in the MLflow UI (note that external storage locations mounted to DBFS cannot be viewed).'
+          // eslint-disable-next-line max-len
+          description='Error message when the artifact is unable to load. This message is displayed for databricks users only'
+          values={{ artifactUri: this.props.artifactRootUri }}
+        />
+      </span>
+    );
+  };
+  // END-EDGE
   state = { activeNodeIsDirectory: false, errorThrown: false };
 
   searchRequestId = getUUID();
@@ -159,6 +177,9 @@ export class ArtifactPageImpl extends Component {
       <RequestStateWrapper
         requestIds={this.listArtifactRequestIds}
         // eslint-disable-next-line no-trailing-spaces
+        // BEGIN-EDGE
+        description={LoadingDescription.MLFLOW_ARTIFACT_PAGE}
+        // END-EDGE
       >
         {this.renderArtifactView}
       </RequestStateWrapper>

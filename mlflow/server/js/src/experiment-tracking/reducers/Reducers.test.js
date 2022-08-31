@@ -36,12 +36,19 @@ import {
   DELETE_TAG_API,
   LIST_ARTIFACTS_API,
   SET_EXPERIMENT_TAG_API,
+  // BEGIN-EDGE
+  MARK_DESCENDANTS_AS_DELETED,
+  BATCH_GET_EXPERIMENTS_API,
+  // END-EDGE
 } from '../actions';
 import { fulfilled, pending, rejected } from '../../common/utils/ActionUtils';
 import { deepFreeze } from '../../common/utils/TestUtils';
 import { mockModelVersionDetailed } from '../../model-registry/test-utils';
 import { SEARCH_MODEL_VERSIONS } from '../../model-registry/actions';
 import { Stages, ModelVersionStatus } from '../../model-registry/constants';
+// BEGIN-EDGE
+import { LIFECYCLE_FILTER } from '../constants';
+// END-EDGE
 
 describe('test experimentsById', () => {
   test('should set up initial state correctly', () => {
@@ -167,6 +174,88 @@ describe('test experimentsById', () => {
 
     expect(tags).toEqual(Immutable.List([ExperimentTag.fromJs(tag1), ExperimentTag.fromJs(tag2)]));
   });
+  // BEGIN-EDGE
+  test('getExperiment does not overwrite experiment fields in existing state', () => {
+    const allowed_actions = ['a', 'b'];
+
+    const existing = mockExperiment('experiment01', 'the old one').set(
+      'allowed_actions',
+      Immutable.List(allowed_actions),
+    );
+    const replacement = mockExperiment('experiment01', 'the new one');
+
+    const state = deepFreeze({
+      [existing.getExperimentId()]: existing,
+    });
+    const action = {
+      type: fulfilled(GET_EXPERIMENT_API),
+      payload: {
+        experiment: replacement.toJSON(),
+      },
+    };
+
+    const new_state = experimentsById(state, action);
+    const serializedExperiment = new_state[existing.getExperimentId()].toJSON();
+
+    // make sure the reducer did modify the state
+    expect(new_state).not.toEqual(state);
+
+    // make sure the reducer did modify new fields
+    expect(serializedExperiment.name).toEqual(replacement.toJSON().name);
+
+    // make sure the reducer did not delete fields that don't exist in the new payload
+    expect(serializedExperiment.allowed_actions).toEqual(allowed_actions);
+  });
+
+  test('batchGetExperimentsApi correctly updates empty state', () => {
+    const experimentA = mockExperiment('experiment01', 'experimentA');
+    const state = {};
+    const action = {
+      type: fulfilled(BATCH_GET_EXPERIMENTS_API),
+      payload: {
+        experiments_databricks: [
+          {
+            allowed_actions: Immutable.List(),
+            experiment: experimentA.toJSON(),
+          },
+        ],
+      },
+    };
+    const new_state = experimentsById(state, action);
+    expect(new_state).not.toEqual(state);
+    expect(new_state).toEqual({
+      [experimentA.experiment_id]: experimentA,
+    });
+  });
+
+  test('batchGetExperimentsApi correctly updates non empty state', () => {
+    const preserved = mockExperiment('experiment03', 'still exists');
+    const replacedOld = mockExperiment('experiment05', 'replacedOld');
+    const replacedNew = mockExperiment('experiment05', 'replacedNew');
+    const state = deepFreeze({
+      [preserved.getExperimentId()]: preserved,
+      [replacedOld.getExperimentId()]: replacedOld,
+    });
+    const action = {
+      type: fulfilled(BATCH_GET_EXPERIMENTS_API),
+      payload: {
+        experiments_databricks: [
+          {
+            allowed_actions: Immutable.List(),
+            experiment: replacedNew.toJSON(),
+          },
+        ],
+      },
+    };
+    const new_state = experimentsById(state, action);
+    // make sure the reducer did not modify the original state
+    expect(new_state).not.toEqual(state);
+    expect(new_state).toEqual({
+      [preserved.getExperimentId()]: preserved,
+      [replacedNew.getExperimentId()]: replacedNew,
+    });
+  });
+  // END-EDGE
 });
 
 describe('test runInfosByUuid', () => {
@@ -317,6 +406,43 @@ describe('test runInfosByUuid', () => {
       [newRun.getRunUuid()]: newRun,
     });
   });
+  // BEGIN-EDGE
+  test('markDescendantsDeleted', () => {
+    const runA = mockRunInfo('run01', undefined, undefined, LIFECYCLE_FILTER.ACTIVE);
+    const runB = mockRunInfo('run02', undefined, undefined, LIFECYCLE_FILTER.ACTIVE);
+    const runC = mockRunInfo('run03', undefined, undefined, LIFECYCLE_FILTER.ACTIVE);
+    const state = {};
+    state[runA.getRunUuid()] = runA;
+    state[runB.getRunUuid()] = runB;
+    state[runC.getRunUuid()] = runC;
+    const action = {
+      type: MARK_DESCENDANTS_AS_DELETED,
+      payload: { descendantRuns: ['run01', 'run02'] },
+      meta: { id: 'a' },
+    };
+    const updatedState = runInfosByUuid(state, action);
+    expect(updatedState['run01'].lifecycle_stage).toEqual(LIFECYCLE_FILTER.DELETED);
+    expect(updatedState['run02'].lifecycle_stage).toEqual(LIFECYCLE_FILTER.DELETED);
+    expect(updatedState['run03'].lifecycle_stage).toEqual(LIFECYCLE_FILTER.ACTIVE);
+  });
+
+  test('out-of-view descendant runs should not cause markDescendantsAsDeleted to throw', () => {
+    const run = mockRunInfo('run', undefined, undefined, LIFECYCLE_FILTER.ACTIVE);
+    const state = {};
+    state[run.getRunUuid()] = run;
+
+    // There is a run in descendantRuns that is not in the state. This may happen if the user has
+    // issued a search query that hides runIsHidden.
+    const descendantRuns = ['run', 'runIsHidden'];
+    const action = {
+      type: MARK_DESCENDANTS_AS_DELETED,
+      payload: { descendantRuns },
+    };
+
+    const updatedState = runInfosByUuid(state, action);
+    expect(updatedState['run'].lifecycle_stage).toEqual(LIFECYCLE_FILTER.DELETED);
+  });
+  // END-EDGE
 });
 
 describe('test modelVersionsByUuid', () => {
@@ -341,6 +467,10 @@ describe('test modelVersionsByUuid', () => {
       Stages.PRODUCTION,
       ModelVersionStatus.READY,
       [],
+      // BEGIN-EDGE
+      [],
+      'CAN_MANAGE',
+      // END-EDGE
       undefined,
       'run01',
     );
@@ -350,6 +480,10 @@ describe('test modelVersionsByUuid', () => {
       Stages.PRODUCTION,
       ModelVersionStatus.READY,
       [],
+      // BEGIN-EDGE
+      [],
+      'CAN_MANAGE',
+      // END-EDGE
       undefined,
       'run02',
     );
@@ -358,6 +492,9 @@ describe('test modelVersionsByUuid', () => {
       type: fulfilled(SEARCH_MODEL_VERSIONS),
       payload: {
         model_versions: [mvA, mvB],
+        // BEGIN-EDGE
+        model_versions_databricks: [mvA, mvB],
+        // END-EDGE
       },
     };
     const new_state = deepFreeze(modelVersionsByRunUuid(state, action));
@@ -378,6 +515,10 @@ describe('test modelVersionsByUuid', () => {
       Stages.PRODUCTION,
       ModelVersionStatus.READY,
       [],
+      // BEGIN-EDGE
+      [],
+      'CAN_MANAGE',
+      // END-EDGE
       undefined,
       'run01',
     );
@@ -387,6 +528,10 @@ describe('test modelVersionsByUuid', () => {
       Stages.PRODUCTION,
       ModelVersionStatus.READY,
       [],
+      // BEGIN-EDGE
+      [],
+      'CAN_MANAGE',
+      // END-EDGE
       undefined,
       'run02',
     );
@@ -396,6 +541,10 @@ describe('test modelVersionsByUuid', () => {
       Stages.PRODUCTION,
       ModelVersionStatus.READY,
       [],
+      // BEGIN-EDGE
+      [],
+      'CAN_MANAGE',
+      // END-EDGE
       undefined,
       'run02',
     );
@@ -405,6 +554,10 @@ describe('test modelVersionsByUuid', () => {
       Stages.PRODUCTION,
       ModelVersionStatus.READY,
       [],
+      // BEGIN-EDGE
+      [],
+      'CAN_MANAGE',
+      // END-EDGE
       undefined,
       'run03',
     );
@@ -416,6 +569,9 @@ describe('test modelVersionsByUuid', () => {
       type: fulfilled(SEARCH_MODEL_VERSIONS),
       payload: {
         model_versions: [mvA, mvB, mvD],
+        // BEGIN-EDGE
+        model_versions_databricks: [mvA, mvB, mvD],
+        // END-EDGE
       },
     };
     const new_state = modelVersionsByRunUuid(state, action);

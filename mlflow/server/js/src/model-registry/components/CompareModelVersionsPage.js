@@ -14,6 +14,9 @@ import RequestStateWrapper from '../../common/components/RequestStateWrapper';
 import { CompareModelVersionsView } from './CompareModelVersionsView';
 import _ from 'lodash';
 import { PageContainer } from '../../common/components/PageContainer';
+// BEGIN-EDGE
+import { LoadingDescription } from '@databricks/web-shared-bundle/metrics';
+// END-EDGE
 // TODO: Write integration tests for this component
 export class CompareModelVersionsPageImpl extends Component {
   static propTypes = {
@@ -93,6 +96,9 @@ export class CompareModelVersionsPageImpl extends Component {
         <RequestStateWrapper
           requestIds={this.state.requestIds}
           requestIdsWith404sToIgnore={this.state.requestIdsWith404ErrorsToIgnore}
+          // BEGIN-EDGE
+          description={LoadingDescription.MLFLOW_MODEL_VERSIONS_COMPARE_PAGE}
+          // END-EDGE
         >
           <CompareModelVersionsView
             modelName={this.props.modelName}

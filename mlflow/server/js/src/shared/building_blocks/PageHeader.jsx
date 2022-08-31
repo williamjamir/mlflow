@@ -9,6 +9,9 @@ import {
   Header,
   OverflowIcon,
 } from '@databricks/design-system';
+// BEGIN-EDGE
+import { FeedbackLink } from '../databricks_edge/FeedbackLink';
+// END-EDGE
 import { PreviewIcon } from './PreviewIcon';
 
 // Note: this button has a different size from normal AntD buttons.
@@ -60,6 +63,11 @@ export class PageHeader extends React.Component {
     const { title, breadcrumbs = [], preview, children } = this.props;
     // eslint-disable-next-line prefer-const
     let feedbackLink = null;
+    // BEGIN-EDGE
+    const { feedbackForm } = this.props;
+    // eslint-disable-next-line prefer-const
+    feedbackLink = feedbackForm && <FeedbackLink link={feedbackForm} />;
+    // END-EDGE
     return (
       <>
         <Header

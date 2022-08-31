@@ -4,6 +4,10 @@ import { ErrorCodes } from '../constants';
 import { shallow } from 'enzyme';
 import { Spinner } from './Spinner';
 import { ErrorWrapper } from '../utils/ErrorWrapper';
+// BEGIN-EDGE
+import { mount } from 'enzyme';
+import { ReactInteractionHold } from '@databricks/web-shared-bundle/metrics';
+// END-EDGE
 
 const activeRequest = {
   id: 'a',
@@ -140,3 +144,14 @@ test('Should call child if child is a function, even if no requests', () => {
 
   expect(childFunction).toHaveBeenCalledTimes(1);
 });
+// BEGIN-EDGE
+test('Renders component with the proper hold and description', () => {
+  const wrapper = mount(
+    <RequestStateWrapper requests={[activeRequest, completeRequest]} description='TEST_DESCRIPTION'>
+      <div>I am the child</div>
+    </RequestStateWrapper>,
+  );
+  expect(wrapper.find(ReactInteractionHold)).toHaveLength(1);
+  expect(wrapper.find(ReactInteractionHold).props().description).toEqual('TEST_DESCRIPTION');
+});
+// END-EDGE

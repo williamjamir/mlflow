@@ -1,0 +1,104 @@
+.request-icon {
+    color: #333333;
+}
+
+.cancel-icon {
+    color: #333333;
+}
+
+.approve-icon {
+    color: #16B169;
+}
+
+.arrow-right-icon {
+    color: #16B169;
+}
+
+.reject-icon {
+    color: #D0011B;
+}
+
+.fa.activity-icon, .fas.activity-icon, .far.activity-icon {
+    font-size: 15px;
+}
+
+.activity-icon-wrapper {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    margin-left: -3px;
+    margin-bottom: 10px;
+    border: 1px solid #E6E8EA;
+    background-color: #FAFAFA;
+    border-radius: 50%
+}
+
+.activity-icon-wrapper i {
+    margin-left: 2px;
+}
+
+.activity-steps.ant-steps-vertical.ant-steps-small .ant-steps-item-container .ant-steps-item-tail {
+    padding: 30px 0 0;
+}
+
+.activity-steps.ant-steps-vertical.ant-steps-small .ant-steps-item-container .ant-steps-item-title {
+    line-height: 30px; /* same as height of .activity-icon-wrapper */
+}
+
+.activity-steps .ant-steps-vertical .ant-steps-item-content {
+    width: 600px;
+}
+
+.activity-steps .ant-steps-item-finish > .ant-steps-item-container > .ant-steps-item-tail::after {
+    color: #E6E8EA;
+    background-color: #E6E8EA;
+}
+
+.comment {
+    color: #333333;
+}
+
+.comment-wrapper {
+    width: 500px;
+    margin-top: 6px;
+}
+
+.editable-comment-wrapper {
+    display: flex;
+    align-items: center;
+    align-content: flex-start;
+    height: 30px;
+}
+
+.timestamp {
+    color: #6B6B6B;
+}
+
+.edit-btn {
+    padding: 0 0 0 5px;
+}
+
+.delete-btn {
+    color: #EE3D2C;
+    padding: 0 0 0 5px;
+}
+
+.ant-btn-link:hover.delete-btn, .ant-btn-link:focus.delete-btn {
+    color: #EE3D2C;
+    opacity: 0.8;
+}
+
+.comment-editor .note-view-text-area {
+    width: 30%
+}
+
+.ant-input.comment-preview-pill {
+    border-radius: 20px;
+    width: 350px;
+}
+
+.comment-editor {
+    padding-bottom: 150px;
+}

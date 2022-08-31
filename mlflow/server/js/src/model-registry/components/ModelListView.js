@@ -13,6 +13,9 @@ import {
   REGISTERED_MODELS_PER_PAGE,
   REGISTERED_MODELS_SEARCH_NAME_FIELD,
   REGISTERED_MODELS_SEARCH_TIMESTAMP_FIELD,
+  // BEGIN-EDGE
+  REGISTERED_MODELS_SEARCH_SERVING_FIELD,
+  // END-EDGE
 } from '../constants';
 import {
   ExperimentSearchSyntaxDocUrl,
@@ -20,6 +23,16 @@ import {
   ModelRegistryOnboardingString,
   onboarding,
 } from '../../common/constants';
+// BEGIN-EDGE
+import DatabricksUtils from '../../common/utils/DatabricksUtils';
+import PermissionUtils from '../utils/PermissionUtils';
+import {
+  DatabricksModelRegistryDocUrl,
+  DatabricksModelRegistryOnboardingString,
+} from '../../common/constants-databricks';
+import { getServingModelKey, getModelServingDocsUri } from '../../model-serving/utils';
+import { getModelPageServingRoute, getModelPageMonitoringRoute } from '../routes';
+// END-EDGE
 import { SimplePagination } from '../../common/components/SimplePagination';
 import { Spinner } from '../../common/components/Spinner';
 import { CreateModelButton } from './CreateModelButton';
@@ -27,15 +40,32 @@ import LocalStorageUtils from '../../common/utils/LocalStorageUtils';
 import { CollapsibleTagsCell } from '../../common/components/CollapsibleTagsCell';
 import { RegisteredModelTag } from '../sdk/ModelRegistryMessages';
 import { PageHeader } from '../../shared/building_blocks/PageHeader';
+// BEGIN-EDGE
+import { HeaderButton } from '../../shared/building_blocks/PageHeader';
+// END-EDGE
 import { FlexBar } from '../../shared/building_blocks/FlexBar';
 import { Spacer } from '../../shared/building_blocks/Spacer';
 import { SearchBox } from '../../shared/building_blocks/SearchBox';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { PageContainer } from '../../common/components/PageContainer';
 import { Button, Popover, QuestionMarkFillIcon } from '@databricks/design-system';
+// BEGIN-EDGE
+import { CircleIcon } from '../utils';
+import { OwnerFilter, StatusFilter } from '../utils/SearchUtils';
+import {
+  SegmentedControlGroup,
+  SegmentedControlButton,
+  Select,
+  Option,
+} from '@databricks/design-system';
+import { getActiveModelMonitoringTags, getMonitoringDocsUrl } from '../../model-monitoring/utils';
+// END-EDGE
 
 const NAME_COLUMN_INDEX = 'name';
 const LAST_MODIFIED_COLUMN_INDEX = 'last_updated_timestamp';
+// BEGIN-EDGE
+const SERVING_COLUMN_INDEX = 'serving';
+// END-EDGE
 
 const getOverallLatestVersionNumber = (latest_versions) =>
   latest_versions && Math.max(...latest_versions.map((v) => v.version));
@@ -58,6 +88,15 @@ export class ModelListViewImpl extends React.Component {
 
   static propTypes = {
     models: PropTypes.array.isRequired,
+    // BEGIN-EDGE
+    endpoints: PropTypes.object,
+    showEditPermissionModal: PropTypes.func.isRequired,
+    permissionLevel: PropTypes.string.isRequired,
+    selectedOwnerFilter: PropTypes.string.isRequired,
+    selectedStatusFilter: PropTypes.string.isRequired,
+    onOwnerFilterChange: PropTypes.func.isRequired,
+    onStatusFilterChange: PropTypes.func.isRequired,
+    // END-EDGE
     searchInput: PropTypes.string.isRequired,
     orderByKey: PropTypes.string.isRequired,
     orderByAsc: PropTypes.bool.isRequired,
@@ -80,6 +119,9 @@ export class ModelListViewImpl extends React.Component {
   static defaultProps = {
     models: [],
     searchInput: '',
+    // BEGIN-EDGE
+    endpoints: {},
+    // END-EDGE`
   };
 
   showOnboardingHelper() {
@@ -120,6 +162,17 @@ export class ModelListViewImpl extends React.Component {
     );
   }
 
+  // BEGIN-EDGE
+  shouldSkipPermissions() {
+    const { permissionLevel } = this.props;
+    return (
+      !DatabricksUtils.isAclCheckEnabledForModelRegistry() ||
+      !DatabricksUtils.isRegistryWidePermissionsEnabledForModelRegistry() ||
+      !PermissionUtils.permissionLevelCanManage(permissionLevel)
+    );
+  }
+
+  // END-EDGE
   getSortOrder = (key) => {
     const { orderByKey, orderByAsc } = this.props;
     if (key !== orderByKey) {
@@ -212,8 +265,131 @@ export class ModelListViewImpl extends React.Component {
         },
       },
     ];
+    // BEGIN-EDGE
+    if (DatabricksUtils.isModelServingEnabled()) {
+      columns.push({
+        title: (
+          <span>
+            <FormattedMessage
+              defaultMessage='Serving'
+              description='Column title for model serving in the registered model page'
+            />
+            {this.renderServingTooltip()}
+          </span>
+        ),
+        dataIndex: SERVING_COLUMN_INDEX,
+        className: 'serving',
+        render: (text, row) => {
+          const modelName = row.name;
+          const endpoint = this.props.endpoints[getServingModelKey(null, modelName)];
+          return this.renderServingCell(modelName, endpoint);
+        },
+      });
+    }
+
+    if (DatabricksUtils.getConf('enableModelMonitoringPublicPreview', false)) {
+      columns.push({
+        title: (
+          <span>
+            <FormattedMessage
+              defaultMessage='Monitors'
+              description='Column title for model monitoring in the registered model page'
+            />
+            <Popover
+              overlayClassName='serving-tooltip'
+              content={
+                <span className='serving-tooltip-content'>
+                  <FormattedMessage
+                    // eslint-disable-next-line max-len
+                    defaultMessage='Monitor model features and performance (Public Preview). <link>Learn more.</link>'
+                    description='Text for tooltip for model monitoring in the registered model page'
+                    values={{
+                      link: (chunks) => (
+                        <a target='_blank' rel='noreferrer' href={getMonitoringDocsUrl()}>
+                          {chunks}
+                        </a>
+                      ),
+                    }}
+                  />
+                </span>
+              }
+              placement='bottomRight'
+            >
+              <QuestionMarkFillIcon css={styles.questionMark} />
+            </Popover>
+          </span>
+        ),
+        dataIndex: 'monitoring',
+        className: 'monitoring',
+        render: (text, row) => this.renderMonitoringCell(row),
+      });
+    }
+    // END-EDGE
     return columns;
   };
+  // BEGIN-EDGE
+  renderServingTooltip = () => {
+    const contents = (
+      <span className='serving-tooltip-content'>
+        <FormattedMessage
+          defaultMessage='Hosted real-time model serving behind a REST API interface. <link>
+            Learn more.</link>'
+          description='Text for tooltip for model serving in the registered model page'
+          values={{
+            link: (chunks) => (
+              // Reported during ESLint upgrade
+              // eslint-disable-next-line react/jsx-no-target-blank
+              <a target='_blank' href={getModelServingDocsUri()}>
+                {chunks}
+              </a>
+            ),
+          }}
+        />
+      </span>
+    );
+    return (
+      <Popover overlayClassName='serving-tooltip' content={contents} placement='bottom'>
+        <QuestionMarkFillIcon css={styles.questionMark} />
+      </Popover>
+    );
+  };
+
+  renderServingCell = (modelName, endpoint) => {
+    return (
+      <Link to={getModelPageServingRoute(modelName)}>{this.renderServingStatus(endpoint)}</Link>
+    );
+  };
+
+  renderServingStatus = (endpoint) => {
+    const iconReady = <CircleIcon type='READY' />;
+    const iconPending = <CircleIcon type='PENDING' />;
+    const iconFailed = <CircleIcon type='FAILED' />;
+
+    if (endpoint === undefined) {
+      return EMPTY_CELL_PLACEHOLDER;
+    }
+    if (endpoint.state === 'ENDPOINT_STATE_READY') {
+      return <span>{iconReady} Ready</span>;
+    } else if (endpoint.state === 'ENDPOINT_STATE_PENDING') {
+      return <span>{iconPending} Pending</span>;
+    } else if (endpoint.state === 'ENDPOINT_STATE_FAILED') {
+      return <span>{iconFailed} Failed</span>;
+    }
+    return null;
+  };
+
+  renderMonitoringCell(model) {
+    const { name, tags } = model;
+    // TODO: use monitoring service as source of truth once it becomes available
+    if (tags && tags.length > 0) {
+      const numActiveMonitors = getActiveModelMonitoringTags(tags).length;
+      if (numActiveMonitors > 0) {
+        return <Link to={getModelPageMonitoringRoute(name)}>{numActiveMonitors}</Link>;
+      }
+    }
+    return EMPTY_CELL_PLACEHOLDER;
+  }
+  // END-EDGE
 
   getRowKey = (record) => record.name;
 
@@ -233,6 +409,10 @@ export class ModelListViewImpl extends React.Component {
         return REGISTERED_MODELS_SEARCH_NAME_FIELD;
       case LAST_MODIFIED_COLUMN_INDEX:
         return REGISTERED_MODELS_SEARCH_TIMESTAMP_FIELD;
+      // BEGIN-EDGE
+      case SERVING_COLUMN_INDEX:
+        return REGISTERED_MODELS_SEARCH_SERVING_FIELD;
+      // END-EDGE
       default:
         return null;
     }
@@ -314,9 +494,23 @@ export class ModelListViewImpl extends React.Component {
     );
   }
 
-  static getLearnMoreLinkUrl = () => ModelRegistryDocUrl;
+  static oss_getLearnMoreLinkUrl = () => ModelRegistryDocUrl;
+  // BEGIN-EDGE
+  static getLearnMoreLinkUrl() {
+    const cloudProvider = DatabricksUtils.getCloudProvider();
+    return cloudProvider ? DatabricksModelRegistryDocUrl[cloudProvider] : ModelRegistryDocUrl;
+  }
+  // END-EDGE
 
-  static getLearnMoreDisplayString = () => ModelRegistryOnboardingString;
+  static oss_getLearnMoreDisplayString = () => ModelRegistryOnboardingString;
+  // BEGIN-EDGE
+  static getLearnMoreDisplayString() {
+    const cloudProvider = DatabricksUtils.getCloudProvider();
+    return cloudProvider
+      ? DatabricksModelRegistryOnboardingString[cloudProvider]
+      : ModelRegistryOnboardingString;
+  }
+  // END-EDGE
 
   handleClickNext = () => {
     this.setState({ loading: true, lastNavigationActionWasClickPrev: false });
@@ -340,6 +534,17 @@ export class ModelListViewImpl extends React.Component {
   handleClear = () => {
     this.props.onClear(this.setLoadingFalse, this.setLoadingFalse);
   };
+  // BEGIN-EDGE
+  handleOwnerRadioChange = (event) => {
+    this.setState({ loading: true, lastNavigationActionWasClickPrev: false });
+    this.props.onOwnerFilterChange(event.target.value, this.setLoadingFalse, this.setLoadingFalse);
+  };
+
+  handleStatusSelectionChange = (value) => {
+    this.setState({ loading: true, lastNavigationActionWasClickPrev: false });
+    this.props.onStatusFilterChange(value, this.setLoadingFalse, this.setLoadingFalse);
+  };
+  // END-EDGE
 
   searchInputHelpTooltipContent = () => {
     return (
@@ -381,6 +586,20 @@ export class ModelListViewImpl extends React.Component {
       <PageContainer data-test-id='ModelListView-container'>
         <PageHeader title={title}>
           <></>
+          {/* BEGIN-EDGE */}
+          {!this.shouldSkipPermissions() && (
+            <HeaderButton
+              type='secondary'
+              onClick={this.props.showEditPermissionModal}
+              data-test-id='edit-permissions-button'
+            >
+              <FormattedMessage
+                defaultMessage='Permissions'
+                description='Title dropdown text for permissions in registered model page'
+              />
+            </HeaderButton>
+          )}
+          {/* END-EDGE */}
         </PageHeader>
         {this.renderOnboardingContent()}
         <div css={styles.searchFlexBar}>
@@ -393,6 +612,51 @@ export class ModelListViewImpl extends React.Component {
             right={
               <Spacer direction='horizontal' size='small'>
                 <Spacer direction='horizontal' size='large'>
+                  {/* BEGIN-EDGE */}
+                  <Select
+                    onChange={this.handleStatusSelectionChange}
+                    style={{
+                      width: 180,
+                    }}
+                    value={this.props.selectedStatusFilter}
+                  >
+                    <Option value={StatusFilter.ALL}>
+                      <FormattedMessage
+                        defaultMessage='All models'
+                        // eslint-disable-next-line max-len
+                        description='Selection item text in model registry to filter models by all models'
+                      />
+                    </Option>
+                    <Option value={StatusFilter.SERVING_ENABLED}>
+                      <FormattedMessage
+                        defaultMessage='Serving enabled'
+                        // eslint-disable-next-line max-len
+                        description='Selection item text in model registry to filter models by serving enabled'
+                      />
+                    </Option>
+                  </Select>
+                  <div style={{ gap: '24px' }}>
+                    <SegmentedControlGroup
+                      value={this.props.selectedOwnerFilter}
+                      onChange={this.handleOwnerRadioChange}
+                    >
+                      <SegmentedControlButton value={OwnerFilter.OWNED_BY_ME}>
+                        <FormattedMessage
+                          defaultMessage='Owned by me'
+                          // eslint-disable-next-line max-len
+                          description='Radio item text in model registry to filter models by models owned by me.'
+                        />
+                      </SegmentedControlButton>
+                      <SegmentedControlButton value={OwnerFilter.ACCESSIBLE_BY_ME}>
+                        <FormattedMessage
+                          defaultMessage='Accessible by me'
+                          // eslint-disable-next-line max-len
+                          description='Radio item text in model registry to filter models by models accessible by me.'
+                        />
+                      </SegmentedControlButton>
+                    </SegmentedControlGroup>
+                  </div>
+                  {/* END-EDGE */}
                   <Popover
                     overlayClassName='search-input-tooltip'
                     content={this.searchInputHelpTooltipContent}

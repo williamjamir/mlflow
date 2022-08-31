@@ -14,6 +14,14 @@ import {
 } from '../../../common/constants';
 import { Typography } from '@databricks/design-system';
 import { FormattedMessage } from 'react-intl';
+// BEGIN-EDGE
+import {
+  DatabricksModelServingDocUrl,
+  DatabricksRegisterAModelDocUrl,
+} from '../../../common/constants-databricks';
+import DatabricksUtils from '../../../common/utils/DatabricksUtils';
+import { HomePageDocsUrl } from '../../../common/constants';
+// END-EDGE
 
 import './ShowArtifactLoggedModelView.css';
 
@@ -54,7 +62,18 @@ class ShowArtifactLoggedModelView extends Component {
       this.fetchLoggedModelMetadata();
     }
   }
-  static getLearnModelRegistryLinkUrl = () => RegisteringModelDocUrl;
+  // BEGIN-EDGE
+  static getLearnModelRegistryLinkUrl() {
+    const cloudProvider = DatabricksUtils.getCloudProvider();
+    return cloudProvider ? DatabricksRegisterAModelDocUrl[cloudProvider] : RegisteringModelDocUrl;
+  }
+
+  static getLearnModelServingLinkUrl() {
+    const cloudProvider = DatabricksUtils.getCloudProvider();
+    return cloudProvider ? DatabricksModelServingDocUrl[cloudProvider] : HomePageDocsUrl;
+  }
+  // END-EDGE
+  static oss_getLearnModelRegistryLinkUrl = () => RegisteringModelDocUrl;
 
   renderModelRegistryText() {
     return this.props.registeredModelLink ? (
@@ -89,6 +108,23 @@ class ShowArtifactLoggedModelView extends Component {
             ),
           }}
         />
+        {/* BEGIN-EDGE */}{' '}
+        <FormattedMessage
+          // eslint-disable-next-line max-len
+          defaultMessage='and deploy as a REST endpoint for <link>real time serving</link>'
+          // eslint-disable-next-line max-len
+          description='Continuing sub text to explain users that they can deploy the model fo real time serving'
+          values={{
+            link: (chunks) => (
+              // Reported during ESLint upgrade
+              // eslint-disable-next-line react/jsx-no-target-blank
+              <a href={ShowArtifactLoggedModelView.getLearnModelServingLinkUrl()} target='_blank'>
+                {chunks}
+              </a>
+            ),
+          }}
+        />
+        {/* END-EDGE */}.
       </>
     );
   }

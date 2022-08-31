@@ -310,6 +310,10 @@ export const Experiment = Immutable.Record(
     // repeated ExperimentTag
     tags: Immutable.List(),
 
+    // BEGIN-EDGE
+    // optional repeated String
+    allowed_actions: Immutable.List(),
+    // END-EDGE
   },
   'Experiment',
 );
@@ -350,6 +354,11 @@ const extended_Experiment = ModelBuilder.extend(Experiment, {
   getTags() {
     return this.tags !== undefined ? this.tags : [];
   },
+  // BEGIN-EDGE
+  getAllowedActions() {
+    return this.allowed_actions !== undefined ? this.allowed_actions : [];
+  },
+  // END-EDGE
 });
 
 /**

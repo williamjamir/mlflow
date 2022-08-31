@@ -5,8 +5,18 @@
 
 .header-container {
   display: flex;
+  /* BEGIN-EDGE */
+  align-items: center;
+  margin-bottom: 24px;
+  /* END-EDGE */
 }
 
+/* BEGIN-EDGE */
+.header-container h1 {
+  margin-bottom: 0;
+}
+
+/* END-EDGE */
 .separator {
   font-size: 16px;
   margin-left: 12px;

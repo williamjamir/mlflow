@@ -23,6 +23,17 @@ import { getProtoField } from '../utils';
 import { getUUID } from '../../common/utils/ActionUtils';
 import _ from 'lodash';
 import { PageContainer } from '../../common/components/PageContainer';
+// BEGIN-EDGE
+import { getModelVersionActivities } from '../reducers';
+import {
+  getModelVersionActivitiesApi,
+  createTransitionRequestApi,
+  createCommentApi,
+  updateCommentApi,
+  deleteCommentApi,
+} from '../actions';
+import { LoadingDescription } from '@databricks/web-shared-bundle/metrics';
+// END-EDGE
 
 export class ModelVersionPageImpl extends React.Component {
   static propTypes = {
@@ -44,6 +55,14 @@ export class ModelVersionPageImpl extends React.Component {
     getModelVersionArtifactApi: PropTypes.func.isRequired,
     parseMlModelFile: PropTypes.func.isRequired,
     schema: PropTypes.object,
+    // BEGIN-EDGE
+    activities: PropTypes.arrayOf(Object),
+    getModelVersionActivitiesApi: PropTypes.func.isRequired,
+    createTransitionRequestApi: PropTypes.func.isRequired,
+    createCommentApi: PropTypes.func.isRequired,
+    updateCommentApi: PropTypes.func.isRequired,
+    deleteCommentApi: PropTypes.func.isRequired,
+    // END-EDGE
   };
 
   initGetModelVersionDetailsRequestId = getUUID();
@@ -52,15 +71,39 @@ export class ModelVersionPageImpl extends React.Component {
   transitionModelVersionStageRequestId = getUUID();
   getModelVersionDetailsRequestId = getUUID();
   initGetMlModelFileRequestId = getUUID();
+  // BEGIN-EDGE
+  initGetActivitiesRequestId = getUUID();
+  getActivitiesRequestId = getUUID();
+  createCommentRequestId = getUUID();
+  updateCommentRequestId = getUUID();
+  deleteCommentRequestId = getUUID();
+
+  // END-EDGE
   state = {
+    // BEGIN-EDGE
     criticalInitialRequestIds: [
+      this.initGetModelVersionDetailsRequestId,
+      this.initGetActivitiesRequestId,
+      this.initGetMlModelFileRequestId,
+    ],
+    // END-EDGE
+    oss_criticalInitialRequestIds: [
       this.initGetModelVersionDetailsRequestId,
       this.initGetMlModelFileRequestId,
     ],
   };
 
-  pollingRelatedRequestIds = [this.getModelVersionDetailsRequestId, this.getRunRequestId];
+  oss_pollingRelatedRequestIds = [this.getModelVersionDetailsRequestId, this.getRunRequestId];
 
+  // BEGIN-EDGE
+  pollingRelatedRequestIds = [
+    this.getModelVersionDetailsRequestId,
+    this.getRunRequestId,
+    this.listTransitionRequestId,
+    this.getActivitiesRequestId,
+  ];
+
+  // END-EDGE
   hasPendingPollingRequest = () =>
     this.pollingRelatedRequestIds.every((requestId) => {
       const request = this.props.apis[requestId];
@@ -69,6 +112,15 @@ export class ModelVersionPageImpl extends React.Component {
 
   loadData = (isInitialLoading) => {
     const promises = [this.getModelVersionDetailAndRunInfo(isInitialLoading)];
+    // BEGIN-EDGE
+    promises.push(
+      this.props.getModelVersionActivitiesApi(
+        this.props.modelName,
+        this.props.version,
+        isInitialLoading === true ? this.initGetActivitiesRequestId : this.getActivitiesRequestId,
+      ),
+    );
+    // END-EDGE
     return Promise.all([promises]);
   };
 
@@ -133,8 +185,56 @@ export class ModelVersionPageImpl extends React.Component {
         }));
       });
   }
+  // BEGIN-EDGE
 
-  handleStageTransitionDropdownSelect = (activity, archiveExistingVersions) => {
+  handleStageTransitionDropdownSelect = (activity, comment, archiveExistingVersions) => {
+    const { modelName, version } = this.props;
+    const toStage = activity.to_stage;
+    if (activity.type === ActivityTypes.REQUESTED_TRANSITION) {
+      this.props
+        .createTransitionRequestApi(modelName, version, toStage, comment)
+        .then(this.loadData)
+        .catch(Utils.logErrorAndNotifyUser);
+    }
+    if (activity.type === ActivityTypes.APPLIED_TRANSITION) {
+      this.props
+        .transitionModelVersionStageApi(
+          modelName,
+          version,
+          toStage,
+          archiveExistingVersions,
+          comment,
+          this.transitionModelVersionStageRequestId,
+        )
+        .then(this.loadData)
+        .catch(Utils.logErrorAndNotifyUser);
+    }
+  };
+
+  handleCreateComment = (comment) => {
+    const { modelName, version } = this.props;
+    return this.props
+      .createCommentApi(modelName, version, comment, this.createCommentRequestId)
+      .then(this.loadData)
+      .catch(Utils.logErrorAndNotifyUser);
+  };
+
+  handleEditComment = (commentId, comment) => {
+    return this.props
+      .updateCommentApi(commentId, comment, this.updateCommentRequestId)
+      .then(this.loadData)
+      .catch(Utils.logErrorAndNotifyUser);
+  };
+
+  handleDeleteComment = (commentId) => {
+    return this.props
+      .deleteCommentApi(commentId, this.deleteCommentRequestId)
+      .then(this.loadData)
+      .catch(Utils.logErrorAndNotifyUser);
+  };
+  // END-EDGE
+
+  oss_handleStageTransitionDropdownSelect = (activity, archiveExistingVersions) => {
     const { modelName, version } = this.props;
     const toStage = activity.to_stage;
     if (activity.type === ActivityTypes.APPLIED_TRANSITION) {
@@ -172,12 +272,18 @@ export class ModelVersionPageImpl extends React.Component {
   render() {
     const { modelName, version, modelVersion, runInfo, runDisplayName, history, schema } =
       this.props;
+    // BEGIN-EDGE
+    const { activities } = this.props;
+    // END-EDGE
 
     return (
       <PageContainer>
         <RequestStateWrapper
           requestIds={this.state.criticalInitialRequestIds}
           // eslint-disable-next-line no-trailing-spaces
+          // BEGIN-EDGE
+          description={LoadingDescription.MLFLOW_MODEL_VERSION_DETAILS_PAGE}
+          // END-EDGE
         >
           {(loading, hasError, requests) => {
             if (hasError) {
@@ -208,6 +314,12 @@ export class ModelVersionPageImpl extends React.Component {
                   history={history}
                   handleStageTransitionDropdownSelect={this.handleStageTransitionDropdownSelect}
                   schema={schema}
+                  // BEGIN-EDGE
+                  activities={activities}
+                  onCreateComment={this.handleCreateComment}
+                  onDeleteComment={this.handleDeleteComment}
+                  onEditComment={this.handleEditComment}
+                  // END-EDGE
                 />
               );
             }
@@ -224,6 +336,9 @@ const mapStateToProps = (state, ownProps) => {
   const { version } = ownProps.match.params;
   const modelVersion = getModelVersion(state, modelName, version);
   const schema = getModelVersionSchemas(state, modelName, version);
+  // BEGIN-EDGE
+  const activities = getModelVersionActivities(state, modelName, version);
+  // END-EDGE
   let runInfo = null;
   if (modelVersion && !modelVersion.run_link) {
     runInfo = getRunInfo(modelVersion && modelVersion.run_id, state);
@@ -236,6 +351,9 @@ const mapStateToProps = (state, ownProps) => {
     version,
     modelVersion,
     schema,
+    // BEGIN-EDGE
+    activities,
+    // END-EDGE
     runInfo,
     runDisplayName,
     apis,
@@ -248,6 +366,13 @@ const mapDispatchToProps = {
   transitionModelVersionStageApi,
   getModelVersionArtifactApi,
   parseMlModelFile,
+  // BEGIN-EDGE
+  getModelVersionActivitiesApi,
+  createTransitionRequestApi,
+  createCommentApi,
+  updateCommentApi,
+  deleteCommentApi,
+  // END-EDGE
   deleteModelVersionApi,
   getRunApi,
 };

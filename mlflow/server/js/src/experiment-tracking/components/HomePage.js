@@ -8,6 +8,9 @@ import './HomePage.css';
 import HomeView from './HomeView';
 import { getUUID } from '../../common/utils/ActionUtils';
 import Routes from '../routes';
+// BEGIN-EDGE
+import { LoadingDescription } from '@databricks/web-shared-bundle/metrics';
+// END-EDGE
 
 export class HomePageImpl extends Component {
   static propTypes = {
@@ -45,6 +48,9 @@ export class HomePageImpl extends Component {
       <RequestStateWrapper
         requestIds={[this.state.listExperimentsRequestId]}
         // eslint-disable-next-line no-trailing-spaces
+        // BEGIN-EDGE
+        description={LoadingDescription.MLFLOW_HOME_PAGE}
+        // END-EDGE
       >
         {homeView}
       </RequestStateWrapper>

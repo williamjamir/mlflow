@@ -14,6 +14,15 @@ module.exports = function(app) {
       changeOrigin: true,
     }),
   );
+  // BEGIN-EDGE
+  app.use(
+    createProxyMiddleware('/mfe/mlflow/ajax-api', {
+      target: proxyTarget,
+      changeOrigin: true,
+      pathRewrite: { '^/mfe/mlflow': '' },
+    }),
+  );
+  // END-EDGE
   app.use(
     createProxyMiddleware('/get-artifact', {
       target: proxyStaticTarget,
@@ -21,6 +30,16 @@ module.exports = function(app) {
       changeOrigin: true,
     }),
   );
+  // BEGIN-EDGE
+  app.use(
+    createProxyMiddleware('/mfe/mlflow/get-artifact', {
+      target: proxyStaticTarget,
+      ws: true,
+      changeOrigin: true,
+      pathRewrite: { '^/mfe/mlflow': '' },
+    }),
+  );
+  // END-EDGE
   app.use(
     createProxyMiddleware('/model-versions/get-artifact', {
       target: proxyStaticTarget,

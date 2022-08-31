@@ -13,6 +13,10 @@ import {
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { ModelListPageImpl } from './ModelListPage';
+// BEGIN-EDGE
+import { OwnerFilter, StatusFilter } from '../utils/SearchUtils';
+import DatabricksUtils from '../../common/utils/DatabricksUtils';
+// END-EDGE
 
 describe('ModelListPage', () => {
   let wrapper;
@@ -74,6 +78,10 @@ describe('ModelListPage', () => {
       instance = wrapper.find(ModelListPageImpl).instance();
       jest.spyOn(instance, 'loadPage').mockImplementation(loadPageMock);
       expect(instance.state.searchInput).toBe('');
+      // BEGIN-EDGE
+      expect(instance.state.selectedOwnerFilter).toBe(OwnerFilter.ACCESSIBLE_BY_ME);
+      expect(instance.state.selectedStatusFilter).toBe(StatusFilter.ALL);
+      // END-EDGE
       expect(instance.state.orderByKey).toBe(REGISTERED_MODELS_SEARCH_NAME_FIELD);
       expect(instance.state.orderByAsc).toBe(true);
     });
@@ -101,13 +109,118 @@ describe('ModelListPage', () => {
       expect(instance.state.searchInput).toBe('name ilike "%xyz%" AND tags.k="v"');
       expect(instance.state.currentPage).toBe(1);
     });
+    // BEGIN-EDGE
+    test('the states should be correctly set when user click OwnedByMem should not change All models selected', () => {
+      instance = wrapper.find(ModelListPageImpl).instance();
+      instance.state.selectedOwnerFilter = OwnerFilter.ACCESSIBLE_BY_ME;
+      instance.state.selectedStatusFilter = StatusFilter.ALL;
+      jest.spyOn(instance, 'loadPage').mockImplementation(loadPageMock);
+      instance.handleSearchInputChange('name ilike "%xyz%" AND tags.k="v"');
+      instance.handleOwnerFilterChange(OwnerFilter.OWNED_BY_ME, noop, noop);
+      expect(instance.state.searchInput).toBe('name ilike "%xyz%" AND tags.k="v"');
+      expect(instance.state.selectedOwnerFilter).toBe(OwnerFilter.OWNED_BY_ME);
+      expect(instance.state.selectedStatusFilter).toBe(StatusFilter.ALL);
+    });
+
+    test('the states should be correctly set when user click AccessibleByMe, should not change All models selected', () => {
+      instance = wrapper.find(ModelListPageImpl).instance();
+      instance.state.selectedOwnerFilter = OwnerFilter.OWNED_BY_ME;
+      instance.state.selectedStatusFilter = StatusFilter.ALL;
+      jest.spyOn(instance, 'loadPage').mockImplementation(loadPageMock);
+      instance.handleSearchInputChange('name ilike "%xyz%" AND tags.k="v"');
+      instance.handleOwnerFilterChange(OwnerFilter.ACCESSIBLE_BY_ME, noop, noop);
+      expect(instance.state.searchInput).toBe('name ilike "%xyz%" AND tags.k="v"');
+      expect(instance.state.selectedOwnerFilter).toBe(OwnerFilter.ACCESSIBLE_BY_ME);
+      expect(instance.state.selectedStatusFilter).toBe(StatusFilter.ALL);
+    });
+
+    test('the states should be correctly set when user click OwnedByMe, should not change Served models selected', () => {
+      instance = wrapper.find(ModelListPageImpl).instance();
+      instance.state.selectedOwnerFilter = OwnerFilter.ACCESSIBLE_BY_ME;
+      instance.state.selectedStatusFilter = StatusFilter.SERVING_ENABLED;
+      jest.spyOn(instance, 'loadPage').mockImplementation(loadPageMock);
+      instance.handleSearchInputChange('name ilike "%xyz%" AND tags.k="v"');
+      instance.handleOwnerFilterChange(OwnerFilter.OWNED_BY_ME, noop, noop);
+      expect(instance.state.searchInput).toBe(`name ilike "%xyz%" AND tags.k="v"`);
+      expect(instance.state.selectedOwnerFilter).toBe(OwnerFilter.OWNED_BY_ME);
+      expect(instance.state.selectedStatusFilter).toBe(StatusFilter.SERVING_ENABLED);
+    });
+
+    test('the states should be correctly set when user click AccessibleByMe, should not change select All models', () => {
+      instance = wrapper.find(ModelListPageImpl).instance();
+      instance.state.selectedOwnerFilter = OwnerFilter.ACCESSIBLE_BY_ME;
+      instance.state.selectedStatusFilter = StatusFilter.SERVING_ENABLED;
+      jest.spyOn(instance, 'loadPage').mockImplementation(loadPageMock);
+      instance.handleSearchInputChange('name ilike "%xyz%" AND tags.k="v"');
+      instance.handleOwnerFilterChange(OwnerFilter.ACCESSIBLE_BY_ME, noop, noop);
+      expect(instance.state.searchInput).toBe('name ilike "%xyz%" AND tags.k="v"');
+      expect(instance.state.selectedOwnerFilter).toBe(OwnerFilter.ACCESSIBLE_BY_ME);
+      expect(instance.state.selectedStatusFilter).toBe(StatusFilter.SERVING_ENABLED);
+    });
+
+    test('the states should be correctly set when users select Served models, should not change selected AccessibleByMe', () => {
+      instance = wrapper.find(ModelListPageImpl).instance();
+      instance.state.selectedOwnerFilter = OwnerFilter.ACCESSIBLE_BY_ME;
+      instance.state.selectedStatusFilter = StatusFilter.ALL;
+      jest.spyOn(instance, 'loadPage').mockImplementation(loadPageMock);
+      instance.handleSearchInputChange('name ilike "%xyz%" AND tags.k="v"');
+      instance.handleStatusFilterChange(StatusFilter.SERVING_ENABLED, noop, noop);
+      expect(instance.state.searchInput).toBe('name ilike "%xyz%" AND tags.k="v"');
+      expect(instance.state.selectedOwnerFilter).toBe(OwnerFilter.ACCESSIBLE_BY_ME);
+      expect(instance.state.selectedStatusFilter).toBe(StatusFilter.SERVING_ENABLED);
+    });
+
+    test('the states should be correctly set when users select Served models, should not change selected OwnedByMe', () => {
+      instance = wrapper.find(ModelListPageImpl).instance();
+      instance.state.selectedOwnerFilter = OwnerFilter.OWNED_BY_ME;
+      instance.state.selectedStatusFilter = StatusFilter.ALL;
+      jest.spyOn(instance, 'loadPage').mockImplementation(loadPageMock);
+      instance.handleSearchInputChange('name ilike "%xyz%" AND tags.k="v"');
+      instance.handleStatusFilterChange(StatusFilter.SERVING_ENABLED, noop, noop);
+      expect(instance.state.searchInput).toBe('name ilike "%xyz%" AND tags.k="v"');
+      expect(instance.state.selectedOwnerFilter).toBe(OwnerFilter.OWNED_BY_ME);
+      expect(instance.state.selectedStatusFilter).toBe(StatusFilter.SERVING_ENABLED);
+    });
+
+    test('the states should be correctly set when users select All models, should not change selected OwnedByMe', () => {
+      instance = wrapper.find(ModelListPageImpl).instance();
+      instance.state.selectedOwnerFilter = OwnerFilter.OWNED_BY_ME;
+      instance.state.selectedStatusFilter = StatusFilter.SERVING_ENABLED;
+      jest.spyOn(instance, 'loadPage').mockImplementation(loadPageMock);
+      instance.handleSearchInputChange('name ilike "%xyz%" AND tags.k="v"');
+      instance.handleStatusFilterChange(StatusFilter.ALL, noop, noop);
+      expect(instance.state.searchInput).toBe('name ilike "%xyz%" AND tags.k="v"');
+      expect(instance.state.selectedOwnerFilter).toBe(OwnerFilter.OWNED_BY_ME);
+      expect(instance.state.selectedStatusFilter).toBe(StatusFilter.ALL);
+    });
+
+    test('the states should be correctly set when users select All models, should not change selected AccessibleByMe', () => {
+      instance = wrapper.find(ModelListPageImpl).instance();
+      instance.state.selectedOwnerFilter = OwnerFilter.ACCESSIBLE_BY_ME;
+      instance.state.selectedStatusFilter = StatusFilter.SERVING_ENABLED;
+      jest.spyOn(instance, 'loadPage').mockImplementation(loadPageMock);
+      instance.handleSearchInputChange('name ilike "%xyz%" AND tags.k="v"');
+      instance.handleStatusFilterChange(StatusFilter.ALL, noop, noop);
+      expect(instance.state.searchInput).toBe('name ilike "%xyz%" AND tags.k="v"');
+      expect(instance.state.selectedOwnerFilter).toBe(OwnerFilter.ACCESSIBLE_BY_ME);
+      expect(instance.state.selectedStatusFilter).toBe(StatusFilter.ALL);
+    });
+    // END-EDGE
     test('the states should be correctly set when user clear input', () => {
       instance = wrapper.find(ModelListPageImpl).instance();
       instance.state.searchInput = 'abc';
+      // BEGIN-EDGE
+      instance.state.selectedOwnerFilter = OwnerFilter.OWNED_BY_ME;
+      instance.state.selectedStatusFilter = StatusFilter.SERVING_ENABLED;
+      // END-EDGE
       jest.spyOn(instance, 'loadPage').mockImplementation(loadPageMock);
       instance.handleClear(noop, noop);
       expect(instance.state.currentPage).toBe(1);
       expect(instance.state.searchInput).toBe('');
+      // BEGIN-EDGE
+      expect(instance.state.selectedOwnerFilter).toBe(OwnerFilter.ACCESSIBLE_BY_ME);
+      expect(instance.state.selectedStatusFilter).toBe(StatusFilter.ALL);
+      // END-EDGE
     });
   });
 
@@ -203,5 +316,18 @@ describe('ModelListPage', () => {
     instance.render();
     expect(pushSpy).toHaveBeenCalledWith(expectedUrl);
   });
+  // BEGIN-EDGE
+  test('model serving endpoints call is not made if serving flag is set to disabled', () => {
+    DatabricksUtils.isModelServingEnabled = jest.fn(() => false);
+    wrapper = mount(
+      <Provider store={minimalStore}>
+        <BrowserRouter>
+          <ModelListPageImpl {...minimalProps} />
+        </BrowserRouter>
+      </Provider>,
+    );
+    expect(minimalProps.listEndpointsApi).not.toHaveBeenCalled();
+  });
+  // END-EDGE
   // eslint-disable-next-line
 });

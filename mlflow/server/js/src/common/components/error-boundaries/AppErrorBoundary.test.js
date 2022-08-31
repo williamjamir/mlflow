@@ -9,6 +9,9 @@ describe('AppErrorBoundary', () => {
 
   beforeEach(() => {
     minimalProps = {
+      // BEGIN-EDGE
+      service: 'mlflow',
+      // END-EDGE
       children: 'testChild',
     };
     wrapper = shallow(<AppErrorBoundary {...minimalProps} />);
@@ -32,4 +35,26 @@ describe('AppErrorBoundary', () => {
     expect(wrapper.text()).not.toMatch('testChild');
     expect(wrapper.find({ href: SupportPageUrl }).length).toBe(1);
   });
+  // BEGIN-EDGE
+  test('test componentDidCatch calls parent error handler', () => {
+    const mockOnError = jest.fn();
+    window.top.onerror = mockOnError;
+    const instance = wrapper.instance();
+    const errorObj = new Error('test error');
+    instance.componentDidCatch(errorObj, 'testInfo');
+    instance.forceUpdate();
+    expect(mockOnError).toHaveBeenCalled();
+    expect(mockOnError).toHaveBeenCalledWith(
+      'MLflow UI Error: test error',
+      null,
+      null,
+      null,
+      errorObj,
+      {
+        showErrorToUser: false,
+        jsExceptionService: 'mlflow',
+      },
+    );
+  });
+  // END-EDGE
 });

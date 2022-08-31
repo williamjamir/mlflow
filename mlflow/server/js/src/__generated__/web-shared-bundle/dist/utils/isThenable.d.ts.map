@@ -1,0 +1,1 @@
+{"version":3,"file":"isThenable.d.ts","sourceRoot":"","sources":["../../src/utils/isThenable.tsx"],"names":[],"mappings":"AAAA,oBAAY,QAAQ,GAAG;IACrB,IAAI,EAAE,CAAC,OAAO,EAAE,MAAM,OAAO,EAAE,MAAM,CAAC,EAAE,MAAM,OAAO,KAAK,OAAO,CAAC;CACnE,CAAC;AAEF,wBAAgB,UAAU,CAAC,GAAG,EAAE,OAAO,GAAG,QAAQ,GAAG,IAAI,CAOxD"}

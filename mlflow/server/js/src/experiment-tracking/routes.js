@@ -7,6 +7,10 @@ class Routes {
     return `/experiments/${experimentId}`;
   }
 
+  // BEGIN-EDGE
+  static experimentsObservatoryRoute = '/experiments';
+
+  // END-EDGE
   static experimentPageRoute = '/experiments/:experimentId';
 
   static experimentPageSearchRoute = '/experiments/:experimentId/:searchString';

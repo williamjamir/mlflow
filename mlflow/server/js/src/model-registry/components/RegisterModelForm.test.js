@@ -2,6 +2,9 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { RegisterModelForm, CREATE_NEW_MODEL_OPTION_VALUE } from './RegisterModelForm';
 import { mockRegisteredModelDetailed } from '../test-utils';
+// BEGIN-EDGE
+import { PermissionLevels } from '../constants';
+// END-EDGE
 
 describe('RegisterModelForm', () => {
   let wrapper;
@@ -61,4 +64,22 @@ describe('RegisterModelForm', () => {
     wrapper.find('input#selectedModel').simulate('change', { target: { value: 'Model B' } });
     expect(onSearchRegisteredModels.mock.calls.length).toBe(1);
   });
+  // BEGIN-EDGE
+  test('should only list models for which user has EDIT permissions', () => {
+    const modelByName = {
+      'Model A': mockRegisteredModelDetailed('Model A', [], [], PermissionLevels.CAN_READ),
+      'Model B': mockRegisteredModelDetailed('Model B', [], [], PermissionLevels.CAN_EDIT),
+      'Model C': mockRegisteredModelDetailed('Model C', [], [], PermissionLevels.CAN_MANAGE),
+    };
+    const props = {
+      ...minimalProps,
+      modelByName,
+    };
+    wrapper = shallow(<RegisterModelForm {...props} />);
+    expect(wrapper.find('.create-new-model-option').length).toBe(1);
+    expect(wrapper.find('[value="Model A"]').length).toBe(0);
+    expect(wrapper.find('[value="Model B"]').length).toBe(1);
+    expect(wrapper.find('[value="Model C"]').length).toBe(1);
+  });
+  // END-EDGE
 });

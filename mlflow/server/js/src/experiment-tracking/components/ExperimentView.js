@@ -48,6 +48,16 @@ import {
 } from '../../common/constants';
 import { StyledDropdown } from '../../common/components/StyledDropdown';
 import { ExperimentNoteSection, ArtifactLocation } from './ExperimentViewHelpers';
+// BEGIN-EDGE
+import DatabricksUtils from '../../common/utils/DatabricksUtils';
+import {
+  DatabricksExperimentTrackingDocUrl,
+  DatabricksArtifactPermissionsDocUrl,
+} from '../../common/constants-databricks';
+import { CloudProvider } from '../../shared/constants-databricks';
+import { AutoMLExperimentPanel } from './ExperimentViewHelpers';
+import { AssetType } from '@databricks/web-shared-bundle/recents';
+// END-EDGE
 import { OverflowMenu, PageHeader, HeaderButton } from '../../shared/building_blocks/PageHeader';
 import { FlexBar } from '../../shared/building_blocks/FlexBar';
 import { Spacer } from '../../shared/building_blocks/Spacer';
@@ -172,6 +182,14 @@ export class ExperimentView extends Component {
     // The number of new runs since the last runs refresh
     numberOfNewRuns: PropTypes.number,
     intl: PropTypes.shape({ formatMessage: PropTypes.func.isRequired }).isRequired,
+    // BEGIN-EDGE
+    automlExperimentData: PropTypes.object,
+    shouldRenderAutoMLExperimentPanel: PropTypes.bool,
+    // @Databricks handler for launching permission modal for registered model from Databricks
+    showEditPermissionModal: PropTypes.func.isRequired,
+    showRenameModal: PropTypes.func.isRequired,
+    showDeleteModal: PropTypes.func.isRequired,
+    // END-EDGE
   };
 
   static defaultProps = {
@@ -253,6 +271,12 @@ export class ExperimentView extends Component {
       pageTitle = `${experimentSuffix} - MLflow Experiment`;
     }
     Utils.updatePageTitle(pageTitle);
+    // BEGIN-EDGE
+    this.props.experiments.forEach(({ experiment_id }) => {
+      DatabricksUtils.addToRecents('experiment', experiment_id);
+      DatabricksUtils.registerRecent({ id: experiment_id, type: AssetType.EXPERIMENT });
+    });
+    // END-EDGE
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -367,12 +391,29 @@ export class ExperimentView extends Component {
       />
     ) : null;
   }
+  // BEGIN-EDGE
+  shouldShowEditPermissionModal() {
+    const { compareExperiments, experiments } = this.props;
+    return !compareExperiments && experiments[0].allowed_actions.includes('MODIFIY_PERMISSION');
+  }
 
   getUrl() {
+    // MLflow UI is rendered in an iframe on Databricks. Use `window.top` to get the webapp URL
+    // rather than the iframe src.
+    return window.top.location.href;
+  }
+  // END-EDGE
+
+  oss_getUrl() {
     return window.location.href;
   }
 
   renderGetLinkModal() {
+    // BEGIN-EDGE
+    if (this.shouldShowEditPermissionModal()) {
+      return null;
+    }
+    // END-EDGE
     const { showGetLinkModal } = this.state;
     return (
       <GetLinkModal
@@ -386,6 +427,13 @@ export class ExperimentView extends Component {
   handleShareButtonClick() {
     const { updateUrlWithViewState } = this.props;
     updateUrlWithViewState();
+    // BEGIN-EDGE
+    const { showEditPermissionModal } = this.props;
+    if (this.shouldShowEditPermissionModal()) {
+      showEditPermissionModal();
+      return;
+    }
+    // END-EDGE
     this.setState({ showGetLinkModal: true });
   }
 
@@ -404,7 +452,23 @@ export class ExperimentView extends Component {
     );
   }
 
-  static getLearnMoreLinkUrl = () => ExperimentTrackingDocUrl;
+  static oss_getLearnMoreLinkUrl = () => ExperimentTrackingDocUrl;
+  // BEGIN-EDGE
+
+  static getLearnMoreLinkUrl() {
+    const cloudProvider = DatabricksUtils.getCloudProvider();
+    return cloudProvider
+      ? DatabricksExperimentTrackingDocUrl[cloudProvider]
+      : ExperimentTrackingDocUrl;
+  }
+
+  static getArtifactPermissionsLearnMoreLinkUrl() {
+    // Resolve the workspace's cloud provider. If it is undefined or absent for
+    // some reason, default to AWS
+    const cloudProvider = DatabricksUtils.getCloudProvider() || CloudProvider.AWS;
+    return DatabricksArtifactPermissionsDocUrl[cloudProvider];
+  }
+  // END-EDGE
 
   getModelVersionMenuItem(key, data_test_id, text) {
     return (
@@ -450,6 +514,36 @@ export class ExperimentView extends Component {
 
   getExperimentOverflowItems() {
     const menuItems = [];
+    // BEGIN-EDGE
+    const { allowed_actions } = this.props.experiments[0];
+
+    if (allowed_actions.includes('RENAME')) {
+      menuItems.push({
+        id: 'rename',
+        itemName: (
+          <FormattedMessage
+            defaultMessage='Rename'
+            description='Text for rename button on experiment view page header'
+          />
+        ),
+        onClick: this.props.showRenameModal,
+      });
+    }
+
+    if (allowed_actions.includes('DELETE')) {
+      menuItems.push({
+        id: 'delete',
+        itemName: (
+          <FormattedMessage
+            defaultMessage='Delete'
+            description='Text for delete button on experiment view page header'
+          />
+        ),
+        onClick: this.props.showDeleteModal,
+      });
+    }
+
+    // END-EDGE
     return menuItems;
   }
 
@@ -529,10 +623,24 @@ export class ExperimentView extends Component {
     };
     /* eslint-disable prefer-const */
     let breadcrumbs = [];
+    // BEGIN-EDGE
+    breadcrumbs = [
+      <Link to={Routes.experimentsObservatoryRoute} data-test-id='experiment-observatory-link'>
+        <FormattedMessage
+          defaultMessage='Experiments'
+          description='Breadcrumb nav item to link to the list of experiments page'
+        />
+      </Link>,
+      this.props.compareExperiments ? this.getCompareExperimentsPageTitle() : name,
+    ];
+    // END-EDGE
 
     const artifactLocationProps = {
       experiment: this.props.experiments[0],
       intl: this.props.intl,
+      // BEGIN-EDGE
+      permissionsLearnMoreLinkUrl: ExperimentView.getArtifactPermissionsLearnMoreLinkUrl(),
+      // END-EDGE
     };
 
     const ColumnSortByOrder = [COLUMN_SORT_BY_ASC, COLUMN_SORT_BY_DESC];
@@ -652,6 +760,15 @@ export class ExperimentView extends Component {
                 startEditingDescription={this.startEditingDescription}
               />
             </div>
+            {/* BEGIN-EDGE */}
+            {this.props.shouldRenderAutoMLExperimentPanel && (
+              <AutoMLExperimentPanel
+                automlExperimentData={this.props.automlExperimentData}
+                automlWarnings={this.props.automlExperimentData?.warnings}
+                experiment={this.props.experiments[0]}
+              />
+            )}
+            {/* END-EDGE */}
           </>
         )}
         <div className='ExperimentView-runs runs-table-flex-container'>
@@ -1018,6 +1135,9 @@ export class ExperimentView extends Component {
       } else {
         throw ex;
       }
+      // BEGIN-EDGE
+      Utils.propagateErrorToParentFrame(ex);
+      // END-EDGE
     }
   }
 

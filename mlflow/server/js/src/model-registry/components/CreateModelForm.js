@@ -4,6 +4,10 @@ import PropTypes from 'prop-types';
 import { Input, Form } from 'antd';
 import { ModelRegistryDocUrl } from '../../common/constants';
 import { FormattedMessage, injectIntl } from 'react-intl';
+// BEGIN-EDGE
+import DatabricksUtils from '../../common/utils/DatabricksUtils';
+import { DatabricksModelRegistryDocUrl } from '../../common/constants-databricks';
+// END-EDGE
 
 export const MODEL_NAME_FIELD = 'modelName';
 
@@ -18,7 +22,14 @@ class CreateModelFormImpl extends Component {
     innerRef: PropTypes.any.isRequired,
   };
 
-  static getLearnMoreLinkUrl = () => ModelRegistryDocUrl;
+  static oss_getLearnMoreLinkUrl = () => ModelRegistryDocUrl;
+  // BEGIN-EDGE
+
+  static getLearnMoreLinkUrl() {
+    const cloudProvider = DatabricksUtils.getCloudProvider();
+    return cloudProvider ? DatabricksModelRegistryDocUrl[cloudProvider] : ModelRegistryDocUrl;
+  }
+  // END-EDGE
 
   render() {
     const learnMoreLinkUrl = CreateModelFormImpl.getLearnMoreLinkUrl();

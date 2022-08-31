@@ -16,6 +16,18 @@ import { getProtoField } from './utils';
 import _ from 'lodash';
 import { fulfilled, rejected } from '../common/utils/ActionUtils';
 import { RegisteredModelTag, ModelVersionTag } from './sdk/ModelRegistryMessages';
+// BEGIN-EDGE
+import { getModelVersionKey } from './utils';
+import {
+  GET_MODEL_VERSION_ACTIVITIES,
+  LIST_TRANSITION_REQUESTS,
+  SET_EMAIL_SUBSCRIPTION_STATUS,
+  GET_EMAIL_SUBSCRIPTION_STATUS,
+  GET_USER_LEVEL_EMAIL_SUBSCRIPTION_STATUS,
+  GET_REGISTRY_WIDE_PERMISSIONS,
+  GENERATE_BATCH_INFERENCE_NOTEBOOK,
+} from './actions';
+// END-EDGE
 
 const modelByName = (state = {}, action) => {
   switch (action.type) {
@@ -58,6 +70,45 @@ const modelByName = (state = {}, action) => {
   }
 };
 
+// BEGIN-EDGE
+const registryWidePermissionLevel = (state = {}, action) => {
+  switch (action.type) {
+    case fulfilled(GET_REGISTRY_WIDE_PERMISSIONS): {
+      const permissionLevel = action.payload['permission_level'];
+      return {
+        ...state,
+        permissionLevel,
+      };
+    }
+    default:
+      return state;
+  }
+};
+
+export const getRegistryWidePermissionLevel = (state) => {
+  return (
+    state.entities.registryWidePermissionLevel &&
+    state.entities.registryWidePermissionLevel['permissionLevel']
+  );
+};
+
+const activitiesByModelVersion = (state = {}, action) => {
+  switch (action.type) {
+    case fulfilled(GET_MODEL_VERSION_ACTIVITIES): {
+      const { activities } = action.payload;
+      const { modelName, version } = action.meta;
+      const modelVersionKey = getModelVersionKey(modelName, version);
+      return {
+        ...state,
+        [modelVersionKey]: activities,
+      };
+    }
+    default:
+      return state;
+  }
+};
+
+// END-EDGE
 // 2-levels lookup for model version indexed by (modelName, version)
 const modelVersionsByModel = (state = {}, action) => {
   switch (action.type) {
@@ -167,6 +218,29 @@ export const getModelVersionSchemas = (state, modelName, version) => {
   return schemaMap;
 };
 
+// BEGIN-EDGE
+const transitionRequestsByModelVersion = (state = {}, action) => {
+  switch (action.type) {
+    case fulfilled(LIST_TRANSITION_REQUESTS): {
+      const { requests } = action.payload;
+      const { modelName, version } = action.meta;
+      return {
+        ...state,
+        [getModelVersionKey(modelName, version)]: requests,
+      };
+    }
+    default:
+      return state;
+  }
+};
+
+export const getModelVersionTransitionRequests = (state, modelName, version) =>
+  state.entities.transitionRequestsByModelVersion[getModelVersionKey(modelName, version)];
+
+export const getModelVersionActivities = (state, modelName, version) =>
+  state.entities.activitiesByModelVersion[getModelVersionKey(modelName, version)];
+
+// END-EDGE
 export const getModelVersion = (state, modelName, version) => {
   const modelVersions = state.entities.modelVersionsByModel[modelName];
   return modelVersions && modelVersions[version];
@@ -302,6 +376,65 @@ const tagsByModelVersion = (state = {}, action) => {
   }
 };
 
+// BEGIN-EDGE
+const subscriptionStatusByModelName = (state = {}, action) => {
+  switch (action.type) {
+    case fulfilled(GET_EMAIL_SUBSCRIPTION_STATUS): {
+      const subscriptionType = action.payload['subscription_type'];
+      const { modelName } = action.meta;
+      if (_.isEqual(subscriptionType, state[modelName])) {
+        return state;
+      }
+      return {
+        ...state,
+        [modelName]: subscriptionType,
+      };
+    }
+    case fulfilled(SET_EMAIL_SUBSCRIPTION_STATUS): {
+      const { modelName, subscriptionType } = action.meta;
+      return {
+        ...state,
+        [modelName]: subscriptionType,
+      };
+    }
+    default:
+      return state;
+  }
+};
+
+const userLevelSubscriptionStatus = (state = {}, action) => {
+  switch (action.type) {
+    case fulfilled(GET_USER_LEVEL_EMAIL_SUBSCRIPTION_STATUS): {
+      const subscriptionType = action.payload['subscription_type'];
+      if (_.isEqual(state, { subscriptionType })) {
+        return state;
+      }
+      return {
+        ...state,
+        subscriptionType,
+      };
+    }
+    default:
+      return state;
+  }
+};
+
+const generatedNotebookPath = (state = {}, action) => {
+  switch (action.type) {
+    case fulfilled(GENERATE_BATCH_INFERENCE_NOTEBOOK): {
+      const { modelName } = action.meta;
+      const notebookPath = action.payload['notebook_path'];
+      return {
+        ...state,
+        [modelName]: notebookPath,
+      };
+    }
+    default:
+      return state;
+  }
+};
+
+// END-EDGE
 export const getModelVersionTags = (modelName, version, state) => {
   if (state.entities.tagsByModelVersion[modelName]) {
     return state.entities.tagsByModelVersion[modelName][version] || {};
@@ -316,6 +449,14 @@ const reducers = {
   tagsByRegisteredModel,
   tagsByModelVersion,
   mlModelArtifactByModelVersion,
+  // BEGIN-EDGE
+  activitiesByModelVersion,
+  transitionRequestsByModelVersion,
+  subscriptionStatusByModelName,
+  userLevelSubscriptionStatus,
+  registryWidePermissionLevel,
+  generatedNotebookPath,
+  // END-EDGE
 };
 
 export default reducers;

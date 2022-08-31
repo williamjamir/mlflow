@@ -4,6 +4,10 @@ import { ModelVersionTable } from './ModelVersionTable';
 import Utils from '../../common/utils/Utils';
 import { Link } from 'react-router-dom';
 import { modelListPageRoute, getCompareModelVersionsPageRoute, getModelPageRoute } from '../routes';
+// BEGIN-EDGE
+// TODO(ML-23816): We should migrate antd messages to DuBois' notifications.
+// It's not trivial since currently they can be used as hooks in function components only.
+// END-EDGE
 import { message } from 'antd';
 import { ACTIVE_STAGES } from '../constants';
 import { CollapsibleSection } from '../../common/components/CollapsibleSection';
@@ -21,6 +25,22 @@ import {
   SegmentedControlButton,
 } from '@databricks/design-system';
 import { Descriptions } from '../../common/components/Descriptions';
+// BEGIN-EDGE
+import { HeaderButton } from '../../shared/building_blocks/PageHeader';
+import { ConfigureInferenceButton } from './ConfigureInferenceButton';
+import { getModelPageServingRoute, getModelPageMonitoringRoute, PANES } from '../routes';
+import PermissionUtils from '../utils/PermissionUtils';
+import DatabricksUtils from '../../common/utils/DatabricksUtils';
+import { ServingPane } from '../../model-serving/components/ServingPane';
+import { ModelLevelEmailSubscriptionStatus } from './ModelPage';
+import { Tooltip, Tabs, Tag, Select, Spinner, InfoFillIcon } from '@databricks/design-system';
+import { getModelRegistryEmailNotificationsDocsUri } from '../utils';
+import { MonitoringPane } from '../../model-monitoring/components/MonitoringPane';
+import { getActiveModelMonitoringTags } from '../../model-monitoring/utils';
+import { AssetType } from '@databricks/web-shared-bundle/recents';
+
+const { TabPane } = Tabs;
+// END-EDGE
 
 export const StageFilters = {
   ALL: 'ALL',
@@ -31,6 +51,9 @@ export class ModelViewImpl extends React.Component {
   constructor(props) {
     super(props);
     this.onCompare = this.onCompare.bind(this);
+    // BEGIN-EDGE
+    this.handleSetSubscriptionStatus = this.handleSetSubscriptionStatus.bind(this);
+    // END-EDGE
   }
 
   static propTypes = {
@@ -38,6 +61,10 @@ export class ModelViewImpl extends React.Component {
       name: PropTypes.string.isRequired,
       creation_timestamp: PropTypes.number.isRequired,
       last_updated_timestamp: PropTypes.number.isRequired,
+      // BEGIN-EDGE
+      permission_level: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired,
+      // END-EDGE
     }),
     modelVersions: PropTypes.arrayOf(
       PropTypes.shape({
@@ -47,6 +74,14 @@ export class ModelViewImpl extends React.Component {
     handleEditDescription: PropTypes.func.isRequired,
     handleDelete: PropTypes.func.isRequired,
     history: PropTypes.object.isRequired,
+    // BEGIN-EDGE
+    // @Databricks handler for launching permission modal for registered model from Databricks
+    showEditPermissionModal: PropTypes.func.isRequired,
+    activePane: PropTypes.oneOf(Object.values(PANES)),
+    emailSubscriptionStatus: PropTypes.string,
+    userLevelEmailSubscriptionStatus: PropTypes.string,
+    handleEmailNotificationPreferenceChange: PropTypes.func,
+    // END-EDGE
     tags: PropTypes.object.isRequired,
     setRegisteredModelTagApi: PropTypes.func.isRequired,
     deleteRegisteredModelTagApi: PropTypes.func.isRequired,
@@ -64,10 +99,31 @@ export class ModelViewImpl extends React.Component {
   };
 
   formRef = React.createRef();
+  // BEGIN-EDGE
+  addToRecents() {
+    const { activePane } = this.props;
+    if (activePane === PANES.SERVING) {
+      DatabricksUtils.addToRecents('endpoint', this.props.model.id);
+      DatabricksUtils.registerRecent({ id: this.props.model.id, type: AssetType.ENDPOINT });
+    } else if (activePane !== PANES.MONITORING) {
+      DatabricksUtils.addToRecents('model', this.props.model.id);
+      DatabricksUtils.registerRecent({ id: this.props.model.id, type: AssetType.MODEL });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.activePane !== this.props.activePane) {
+      this.addToRecents();
+    }
+  }
+  // END-EDGE
 
   componentDidMount() {
     const pageTitle = `${this.props.model.name} - MLflow Model`;
     Utils.updatePageTitle(pageTitle);
+    // BEGIN-EDGE
+    this.addToRecents();
+    // END-EDGE
   }
 
   handleStageFilterChange = (e) => {
@@ -80,6 +136,16 @@ export class ModelViewImpl extends React.Component {
       ? modelVersions.filter((v) => ACTIVE_STAGES.includes(v.current_stage)).length
       : 0;
   }
+  // BEGIN-EDGE
+  async handleSetSubscriptionStatus({ key: subscriptionStatus }) {
+    this.setState({ updatingEmailPreferences: true });
+    try {
+      await this.props.handleEmailNotificationPreferenceChange(subscriptionStatus);
+    } finally {
+      this.setState({ updatingEmailPreferences: false });
+    }
+  }
+  // END-EDGE
 
   handleCancelEditDescription = () => {
     this.setState({ showDescriptionEditor: false });
@@ -96,7 +162,18 @@ export class ModelViewImpl extends React.Component {
     this.setState({ showDescriptionEditor: true });
   };
 
+  // BEGIN-EDGE
+  canManageModelPermissions() {
+    const { permission_level } = this.props.model;
+    return PermissionUtils.permissionLevelCanManage(permission_level);
+  }
+  // END-EDGE
   getOverflowMenuItems() {
+    // BEGIN-EDGE
+    if (!this.canManageModelPermissions()) {
+      return [];
+    }
+    // END-EDGE
     const menuItems = [
       {
         id: 'delete',
@@ -115,6 +192,177 @@ export class ModelViewImpl extends React.Component {
     return menuItems;
   }
 
+  // BEGIN-EDGE
+  mapNotificationPreferenceToDisplayText(notificationPreference) {
+    if (notificationPreference === ModelLevelEmailSubscriptionStatus.ALL_EVENTS) {
+      return this.props.intl.formatMessage({
+        defaultMessage: 'All new activity',
+        description: 'Text for dropdown for all notifications on model view page',
+      });
+    } else if (notificationPreference === ModelLevelEmailSubscriptionStatus.UNSUBSCRIBED) {
+      return this.props.intl.formatMessage({
+        defaultMessage: 'Mute notifications',
+        description: 'Text for dropdown for no notifications on model view page',
+      });
+    } else {
+      return this.props.intl.formatMessage({
+        defaultMessage: 'Activity on versions I follow',
+        description: 'Text for dropdown for notifications that user follows on model view page',
+      });
+    }
+  }
+
+  notificationsEnabledForUser() {
+    return (
+      DatabricksUtils.modelRegistryEmailNotificationsEnabled() &&
+      this.props.userLevelEmailSubscriptionStatus === ModelLevelEmailSubscriptionStatus.SUBSCRIBED
+    );
+  }
+
+  renderNotificationDropdown = () => {
+    if (this.notificationsEnabledForUser()) {
+      return (
+        <>
+          <Select
+            value={this.props.emailSubscriptionStatus}
+            className='emailNotificationPreferenceDropdown'
+            id='emailNotificationPreferenceDropdown'
+            data-testid='email-notification-preference-dropdown'
+            css={styles.emailNotificationPreferenceDropdown}
+            disabled={this.state.updatingEmailPreferences}
+            onChange={(key) => this.handleSetSubscriptionStatus({ key })}
+          >
+            <Select.Option
+              value={ModelLevelEmailSubscriptionStatus.ALL_EVENTS}
+              data-testid='all-events-menu-item'
+            >
+              {this.mapNotificationPreferenceToDisplayText(
+                ModelLevelEmailSubscriptionStatus.ALL_EVENTS,
+              )}
+            </Select.Option>
+            <Select.Option
+              value={ModelLevelEmailSubscriptionStatus.DEFAULT}
+              data-testid='default-menu-item'
+            >
+              {this.mapNotificationPreferenceToDisplayText(
+                ModelLevelEmailSubscriptionStatus.DEFAULT,
+              )}
+            </Select.Option>
+            <Select.Option
+              value={ModelLevelEmailSubscriptionStatus.UNSUBSCRIBED}
+              data-testid='unsubscribed-menu-item'
+            >
+              {this.mapNotificationPreferenceToDisplayText(
+                ModelLevelEmailSubscriptionStatus.UNSUBSCRIBED,
+              )}
+            </Select.Option>
+          </Select>{' '}
+          {this.state.updatingEmailPreferences && <Spinner />}
+        </>
+      );
+    }
+    return null;
+  };
+
+  renderNotificationTooltip = () => {
+    let contents = null;
+    if (DatabricksUtils.modelRegistryEmailNotificationsEnabled()) {
+      if (
+        this.props.userLevelEmailSubscriptionStatus === ModelLevelEmailSubscriptionStatus.SUBSCRIBED
+      ) {
+        contents = (
+          <FormattedMessage
+            defaultMessage='Automated notifications about model registry activity are sent
+                 to your email address. <link>Learn more.</link>'
+            description='Tooltip text for email notifications when turned on in the model view
+                 page'
+            values={{
+              link: (chunks) => (
+                <a
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  href={getModelRegistryEmailNotificationsDocsUri()}
+                >
+                  {chunks}
+                </a>
+              ),
+            }}
+          />
+        );
+      } else {
+        contents = (
+          <FormattedMessage
+            defaultMesage='Email notifications are currently turned off. To re-enable email
+                 notifications, go to your <link>user settings.</link>'
+            description='Tooltip text when user disables email notifications in user settings
+                 for model view page'
+            values={{
+              link: (chunks) => (
+                <a target='_blank' rel='noopener noreferrer' href={'/#setting/account'}>
+                  {chunks}
+                </a>
+              ),
+            }}
+          />
+        );
+      }
+    } else {
+      contents = (
+        <FormattedMessage
+          defaultMessage='Email notifications are not enabled for your workspace. To gain
+               access to this feature, please contact your workspace admin.'
+          description='Tooltip text for notifications when not enabled for workspace in the
+               model view page'
+        />
+      );
+    }
+    return (
+      <Tooltip title={contents} placement='bottom'>
+        <InfoFillIcon
+          css={styles.emailNotificationPreferenceTip}
+          data-testid='email-notification-preference-mark'
+        />
+      </Tooltip>
+    );
+  };
+
+  renderEmailNotificationPreferenceDropdown() {
+    let subheadingText;
+    if (!DatabricksUtils.modelRegistryEmailNotificationsEnabledInShard()) {
+      return null;
+    }
+    if (this.notificationsEnabledForUser()) {
+      subheadingText = this.props.intl.formatMessage({
+        defaultMessage: 'Notify me about',
+        description: 'Notification setting status message when enabled on the model view page',
+      });
+    } else {
+      subheadingText = this.props.intl.formatMessage({
+        defaultMessage: 'Notifications Disabled',
+        description: 'Notification setting status message when disabled on the model view page',
+      });
+    }
+    return (
+      <div data-testid='email-notification-preference-dropdown-wrapper'>
+        {subheadingText}
+        {this.renderNotificationTooltip()}
+        {this.renderNotificationDropdown()}
+      </div>
+    );
+  }
+
+  renderTopRightPanel() {
+    const { model } = this.props;
+    if (DatabricksUtils.isGenerateBatchInferenceNotebookEnabled()) {
+      return (
+        <ConfigureInferenceButton modelName={model.name} permissionLevel={model.permission_level} />
+      );
+    }
+
+    return null;
+  }
+
+  // END-EDGE
   showDeleteModal = () => {
     this.setState({ isDeleteModalVisible: true });
   };
@@ -199,7 +447,32 @@ export class ModelViewImpl extends React.Component {
     );
   }
 
+  // BEGIN-EDGE
+  onTabClick = (key) => {
+    const { model, history } = this.props;
+    switch (key) {
+      case PANES.DETAILS: {
+        history.push(getModelPageRoute(model.name));
+        break;
+      }
+      case PANES.MONITORING: {
+        history.push(getModelPageMonitoringRoute(model.name));
+        break;
+      }
+      case PANES.SERVING:
+      default:
+        history.push(getModelPageServingRoute(model.name));
+    }
+  };
+
+  // END-EDGE
   renderDescriptionEditIcon() {
+    // BEGIN-EDGE
+    const { permission_level } = this.props.model;
+    if (!PermissionUtils.permissionLevelCanEdit(permission_level)) {
+      return null;
+    }
+    // END-EDGE
     return (
       <Button
         data-test-id='descriptionEditButton'
@@ -229,6 +502,9 @@ export class ModelViewImpl extends React.Component {
     const compareDisabled = Object.keys(this.state.runsSelected).length < 2;
     return (
       <div css={styles.wrapper}>
+        {/* BEGIN-EDGE */}
+        {this.renderEmailNotificationPreferenceDropdown()}
+        {/* END-EDGE */}
         {/* Metadata List */}
         <Descriptions columns={3} data-testid='model-view-metadata'>
           <Descriptions.Item
@@ -407,7 +683,82 @@ export class ModelViewImpl extends React.Component {
     );
   };
 
+  // BEGIN-EDGE
   renderMainPanel() {
+    const { model, activePane } = this.props;
+    // Reported during ESLint upgrade
+    // eslint-disable-next-line react/prop-types
+    const { tags = [] } = model;
+    const activeMonitoringTags = getActiveModelMonitoringTags(tags);
+
+    return (
+      <Tabs
+        activeKey={activePane || PANES.DETAILS}
+        onChange={this.onTabClick}
+        defaultActiveKey={activePane || PANES.DETAILS}
+        destroyInactiveTabPane
+      >
+        <TabPane
+          tab={this.props.intl.formatMessage({
+            defaultMessage: 'Details',
+            description: 'Tab name for the details tab on the model view main panel',
+          })}
+          key={PANES.DETAILS}
+        >
+          {this.renderDetails()}
+        </TabPane>
+        {DatabricksUtils.isModelServingEnabled() ? (
+          <TabPane
+            tab={
+              <div>
+                <span>
+                  {this.props.intl.formatMessage({
+                    defaultMessage: 'Serving',
+                    description: 'Tab name for the serving tab on the model view main panel',
+                  })}
+                  {DatabricksUtils.modelServingV2EndpointCreationEnabled() ? (
+                    <>
+                      {' '}
+                      <Tag title='Preview'>Preview</Tag>
+                    </>
+                  ) : null}
+                </span>
+              </div>
+            }
+            key={PANES.SERVING}
+          >
+            <ServingPane modelName={model.name} modelPermissionLevel={model.permission_level} />
+          </TabPane>
+        ) : null}
+        {(DatabricksUtils.getConf('enableModelMonitoringPublicPreview') || // goc for public preview
+          (DatabricksUtils.getConf('enableModelMonitoring') && // goc for private preview
+            activeMonitoringTags.length > 0)) && (
+          <TabPane
+            tab={
+              <div>
+                {this.props.intl.formatMessage({
+                  defaultMessage: 'Monitoring',
+                  description: 'Tab name for the monitoring tab on the model view main panel',
+                })}
+                {DatabricksUtils.getConf('enableModelMonitoringPublicPreview') && (
+                  <>
+                    {' '}
+                    <Tag title='Preview'>Preview</Tag>
+                  </>
+                )}
+              </div>
+            }
+            key={PANES.MONITORING}
+          >
+            <MonitoringPane monitors={activeMonitoringTags} />
+          </TabPane>
+        )}
+      </Tabs>
+    );
+  }
+
+  // END-EDGE
+  oss_renderMainPanel() {
     return this.renderDetails();
   }
 
@@ -430,6 +781,22 @@ export class ModelViewImpl extends React.Component {
       <div>
         <PageHeader title={modelName} breadcrumbs={breadcrumbs}>
           <OverflowMenu menu={this.getOverflowMenuItems()} />
+          {/* BEGIN-EDGE */}
+          {/* eslint-disable-next-line max-len */}
+          {this.canManageModelPermissions() && DatabricksUtils.isAclCheckEnabledForModelRegistry() && (
+            <HeaderButton
+              type='secondary'
+              onClick={this.props.showEditPermissionModal}
+              data-test-id='edit-permissions-button'
+            >
+              <FormattedMessage
+                defaultMessage='Permissions'
+                description='Text for permissions button on model view page header'
+              />
+            </HeaderButton>
+          )}
+          {this.renderTopRightPanel()}
+          {/* END-EDGE */}
         </PageHeader>
         {this.renderMainPanel()}
       </div>

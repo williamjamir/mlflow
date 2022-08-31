@@ -1,0 +1,1 @@
+{"version":3,"file":"useFileDropzone.d.ts","sourceRoot":"","sources":["../../../src/dropzone/hooks/useFileDropzone.ts"],"names":[],"mappings":"AAEA,MAAM,WAAW,gBAAgB;IAC/B,OAAO,CAAC,EAAE,OAAO,CAAC;IAClB,MAAM,CAAC,EAAE,OAAO,CAAC;IACjB,UAAU,CAAC,EAAE,OAAO,CAAC;IACrB,MAAM,EAAE,CAAC,KAAK,EAAE,IAAI,EAAE,KAAK,IAAI,CAAC;CACjC;AAED,eAAO,MAAM,eAAe,4CAA6C,gBAAgB;;;;CAQxF,CAAC"}

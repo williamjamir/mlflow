@@ -1,0 +1,34 @@
+.enable-serving-container {
+  background: #FAFAFA;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 40px;
+}
+
+.enable-serving-button-container {
+  margin-top: 20px;
+}
+
+.ant-modal-footer .enable-serving-button-popover {
+  margin-left: 8px;
+}
+
+.enable-serving-message {
+  max-width: 600px;
+}
+
+.error-message {
+  color: red;
+}
+
+.link-button {
+  background-color: transparent;
+  border: none;
+  color: rgb(35, 116, 187);
+  cursor: pointer;
+  display: inline;
+  margin: 0;
+  padding: 0;
+}

@@ -71,3 +71,11 @@ export const POLL_INTERVAL = 15000;
 export const MLFLOW_EXPERIMENT_PRIMARY_METRIC_NAME = 'mlflow.experiment.primaryMetric.name';
 export const MLFLOW_EXPERIMENT_PRIMARY_METRIC_GREATER_IS_BETTER =
   'mlflow.experiment.primaryMetric.greaterIsBetter';
+// BEGIN-EDGE
+export const MLFLOW_ROOT_RUN_ID_TAG = 'mlflow.rootRunId';
+export const PermissionLevels = {
+  CAN_MANAGE: 'CAN_MANAGE',
+  CAN_EDIT: 'CAN_EDIT',
+  CAN_READ: 'CAN_READ',
+};
+// END-EDGE

@@ -13,6 +13,19 @@ import {
 } from '../constants';
 import { searchRegisteredModelsApi } from '../actions';
 import LocalStorageUtils from '../../common/utils/LocalStorageUtils';
+// BEGIN-EDGE
+import { getRegistryWidePermissionsApi } from '../actions';
+import {
+  MODEL_VERSION_STATUS_POLL_INTERVAL as POLL_INTERVAL,
+  PermissionLevels,
+} from '../constants';
+import { getRegistryWidePermissionLevel } from '../reducers';
+import { listEndpointsApi, listEndpointsV2Api } from '../../model-serving/actions';
+import DatabricksUtils from '../../common/utils/DatabricksUtils';
+import { LoadingDescription } from '@databricks/web-shared-bundle/metrics';
+import { UniverseFrontendApis } from '../../common/utils/UniverseFrontendApis';
+import { OwnerFilter, StatusFilter } from '../utils/SearchUtils';
+// END-EDGE
 
 export class ModelListPageImpl extends React.Component {
   constructor(props) {
@@ -25,6 +38,10 @@ export class ModelListPageImpl extends React.Component {
       pageTokens: {},
       loading: false,
       searchInput: constructSearchInputFromURLState(this.getUrlState()),
+      // BEGIN-EDGE
+      selectedOwnerFilter: OwnerFilter.ACCESSIBLE_BY_ME,
+      selectedStatusFilter: StatusFilter.ALL,
+      // END-EDGE
     };
   }
   static propTypes = {
@@ -33,17 +50,72 @@ export class ModelListPageImpl extends React.Component {
     // react-router props
     history: PropTypes.object.isRequired,
     location: PropTypes.object,
+    // BEGIN-EDGE
+    endpoints: PropTypes.object,
+    endpointsV2: PropTypes.array,
+    listEndpointsApi: PropTypes.func.isRequired,
+    listEndpointsV2Api: PropTypes.func.isRequired,
+    getRegistryWidePermissionsApi: PropTypes.func.isRequired,
+    permissionLevel: PropTypes.string,
+    apis: PropTypes.object.isRequired,
+    // END-EDGE
   };
   modelListPageStoreKey = 'ModelListPageStore';
   defaultPersistedPageTokens = { 1: null };
   initialSearchRegisteredModelsApiId = getUUID();
   searchRegisteredModelsApiId = getUUID();
+  // BEGIN-EDGE
+  initgetRegistryWidePermissionsApiId = getUUID();
+  getRegistryWidePermissionsApiId = getUUID();
+  // END-EDGE
   criticalInitialRequestIds = [this.initialSearchRegisteredModelsApiId];
 
   getUrlState() {
     return this.props.location ? Utils.getSearchParamsFromUrl(this.props.location.search) : {};
   }
 
+  // BEGIN-EDGE
+  // Launch edit permission modal from Databricks window
+  showEditPermissionModal = () => {
+    const dummyModelForPermissions = { id: 'root' };
+    UniverseFrontendApis.editRegisteredModelPermission({
+      registeredModel: dummyModelForPermissions,
+    }).then(() => {
+      // TODO(sueann): apply UI changes based on permission changes
+    });
+  };
+
+  loadData = (isInitialLoading) => {
+    const promiseValues = [];
+    // if ACL checks are not enabled for model registry, backend will throw
+    if (DatabricksUtils.isRegistryWidePermissionsEnabledForModelRegistry()) {
+      promiseValues.push(
+        this.props.getRegistryWidePermissionsApi(
+          isInitialLoading === true
+            ? this.initgetRegistryWidePermissionsApiId
+            : this.getRegistryWidePermissionsApiId,
+        ),
+      );
+    }
+    return Promise.all(promiseValues);
+  };
+
+  pollingRelatedRequestIds = [this.getRegistryWidePermissionsApiId];
+
+  hasPendingPollingRequest = () =>
+    this.pollingRelatedRequestIds.every((requestId) => {
+      const request = this.props.apis[requestId];
+      return Boolean(request && request.active);
+    });
+
+  pollData = () => {
+    if (!this.hasPendingPollingRequest() && Utils.isBrowserTabVisible()) {
+      return this.loadData(false).catch(console.error);
+    }
+    return Promise.resolve();
+  };
+
+  // END-EDGE
   componentDidMount() {
     const urlState = this.getUrlState();
     const persistedPageTokens = this.getPersistedPageTokens();
@@ -65,10 +137,23 @@ export class ModelListPageImpl extends React.Component {
       },
       () => {
         this.loadModels(true);
+        // BEGIN-EDGE
+        this.loadData(true).catch(console.error);
+        this.pollIntervalId = setInterval(this.pollData, POLL_INTERVAL);
+        // END-EDGE
       },
     );
+    // BEGIN-EDGE
+    DatabricksUtils.logClientSideEvent('mlflowModelListPageAction', 'pageView');
+    // END-EDGE
   }
 
+  // BEGIN-EDGE
+  componentWillUnmount() {
+    clearInterval(this.pollIntervalId);
+  }
+
+  // END-EDGE
   getPersistedPageTokens() {
     const store = ModelListPageImpl.getLocalStore(this.modelListPageStoreKey);
     if (store && store.getItem('page_tokens')) {
@@ -129,10 +214,15 @@ export class ModelListPageImpl extends React.Component {
   static getOrderByExpr = (orderByKey, orderByAsc) =>
     orderByKey ? `${orderByKey} ${orderByAsc ? 'ASC' : 'DESC'}` : '';
 
-  isEmptyPageResponse = (value) => {
+  oss_isEmptyPageResponse = (value) => {
     return !value || !value.registered_models || !value.next_page_token;
   };
 
+  // BEGIN-EDGE
+  isEmptyPageResponse = (value) => {
+    return !value || !value.registered_models_databricks || !value.next_page_token;
+  };
+  // END-EDGE
   getNextPageTokenFromResponse(response) {
     const { value } = response;
     if (this.isEmptyPageResponse(value)) {
@@ -175,6 +265,10 @@ export class ModelListPageImpl extends React.Component {
         orderByKey: REGISTERED_MODELS_SEARCH_NAME_FIELD,
         orderByAsc: true,
         searchInput: '',
+        // BEGIN-EDGE
+        selectedOwnerFilter: OwnerFilter.ACCESSIBLE_BY_ME,
+        selectedStatusFilter: StatusFilter.ALL,
+        // END-EDGE
         // eslint-disable-nextline
       },
       () => {
@@ -187,6 +281,20 @@ export class ModelListPageImpl extends React.Component {
   handleSearchInputChange = (searchInput) => {
     this.setState({ searchInput: searchInput });
   };
+  // BEGIN-EDGE
+  handleOwnerFilterChange = (selectedOwnerFilter, callback, errorCallback) => {
+    this.setState({ selectedOwnerFilter: selectedOwnerFilter }, () => {
+      this.resetHistoryState();
+      this.loadPage(1, callback, errorCallback);
+    });
+  };
+  handleStatusFilterChange = (selectedStatusFilter, callback, errorCallback) => {
+    this.setState({ selectedStatusFilter: selectedStatusFilter }, () => {
+      this.resetHistoryState();
+      this.loadPage(1, callback, errorCallback);
+    });
+  };
+  // END-EDGE
 
   updateUrlWithSearchFilter = (searchInput, orderByKey, orderByAsc, page) => {
     const urlParams = {};
@@ -245,6 +353,10 @@ export class ModelListPageImpl extends React.Component {
       pageTokens,
       orderByKey,
       orderByAsc,
+      // BEGIN-EDGE
+      selectedOwnerFilter,
+      selectedStatusFilter,
+      // END-EDGE
       // eslint-disable-nextline
     } = this.state;
     this.setState({ loading: true });
@@ -253,6 +365,10 @@ export class ModelListPageImpl extends React.Component {
       .searchRegisteredModelsApi(
         getCombinedSearchFilter({
           query: searchInput,
+          // BEGIN-EDGE
+          selectedOwnerFilter: selectedOwnerFilter,
+          selectedStatusFilter: selectedStatusFilter,
+          // END-EDGE
           // eslint-disable-nextline
         }),
         this.state.maxResultsSelection,
@@ -273,6 +389,13 @@ export class ModelListPageImpl extends React.Component {
         this.resetHistoryState();
         errorCallback && errorCallback();
       });
+    // BEGIN-EDGE
+    // TODO(aaron) Load only endpoints relevant to the current page being shown.
+    if (DatabricksUtils.isModelServingEnabled()) {
+      this.props.listEndpointsApi();
+      this.props.listEndpointsV2Api();
+    }
+    // END-EDGE
   }
 
   render() {
@@ -282,17 +405,34 @@ export class ModelListPageImpl extends React.Component {
       currentPage,
       pageTokens,
       searchInput,
+      // BEGIN-EDGE
+      selectedOwnerFilter,
+      selectedStatusFilter,
+      // END-EDGE
       // eslint-disable-nextline
     } = this.state;
     const { models } = this.props;
+    // BEGIN-EDGE
+    const { endpoints, permissionLevel } = this.props;
+    // END-EDGE
     return (
       <RequestStateWrapper
         requestIds={[this.criticalInitialRequestIds]}
         // eslint-disable-next-line no-trailing-spaces
+        // BEGIN-EDGE
+        description={LoadingDescription.MLFLOW_MODEL_LIST_PAGE}
+        // END-EDGE
       >
         <ModelListView
           models={models}
           loading={this.state.loading}
+          // BEGIN-EDGE
+          endpoints={endpoints}
+          permissionLevel={permissionLevel}
+          showEditPermissionModal={this.showEditPermissionModal}
+          selectedOwnerFilter={selectedOwnerFilter}
+          selectedStatusFilter={selectedStatusFilter}
+          // END-EDGE
           searchInput={searchInput}
           orderByKey={orderByKey}
           orderByAsc={orderByAsc}
@@ -300,6 +440,10 @@ export class ModelListPageImpl extends React.Component {
           nextPageToken={pageTokens[currentPage + 1]}
           onSearch={this.handleSearch}
           onSearchInputChange={this.handleSearchInputChange}
+          // BEGIN-EDGE
+          onOwnerFilterChange={this.handleOwnerFilterChange}
+          onStatusFilterChange={this.handleStatusFilterChange}
+          // END-EDGE
           onClear={this.handleClear}
           onClickNext={this.handleClickNext}
           onClickPrev={this.handleClickPrev}
@@ -314,13 +458,29 @@ export class ModelListPageImpl extends React.Component {
 
 const mapStateToProps = (state) => {
   const models = Object.values(state.entities.modelByName);
+  // BEGIN-EDGE
+  const endpoints = state.entities.endpointStatus;
+  const permissionLevel =
+    getRegistryWidePermissionLevel(state) || PermissionLevels.CAN_CREATE_REGISTERED_MODEL;
+  const { apis } = state;
+  // END-EDGE
   return {
     models,
+    // BEGIN-EDGE
+    endpoints,
+    permissionLevel,
+    apis,
+    // END-EDGE
   };
 };
 
 const mapDispatchToProps = {
   searchRegisteredModelsApi,
+  // BEGIN-EDGE
+  listEndpointsApi,
+  listEndpointsV2Api,
+  getRegistryWidePermissionsApi,
+  // END-EDGE
 };
 
 export const ModelListPage = connect(mapStateToProps, mapDispatchToProps)(ModelListPageImpl);

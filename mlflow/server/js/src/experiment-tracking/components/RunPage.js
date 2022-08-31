@@ -12,6 +12,9 @@ import { RunNotFoundView } from './RunNotFoundView';
 import { getUUID } from '../../common/utils/ActionUtils';
 import { Spinner } from '../../common/components/Spinner';
 import { PageContainer } from '../../common/components/PageContainer';
+// BEGIN-EDGE
+import { LoadingDescription } from '@databricks/web-shared-bundle/metrics';
+// END-EDGE
 
 export class RunPageImpl extends Component {
   static propTypes = {
@@ -76,6 +79,9 @@ export class RunPageImpl extends Component {
         <RequestStateWrapper
           requestIds={requestIds}
           // eslint-disable-next-line no-trailing-spaces
+          // BEGIN-EDGE
+          description={LoadingDescription.MLFLOW_RUN_PAGE}
+          // END-EDGE
         >
           {this.renderRunView}
         </RequestStateWrapper>

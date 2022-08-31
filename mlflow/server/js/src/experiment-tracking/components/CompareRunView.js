@@ -378,6 +378,17 @@ export class CompareRunView extends Component {
     const title = this.getTitle();
     /* eslint-disable-next-line prefer-const */
     let breadcrumbs = [this.getExperimentLink(), title];
+    // BEGIN-EDGE
+    breadcrumbs.unshift(
+      <Link to={Routes.experimentsObservatoryRoute}>
+        <FormattedMessage
+          defaultMessage='Experiments'
+          // eslint-disable-next-line max-len
+          description='Breadcrumb nav item to link to the list of experiments page on compare runs page'
+        />
+      </Link>,
+    );
+    // END-EDGE
     return (
       <div className='CompareRunView' ref={this.compareRunViewRef}>
         <PageHeader title={title} breadcrumbs={breadcrumbs} />

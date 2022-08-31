@@ -22,6 +22,16 @@ import {
 } from './actions';
 import { fulfilled } from '../common/utils/ActionUtils';
 import { ModelVersionTag, RegisteredModelTag } from './sdk/ModelRegistryMessages';
+// BEGIN-EDGE
+import { getModelVersionActivities, getModelVersionTransitionRequests } from './reducers';
+import { mockActivity } from './test-utils';
+import {
+  GET_MODEL_VERSION_ACTIVITIES,
+  LIST_TRANSITION_REQUESTS,
+  GENERATE_BATCH_INFERENCE_NOTEBOOK,
+} from './actions';
+import { ActivityTypes, Stages } from './constants';
+// END-EDGE
 
 const {
   modelByName,
@@ -31,6 +41,11 @@ const {
   mlModelArtifactByModelVersion,
 } = ModelRegistryReducers;
 
+// BEGIN-EDGE
+const { activitiesByModelVersion, transitionRequestsByModelVersion, generatedNotebookPath } =
+  ModelRegistryReducers;
+
+// END-EDGE
 describe('test modelByName', () => {
   test('initial state', () => {
     expect(modelByName(undefined, {})).toEqual({});
@@ -44,6 +59,9 @@ describe('test modelByName', () => {
       type: fulfilled(LIST_REGISTERED_MODELS),
       payload: {
         registered_models: [modelA, modelB],
+        // BEGIN-EDGE
+        registered_models_databricks: [modelA, modelB],
+        // END-EDGE
       },
     };
     expect(modelByName(state, action)).toEqual({ modelA, modelB });
@@ -58,6 +76,9 @@ describe('test modelByName', () => {
       type: fulfilled(LIST_REGISTERED_MODELS),
       payload: {
         registered_models: [modelB, modelC],
+        // BEGIN-EDGE
+        registered_models_databricks: [modelB, modelC],
+        // END-EDGE
       },
     };
     expect(modelByName(state, action)).toEqual({ modelB, modelC });
@@ -72,6 +93,9 @@ describe('test modelByName', () => {
       type: fulfilled(LIST_REGISTERED_MODELS),
       payload: {
         registered_models: [modelB, modelC],
+        // BEGIN-EDGE
+        registered_models_databricks: [modelB, modelC],
+        // END-EDGE
       },
     };
     expect(modelByName(state, action)).toEqual({ modelB, modelC });
@@ -85,6 +109,9 @@ describe('test modelByName', () => {
       type: fulfilled(LIST_REGISTERED_MODELS),
       payload: {
         registered_models: [],
+        // BEGIN-EDGE
+        registered_models_databricks: [],
+        // END-EDGE
       },
     };
     expect(modelByName(state, action)).toEqual({});
@@ -98,6 +125,9 @@ describe('test modelByName', () => {
       type: fulfilled(LIST_REGISTERED_MODELS),
       payload: {
         registered_models: [modelB, modelA],
+        // BEGIN-EDGE
+        registered_models_databricks: [modelB, modelA],
+        // END-EDGE
       },
     };
     expect(modelByName(state, action)).toEqual({ modelB, modelA });
@@ -111,6 +141,9 @@ describe('test modelByName', () => {
       meta: { modelName: 'modelA' },
       payload: {
         registered_model: modelA,
+        // BEGIN-EDGE
+        registered_model_databricks: modelA,
+        // END-EDGE
       },
     };
     expect(modelByName(state, action)).toEqual({ modelA: modelA });
@@ -124,6 +157,9 @@ describe('test modelByName', () => {
       meta: { modelName: 'modelA' },
       payload: {
         registered_model: modelA,
+        // BEGIN-EDGE
+        registered_model_databricks: modelA,
+        // END-EDGE
       },
     };
     expect(modelByName(state, action)).toEqual({ modelA: modelA });
@@ -138,6 +174,9 @@ describe('test modelByName', () => {
       meta: { modelName: 'modelA' },
       payload: {
         registered_model: modelA,
+        // BEGIN-EDGE
+        registered_model_databricks: modelA,
+        // END-EDGE
       },
     };
     expect(modelByName(state, action)).toEqual({ modelA: modelA, modelB: modelB });
@@ -204,6 +243,9 @@ describe('test modelVersionsByModel', () => {
       meta: { modelName: 'modelA' },
       payload: {
         model_version: version1,
+        // BEGIN-EDGE
+        model_version_databricks: version1,
+        // END-EDGE
       },
     };
     expect(modelVersionsByModel(state, action)).toEqual({ modelA: { 1: version1 } });
@@ -218,6 +260,9 @@ describe('test modelVersionsByModel', () => {
       meta: { modelName: 'modelA' },
       payload: {
         model_version: version2,
+        // BEGIN-EDGE
+        model_version_databricks: version2,
+        // END-EDGE
       },
     };
     expect(modelVersionsByModel(state, action)).toEqual({
@@ -279,6 +324,9 @@ describe('test modelVersionsByModel', () => {
       type: fulfilled(SEARCH_MODEL_VERSIONS),
       payload: {
         model_versions: [],
+        // BEGIN-EDGE
+        model_versions_databricks: [],
+        // END-EDGE
       },
     };
     expect(modelVersionsByModel(state, action)).toEqual({});
@@ -292,6 +340,9 @@ describe('test modelVersionsByModel', () => {
       type: fulfilled(SEARCH_MODEL_VERSIONS),
       payload: {
         model_versions: [version2, version1],
+        // BEGIN-EDGE
+        model_versions_databricks: [version2, version1],
+        // END-EDGE
       },
     };
     expect(modelVersionsByModel(state, action)).toEqual({
@@ -310,6 +361,9 @@ describe('test modelVersionsByModel', () => {
       type: fulfilled(SEARCH_MODEL_VERSIONS),
       payload: {
         model_versions: [version2, version1],
+        // BEGIN-EDGE
+        model_versions_databricks: [version2, version1],
+        // END-EDGE
       },
     };
     expect(modelVersionsByModel(state, action)).toEqual({
@@ -330,6 +384,9 @@ describe('test modelVersionsByModel', () => {
       type: fulfilled(SEARCH_MODEL_VERSIONS),
       payload: {
         model_versions: [version3],
+        // BEGIN-EDGE
+        model_versions_databricks: [version3],
+        // END-EDGE
       },
     };
     expect(modelVersionsByModel(state, action)).toEqual({
@@ -469,6 +526,434 @@ describe('test getAllModelVersions', () => {
     expect(getAllModelVersions(state)).toEqual([versionA1, versionB1]);
   });
 });
+// BEGIN-EDGE
+
+const { REQUESTED_TRANSITION } = ActivityTypes;
+describe('test activitiesByModelVersion', () => {
+  test('initial state (1)', () => {
+    expect(activitiesByModelVersion(undefined, {})).toEqual({});
+  });
+
+  test('initial state (2)', () => {
+    const state = { undefined: [undefined] };
+    expect(activitiesByModelVersion(state, {})).toEqual(state);
+  });
+
+  test('GET_MODEL_VERSION_ACTIVITIES handles empty state (1)', () => {
+    const state = {};
+    const action = {
+      type: fulfilled(GET_MODEL_VERSION_ACTIVITIES),
+      meta: { modelName: 'model', version: 1 },
+      payload: {},
+    };
+    expect(activitiesByModelVersion(state, action)).toEqual(state);
+  });
+
+  test('GET_MODEL_VERSION_ACTIVITIES handles empty state (2)', () => {
+    const state = {};
+    const action = {
+      type: fulfilled(GET_MODEL_VERSION_ACTIVITIES),
+      meta: { modelName: 'modelX', version: 1 },
+      payload: {
+        activities: [],
+      },
+    };
+    expect(activitiesByModelVersion(state, action)).toEqual({ modelX_1: [] });
+  });
+
+  test('GET_MODEL_VERSION_ACTIVITIES handles empty state (3)', () => {
+    const activity1 = mockActivity(REQUESTED_TRANSITION, Stages.NONE, Stages.STAGING);
+    const state = {};
+    const action = {
+      type: fulfilled(GET_MODEL_VERSION_ACTIVITIES),
+      meta: { modelName: 'modelX', version: 1 },
+      payload: {
+        activities: [activity1],
+      },
+    };
+    expect(activitiesByModelVersion(state, action)).toEqual({ modelX_1: [activity1] });
+  });
+
+  test('GET_MODEL_VERSION_ACTIVITIES refreshes activities for a version', () => {
+    const activity1 = mockActivity(REQUESTED_TRANSITION, Stages.NONE, Stages.STAGING);
+    const activity2 = mockActivity(REQUESTED_TRANSITION, Stages.NONE, Stages.PRODUCTION);
+    const state = { model_A_1: [activity1] };
+    const action = {
+      type: fulfilled(GET_MODEL_VERSION_ACTIVITIES),
+      meta: { modelName: 'model_A', version: 1 },
+      payload: {
+        activities: [activity1, activity2],
+      },
+    };
+    expect(activitiesByModelVersion(state, action)).toEqual({ model_A_1: [activity1, activity2] });
+  });
+
+  test('GET_MODEL_VERSION_ACTIVITIES removes stale activities for a version', () => {
+    const activity1 = mockActivity(REQUESTED_TRANSITION, Stages.NONE, Stages.STAGING);
+    const activity2 = mockActivity(REQUESTED_TRANSITION, Stages.NONE, Stages.PRODUCTION);
+    const state = { model_A_1: [activity1] };
+    const action = {
+      type: fulfilled(GET_MODEL_VERSION_ACTIVITIES),
+      meta: { modelName: 'model_A', version: 1 },
+      payload: {
+        activities: [activity2],
+      },
+    };
+    expect(activitiesByModelVersion(state, action)).toEqual({ model_A_1: [activity2] });
+  });
+
+  test('GET_MODEL_VERSION_ACTIVITIES cleans up stale activities for a version', () => {
+    const activity1 = mockActivity(REQUESTED_TRANSITION, Stages.NONE, Stages.STAGING);
+    const activity2 = mockActivity(REQUESTED_TRANSITION, Stages.NONE, Stages.PRODUCTION);
+    const state = { model_A_1: [activity1, activity2] };
+    const action = {
+      type: fulfilled(GET_MODEL_VERSION_ACTIVITIES),
+      meta: { modelName: 'model_A', version: 1 },
+      payload: {
+        activities: [],
+      },
+    };
+    expect(activitiesByModelVersion(state, action)).toEqual({ model_A_1: [] });
+  });
+
+  test('GET_MODEL_VERSION_ACTIVITIES does not affect activities of a different version', () => {
+    const activity1 = mockActivity(REQUESTED_TRANSITION, Stages.NONE, Stages.STAGING);
+    const activity2 = mockActivity(REQUESTED_TRANSITION, Stages.NONE, Stages.PRODUCTION);
+    const state = { model_A_1: [activity1] };
+    const action = {
+      type: fulfilled(GET_MODEL_VERSION_ACTIVITIES),
+      meta: { modelName: 'model_A', version: 2 },
+      payload: {
+        activities: [activity2],
+      },
+    };
+    expect(activitiesByModelVersion(state, action)).toEqual({
+      model_A_1: [activity1],
+      model_A_2: [activity2],
+    });
+  });
+
+  test('GET_MODEL_VERSION_ACTIVITIES does not affect activities of a different model', () => {
+    const activity1 = mockActivity(REQUESTED_TRANSITION, Stages.NONE, Stages.STAGING);
+    const activity2 = mockActivity(REQUESTED_TRANSITION, Stages.NONE, Stages.PRODUCTION);
+    const state = { model_A_1: [activity1] };
+    const action = {
+      type: fulfilled(GET_MODEL_VERSION_ACTIVITIES),
+      meta: { modelName: 'model_B', version: 1 },
+      payload: {
+        activities: [activity2],
+      },
+    };
+    expect(activitiesByModelVersion(state, action)).toEqual({
+      model_A_1: [activity1],
+      model_B_1: [activity2],
+    });
+  });
+});
+
+describe('test transitionRequestsByModelVersion', () => {
+  test('initial state (1)', () => {
+    expect(transitionRequestsByModelVersion(undefined, {})).toEqual({});
+  });
+
+  test('initial state (2)', () => {
+    const state = { undefined: [undefined] };
+    expect(transitionRequestsByModelVersion(state, {})).toEqual(state);
+  });
+
+  test('LIST_TRANSITION_REQUESTS handles empty state (1)', () => {
+    const state = {};
+    const action = {
+      type: fulfilled(LIST_TRANSITION_REQUESTS),
+      meta: { modelName: 'model', version: 1 },
+      payload: {},
+    };
+    expect(transitionRequestsByModelVersion(state, action)).toEqual(state);
+  });
+
+  test('LIST_TRANSITION_REQUESTS handles empty state (2)', () => {
+    const state = {};
+    const action = {
+      type: fulfilled(LIST_TRANSITION_REQUESTS),
+      meta: { modelName: 'modelX', version: 1 },
+      payload: {
+        requests: [],
+      },
+    };
+    expect(transitionRequestsByModelVersion(state, action)).toEqual({ modelX_1: [] });
+  });
+
+  test('LIST_TRANSITION_REQUESTS handles empty state (3)', () => {
+    const activity1 = mockActivity(REQUESTED_TRANSITION, Stages.NONE, Stages.STAGING);
+    const state = {};
+    const action = {
+      type: fulfilled(LIST_TRANSITION_REQUESTS),
+      meta: { modelName: 'modelX', version: 1 },
+      payload: {
+        requests: [activity1],
+      },
+    };
+    expect(transitionRequestsByModelVersion(state, action)).toEqual({ modelX_1: [activity1] });
+  });
+
+  test('LIST_TRANSITION_REQUESTS refreshes activities for a version', () => {
+    const activity1 = mockActivity(REQUESTED_TRANSITION, Stages.NONE, Stages.STAGING);
+    const activity2 = mockActivity(REQUESTED_TRANSITION, Stages.NONE, Stages.PRODUCTION);
+    const state = { model_A_1: [activity1] };
+    const action = {
+      type: fulfilled(LIST_TRANSITION_REQUESTS),
+      meta: { modelName: 'model_A', version: 1 },
+      payload: {
+        requests: [activity1, activity2],
+      },
+    };
+    expect(transitionRequestsByModelVersion(state, action)).toEqual({
+      model_A_1: [activity1, activity2],
+    });
+  });
+
+  test('LIST_TRANSITION_REQUESTS removes stale activities for a version', () => {
+    const activity1 = mockActivity(REQUESTED_TRANSITION, Stages.NONE, Stages.STAGING);
+    const activity2 = mockActivity(REQUESTED_TRANSITION, Stages.NONE, Stages.PRODUCTION);
+    const state = { model_A_1: [activity1] };
+    const action = {
+      type: fulfilled(LIST_TRANSITION_REQUESTS),
+      meta: { modelName: 'model_A', version: 1 },
+      payload: {
+        requests: [activity2],
+      },
+    };
+    expect(transitionRequestsByModelVersion(state, action)).toEqual({ model_A_1: [activity2] });
+  });
+
+  test('LIST_TRANSITION_REQUESTS cleans up stale activities for a version', () => {
+    const activity1 = mockActivity(REQUESTED_TRANSITION, Stages.NONE, Stages.STAGING);
+    const activity2 = mockActivity(REQUESTED_TRANSITION, Stages.NONE, Stages.PRODUCTION);
+    const state = { model_A_1: [activity1, activity2] };
+    const action = {
+      type: fulfilled(LIST_TRANSITION_REQUESTS),
+      meta: { modelName: 'model_A', version: 1 },
+      payload: {
+        requests: [],
+      },
+    };
+    expect(transitionRequestsByModelVersion(state, action)).toEqual({ model_A_1: [] });
+  });
+
+  test('LIST_TRANSITION_REQUESTS does not affect activities of a different version', () => {
+    const activity1 = mockActivity(REQUESTED_TRANSITION, Stages.NONE, Stages.STAGING);
+    const activity2 = mockActivity(REQUESTED_TRANSITION, Stages.NONE, Stages.PRODUCTION);
+    const state = { model_A_1: [activity1] };
+    const action = {
+      type: fulfilled(LIST_TRANSITION_REQUESTS),
+      meta: { modelName: 'model_A', version: 2 },
+      payload: {
+        requests: [activity2],
+      },
+    };
+    expect(transitionRequestsByModelVersion(state, action)).toEqual({
+      model_A_1: [activity1],
+      model_A_2: [activity2],
+    });
+  });
+
+  test('LIST_TRANSITION_REQUESTS does not affect activities of a different model', () => {
+    const activity1 = mockActivity(REQUESTED_TRANSITION, Stages.NONE, Stages.STAGING);
+    const activity2 = mockActivity(REQUESTED_TRANSITION, Stages.NONE, Stages.PRODUCTION);
+    const state = { model_A_1: [activity1] };
+    const action = {
+      type: fulfilled(LIST_TRANSITION_REQUESTS),
+      meta: { modelName: 'model_B', version: 1 },
+      payload: {
+        requests: [activity2],
+      },
+    };
+    expect(transitionRequestsByModelVersion(state, action)).toEqual({
+      model_A_1: [activity1],
+      model_B_1: [activity2],
+    });
+  });
+});
+
+describe('test getModelVersionTransitionRequests', () => {
+  test('when model entry is missing', () => {
+    const state = {
+      entities: {
+        transitionRequestsByModelVersion: {},
+      },
+    };
+    expect(getModelVersionTransitionRequests(state, 'modelX', 1)).toEqual(undefined);
+  });
+
+  test('when state has transitions for another model', () => {
+    const activity1 = mockActivity(REQUESTED_TRANSITION, Stages.NONE, Stages.STAGING);
+    const state = {
+      entities: {
+        transitionRequestsByModelVersion: { modelY_1: [activity1] },
+      },
+    };
+    expect(getModelVersionTransitionRequests(state, 'modelX', 1)).toEqual(undefined);
+  });
+
+  test('when state transitions for another version', () => {
+    const activity1 = mockActivity(REQUESTED_TRANSITION, Stages.NONE, Stages.STAGING);
+    const state = {
+      entities: {
+        transitionRequestsByModelVersion: { modelX_2: [activity1] },
+      },
+    };
+    expect(getModelVersionTransitionRequests(state, 'modelX', 1)).toEqual(undefined);
+  });
+
+  test('when state lists undefined transitions', () => {
+    const state = {
+      entities: {
+        transitionRequestsByModelVersion: { modelX_1: undefined },
+      },
+    };
+    expect(getModelVersionTransitionRequests(state, 'modelX', 1)).toEqual(undefined);
+  });
+
+  test('when state lists empty transition list', () => {
+    const state = {
+      entities: {
+        transitionRequestsByModelVersion: { modelX_1: [] },
+      },
+    };
+    expect(getModelVersionTransitionRequests(state, 'modelX', 1)).toEqual([]);
+  });
+
+  test('when state contains a single transition for version', () => {
+    const activity1 = mockActivity(REQUESTED_TRANSITION, Stages.NONE, Stages.STAGING);
+    const state = {
+      entities: {
+        transitionRequestsByModelVersion: { modelX_1: [activity1] },
+      },
+    };
+    expect(getModelVersionTransitionRequests(state, 'modelX', 1)).toEqual([activity1]);
+  });
+
+  test('when state contains multiple transitions for version', () => {
+    const activity1 = mockActivity(REQUESTED_TRANSITION, Stages.NONE, Stages.STAGING);
+    const activity2 = mockActivity(REQUESTED_TRANSITION, Stages.NONE, Stages.PRODUCTION);
+    const activity3 = mockActivity(REQUESTED_TRANSITION, Stages.NONE, Stages.ARCHIVED);
+    const state = {
+      entities: {
+        transitionRequestsByModelVersion: { modelX_1: [activity1, activity2, activity3] },
+      },
+    };
+    expect(getModelVersionTransitionRequests(state, 'modelX', 1)).toEqual([
+      activity1,
+      activity2,
+      activity3,
+    ]);
+  });
+});
+
+describe('test getModelVersionActivities', () => {
+  test('when model entry is missing', () => {
+    const state = {
+      entities: {
+        activitiesByModelVersion: {},
+      },
+    };
+    expect(getModelVersionActivities(state, 'modelX', 1)).toEqual(undefined);
+  });
+
+  test('when state has transitions for another model', () => {
+    const activity1 = mockActivity(REQUESTED_TRANSITION, Stages.NONE, Stages.STAGING);
+    const state = {
+      entities: {
+        activitiesByModelVersion: { modelY_1: [activity1] },
+      },
+    };
+    expect(getModelVersionActivities(state, 'modelX', 1)).toEqual(undefined);
+  });
+
+  test('when state transitions for another version', () => {
+    const activity1 = mockActivity(REQUESTED_TRANSITION, Stages.NONE, Stages.STAGING);
+    const state = {
+      entities: {
+        activitiesByModelVersion: { modelX_2: [activity1] },
+      },
+    };
+    expect(getModelVersionActivities(state, 'modelX', 1)).toEqual(undefined);
+  });
+
+  test('when state lists undefined transitions', () => {
+    const state = {
+      entities: {
+        activitiesByModelVersion: { modelX_1: undefined },
+      },
+    };
+    expect(getModelVersionActivities(state, 'modelX', 1)).toEqual(undefined);
+  });
+
+  test('when state lists empty transition list', () => {
+    const state = {
+      entities: {
+        activitiesByModelVersion: { modelX_1: [] },
+      },
+    };
+    expect(getModelVersionActivities(state, 'modelX', 1)).toEqual([]);
+  });
+
+  test('when state contains a single transition for version', () => {
+    const activity1 = mockActivity(REQUESTED_TRANSITION, Stages.NONE, Stages.STAGING);
+    const state = {
+      entities: {
+        activitiesByModelVersion: { modelX_1: [activity1] },
+      },
+    };
+    expect(getModelVersionActivities(state, 'modelX', 1)).toEqual([activity1]);
+  });
+
+  test('when state contains multiple transitions for version', () => {
+    const activity1 = mockActivity(REQUESTED_TRANSITION, Stages.NONE, Stages.STAGING);
+    const activity2 = mockActivity(REQUESTED_TRANSITION, Stages.NONE, Stages.PRODUCTION);
+    const activity3 = mockActivity(REQUESTED_TRANSITION, Stages.NONE, Stages.ARCHIVED);
+    const state = {
+      entities: {
+        activitiesByModelVersion: { modelX_1: [activity1, activity2, activity3] },
+      },
+    };
+    expect(getModelVersionActivities(state, 'modelX', 1)).toEqual([
+      activity1,
+      activity2,
+      activity3,
+    ]);
+  });
+});
+
+test('GENERATE_BATCH_INFERENCE_NOTEBOOK updates handling state correctly', () => {
+  const notebookPath = 'path/to/notebook';
+  const state = {};
+  const action = {
+    type: fulfilled(GENERATE_BATCH_INFERENCE_NOTEBOOK),
+    payload: {
+      notebook_path: notebookPath,
+    },
+    meta: {
+      modelName: 'model1',
+    },
+  };
+  expect(generatedNotebookPath(state, action)).toEqual({ model1: notebookPath });
+});
+
+test('GENERATE_BATCH_INFERENCE_NOTEBOOK updates state correctly', () => {
+  const notebookPath = 'path/to/notebook';
+  const notebookPath1 = 'path/to/notebook1';
+  const state = { model1: notebookPath };
+  const action = {
+    type: fulfilled(GENERATE_BATCH_INFERENCE_NOTEBOOK),
+    payload: {
+      notebook_path: notebookPath1,
+    },
+    meta: { modelName: 'model2' },
+  };
+  expect(generatedNotebookPath(state, action)).toEqual({ ...state, model2: notebookPath1 });
+});
+// END-EDGE
 
 describe('test mlModelArtifactByModelVersion', () => {
   test('when state and payload is empty', () => {
@@ -685,6 +1170,9 @@ describe('test tagsByRegisteredModel', () => {
       meta: { modelName: 'modelA' },
       payload: {
         registered_model: modelA,
+        // BEGIN-EDGE
+        registered_model_databricks: modelA,
+        // END-EDGE
       },
     };
     expect(tagsByRegisteredModel(state, action)).toEqual({});
@@ -711,6 +1199,9 @@ describe('test tagsByRegisteredModel', () => {
       meta: { modelName: 'modelA' },
       payload: {
         registered_model: modelA,
+        // BEGIN-EDGE
+        registered_model_databricks: modelA,
+        // END-EDGE
       },
     };
     expect(tagsByRegisteredModel(state, action)).toEqual({
@@ -863,6 +1354,9 @@ describe('test tagsByModelVersion', () => {
       meta: { modelName: 'modelA', version: 1 },
       payload: {
         model_version: mv,
+        // BEGIN-EDGE
+        model_version_databricks: mv,
+        // END-EDGE
       },
     };
     expect(tagsByModelVersion(state, action)).toEqual({});
@@ -885,6 +1379,9 @@ describe('test tagsByModelVersion', () => {
       meta: { modelName: 'modelA', version: 1 },
       payload: {
         model_version: mv,
+        // BEGIN-EDGE
+        model_version_databricks: mv,
+        // END-EDGE
       },
     };
     expect(tagsByModelVersion(state, action)).toEqual({

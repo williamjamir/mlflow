@@ -11,11 +11,21 @@ class AppErrorBoundary extends Component {
   }
 
   static propTypes = {
+    // BEGIN-EDGE
+    service: PropTypes.string,
+    // END-EDGE
     children: PropTypes.node,
   };
 
   componentDidCatch(error, errorInfo) {
     this.setState({ hasError: true });
+    // BEGIN-EDGE
+    Utils.propagateErrorToParentFrame({
+      errorMessage: error.message,
+      error: error,
+      jsExceptionService: this.props.service,
+    });
+    // END-EDGE
     console.error(error, errorInfo);
   }
 

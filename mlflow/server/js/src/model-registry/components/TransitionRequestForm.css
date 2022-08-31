@@ -1,0 +1,12 @@
+.transition-request-form .ant-form-item {
+    margin-bottom: 0;
+}
+
+.transition-request-form .ant-form-item-label {
+    width: 100%;
+    text-align: left;
+}
+
+.transition-request-form div[role="status"][class^="css-"] {
+    margin-right: -0.5px;
+}

@@ -25,6 +25,15 @@ module.exports = {
       ];
     }
 
+    // BEGIN-EDGE
+    /**
+     * Add webpack aliases for web-shared-bundle
+     */
+    config.resolve.alias['@databricks/web-shared-bundle'] = path.resolve(
+      __dirname,
+      '../src/__generated__/web-shared-bundle',
+    );
+    // END-EDGE
     /**
      * Adding @emotion/react and formatjs support here.
      *

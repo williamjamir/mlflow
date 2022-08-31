@@ -11,6 +11,9 @@ import { ModelPage } from '../../model-registry/components/ModelPage';
 import { ModelVersionPage } from '../../model-registry/components/ModelVersionPage';
 import {
   compareModelVersionsPageRoute,
+  // BEGIN-EDGE
+  createModelPageRoute,
+  // END-EDGE
   modelListPageRoute,
   modelPageRoute,
   modelSubpageRoute,
@@ -24,6 +27,11 @@ import { HomePage } from './HomePage';
 import { MetricPage } from './MetricPage';
 import { PageNotFoundView } from './PageNotFoundView';
 import { RunPage } from './RunPage';
+// BEGIN-EDGE
+import { MlflowInteractionTracker } from '../../common/components/MlflowInteractionTracker';
+import { Spinner } from '../../common/components/Spinner';
+import { CreateModelPage } from '../../model-registry/components/CreateModelPage';
+// END-EDGE
 
 const isExperimentsActive = (match, location) => {
   // eslint-disable-next-line prefer-const
@@ -40,8 +48,14 @@ const classNames = {
   activeNavLink: { borderBottom: '4px solid #43C9ED' },
 };
 
+// BEGIN-EDGE
+// eslint-disable-next-line react/prop-types
+const InteractionTracker = ({ children }) => {
+  return <MlflowInteractionTracker>{children}</MlflowInteractionTracker>;
+};
+// END-EDGE
 // eslint-disable-next-line no-unused-vars
-const InteractionTracker = ({ children }) => children;
+const oss_InteractionTracker = ({ children }) => children;
 
 class App extends Component {
   render() {
@@ -101,6 +115,10 @@ class App extends Component {
             <InteractionTracker>
               <Switch>
                 <Route exact path={Routes.rootRoute} component={HomePage} />
+                {/* BEGIN-EDGE */}
+                {/* Show a spinner while redirecting to Experiment Observatory */}
+                <Route exact path={Routes.experimentsObservatoryRoute} component={Spinner} />
+                {/* END-EDGE */}
                 <Route exact path={Routes.experimentPageRoute} component={HomePage} />
                 <Route exact path={Routes.runPageWithArtifactSelectedRoute} component={RunPage} />
                 <Route exact path={Routes.runPageRoute} component={RunPage} />
@@ -119,6 +137,9 @@ class App extends Component {
                   path={compareModelVersionsPageRoute}
                   component={CompareModelVersionsPage}
                 />
+                {/* BEGIN-EDGE */}
+                <Route exact path={createModelPageRoute} component={CreateModelPage} />
+                {/* END-EDGE */}
                 <Route component={PageNotFoundView} />
               </Switch>
             </InteractionTracker>

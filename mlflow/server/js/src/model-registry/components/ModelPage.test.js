@@ -44,6 +44,18 @@ describe('ModelPage', () => {
             1: mockModelVersionDetailed('Model A', 1, Stages.PRODUCTION, ModelVersionStatus.READY),
           },
         },
+        // BEGIN-EDGE
+        subscriptionStatusByModelName: {
+          'Model A': 'DEFAULT',
+        },
+        userLevelSubscriptionStatus: {
+          subscriptionType: 'SUBSCRIBED',
+        },
+        endpointStatus: {},
+        endpointVersionStatus: {},
+        endpointAliases: {},
+        endpointEventHistory: {},
+        // END-EDGE
       },
       apis: {},
     });

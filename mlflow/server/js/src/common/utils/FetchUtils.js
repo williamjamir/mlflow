@@ -3,6 +3,12 @@ import JsonBigInt from 'json-bigint';
 import yaml from 'js-yaml';
 import _ from 'lodash';
 import { ErrorWrapper } from './ErrorWrapper';
+// BEGIN-EDGE
+import DatabricksUtils, {
+  HEADER_DATABRICKS_CSRF_TOKEN,
+  HEADER_DATABRICKS_ORG_ID,
+} from './DatabricksUtils';
+// END-EDGE
 
 export const HTTPMethods = {
   GET: 'GET',
@@ -33,9 +39,31 @@ export const getDefaultHeadersFromCookies = (cookieStr) => {
     );
 };
 
+// BEGIN-EDGE
+/**
+ * Databricks-specific function that extracts two necessary values (required
+ * for the HTTP request headers) from the window settings.
+ */
+export const getDefaultHeadersFromWindowSettings = () => {
+  if (!window.settings && !window.top.settings) {
+    return {};
+  }
+
+  return {
+    [HEADER_DATABRICKS_ORG_ID]: DatabricksUtils.getOrgID(),
+    [HEADER_DATABRICKS_CSRF_TOKEN]: DatabricksUtils.getCSRFToken(),
+  };
+};
+// END-EDGE
 export const getDefaultHeaders = (cookieStr) => {
   const cookieHeaders = getDefaultHeadersFromCookies(cookieStr);
+  // BEGIN-EDGE
+  const settingsHeaders = getDefaultHeadersFromWindowSettings();
+  // END-EDGE
   return {
+    // BEGIN-EDGE
+    ...settingsHeaders,
+    // END-EDGE
     ...cookieHeaders,
   };
 };

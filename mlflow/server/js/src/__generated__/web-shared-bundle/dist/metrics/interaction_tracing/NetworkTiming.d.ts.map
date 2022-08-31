@@ -1,0 +1,1 @@
+{"version":3,"file":"NetworkTiming.d.ts","sourceRoot":"","sources":["../../../src/metrics/interaction_tracing/NetworkTiming.tsx"],"names":[],"mappings":"AAYA,wBAAgB,uBAAuB,CACrC,SAAS,EAAE,MAAM,EACjB,OAAO,EAAE,MAAM,GACd;IACD,mBAAmB,EAAE,MAAM,CAAC;IAC5B,oBAAoB,EAAE,MAAM,CAAC;CAC9B,CAgBA"}

@@ -30,12 +30,25 @@ import {
   MLFLOW_EXPERIMENT_PRIMARY_METRIC_GREATER_IS_BETTER,
 } from '../constants';
 import Fixtures from '../utils/test-utils/Fixtures';
+// BEGIN-EDGE
+import DatabricksUtils from '../../common/utils/DatabricksUtils';
+import { AUTOML_TAG_PREFIX } from './automl/AutoMLExperimentPanelPage';
+import {
+  AUTOML_WARNING_PREFIX,
+  AUTOML_WARNING_PREFIX_DEPRECATED,
+  WARNING_NAMES,
+} from './automl/AutoMLWarningDashboard';
+import { UniverseFrontendApis } from '../../common/utils/UniverseFrontendApis';
+// END-EDGE
 
 const EXPERIMENT_ID = '17';
 const BASE_PATH = '/experiments/17/s';
 const MOCK_EXPERIMENT = Fixtures.createExperiment({ experiment_id: EXPERIMENT_ID, tags: [] });
 
 jest.useFakeTimers();
+// BEGIN-EDGE
+jest.mock('../../common/utils/UniverseFrontendApis');
+// END-EDGE
 
 let searchRunsApi;
 let getExperimentApi;
@@ -53,6 +66,13 @@ beforeEach(() => {
   localStorage.clear();
   searchRunsApi = jest.fn(() => Promise.resolve());
   getExperimentApi = jest.fn(() => Promise.resolve({ action: { payload: {} } }));
+  // BEGIN-EDGE
+  batchGetExperimentsApi = jest.fn(() =>
+    Promise.resolve({
+      action: { payload: { experiments_databricks: [{ experiment: MOCK_EXPERIMENT }] } },
+    }),
+  );
+  // END-EDGE
   searchModelVersionsApi = jest.fn(() => Promise.resolve());
   loadMoreRunsApi = jest.fn(() => Promise.resolve());
   searchForNewRuns = jest.fn(() => Promise.resolve());
@@ -67,6 +87,12 @@ beforeEach(() => {
       search: '',
     },
   };
+  // BEGIN-EDGE
+  /* eslint-disable no-restricted-globals */
+  top.settings = {
+    autoMLEnabled: true,
+  };
+  // END-EDGE
 });
 
 afterAll(() => {
@@ -93,8 +119,16 @@ const getExperimentPageMock = (additionalProps) => {
   );
 };
 
-// eslint-disable-next-line no-unused-vars
+// BEGIN-EDGE
+// In edge we issue a search runs call only if we get a sensible output
+// from the (batch) getExperiments call. In OSS we issue the call regardless
+// of the output. Thus we should expect an extraneous call in OSS.
 const getSearchRunsCall = () => {
+  return 0;
+};
+// END-EDGE
+// eslint-disable-next-line no-unused-vars
+const oss_getSearchRunsCall = () => {
   return 1;
 };
 
@@ -146,6 +180,14 @@ test('State and search params are correct for complete search', () => {
   expect(searchRunsCallParams.runViewType).toEqual(ViewType.DELETED_ONLY);
   expect(searchRunsCallParams.orderBy).toEqual(['test-key ASC']);
 });
+// BEGIN-EDGE
+test('Should not search for runs if no experiments received', () => {
+  batchGetExperimentsApi = jest.fn(() => Promise.resolve({ action: { payload: {} } }));
+  getExperimentPageMock();
+  const searchRunsCalls = searchRunsApi.mock.calls;
+  expect(searchRunsCalls.length).toBe(0);
+});
+// END-EDGE
 
 test('Loading state without any URL params and no snapshot', () => {
   const wrapper = getExperimentPageMock();
@@ -539,6 +581,9 @@ describe('updateCachedStartDate', () => {
 
 describe('using cached startTime when requesting subsequent pages', () => {
   it('should use cached start time when fetching next page', async () => {
+    // BEGIN-EDGE
+    batchGetExperimentsApi = jest.fn(() => Promise.resolve({ action: { payload: {} } }));
+    // END-EDGE
     let startTimeFilter;
     const wrapper = getExperimentPageMock();
     const instance = wrapper.instance();
@@ -679,6 +724,14 @@ describe('pollInfo', () => {
   });
 
   test('Should not be called after unmount', async () => {
+    // BEGIN-EDGE
+    // Return no experiments to ensure searchRunsApi is not
+    // called, ensuring no promises are initiated. Use of
+    // "this" with promise handlers in conjunction with
+    // unmount is problematic.
+    // See https://github.com/enzymejs/enzyme/issues/2278#issuecomment-548657195
+    batchGetExperimentsApi = jest.fn(() => Promise.resolve());
+    // END-EDGE
     const wrapper = getExperimentPageMock();
     const instance = wrapper.instance();
     instance.pollInfo = jest.fn();
@@ -718,6 +771,32 @@ describe('pollInfo', () => {
       },
     );
   });
+  // BEGIN-EDGE
+
+  test('pollAutoMLEvaluationMetric is called if autoMLEvaluationMetric is true', async () => {
+    jest.spyOn(ExperimentPage.prototype, 'loadData').mockImplementationOnce(() => {});
+    const instance = getExperimentPageMock().instance();
+    instance.shouldRenderAutoMLExperimentPanel = () => true;
+    instance.pollAutoMLEvaluationMetric = jest.fn();
+
+    expect(instance.state.pollingState.autoMLEvaluationMetric).toEqual(true);
+    expect(instance.pollAutoMLEvaluationMetric).toHaveBeenCalledTimes(0);
+    await instance.pollInfo();
+    expect(instance.pollAutoMLEvaluationMetric).toHaveBeenCalledTimes(1);
+  });
+
+  test('pollAutoMLEvaluationMetric is not called if autoMLEvaluationMetric is false', async () => {
+    jest.spyOn(ExperimentPage.prototype, 'loadData').mockImplementationOnce(() => {});
+    location.search = 'orderByKey=d'; // Given orderByKey in url, autoMLEvaluationMetric is set to false
+    const instance = getExperimentPageMock().instance();
+    instance.shouldRenderAutoMLExperimentPanel = () => true;
+    instance.pollAutoMLEvaluationMetric = jest.fn();
+
+    expect(instance.state.pollingState.autoMLEvaluationMetric).toEqual(false);
+    await instance.pollInfo();
+    expect(instance.pollAutoMLEvaluationMetric).toHaveBeenCalledTimes(0);
+  });
+  // END-EDGE
 });
 
 describe('pollNewRuns', () => {
@@ -872,6 +951,351 @@ describe('isNewRun', () => {
     ).toEqual(true);
   });
 });
+// BEGIN-EDGE
+
+describe('autoML', () => {
+  beforeEach(() => {
+    location = { search: '' };
+  });
+
+  const getAutoMLExperimentPageInstance = () => {
+    const automlTag = { key: AUTOML_TAG_PREFIX, value: 'True' }; // cast from python string
+    const automlEvaluationMetricTag = {
+      key: `${AUTOML_TAG_PREFIX}.evaluation_metric`,
+      value: 'val_f1_score',
+    };
+    const automlStartTimeOverriddenTag = {
+      key: `${AUTOML_TAG_PREFIX}.start_time`,
+      value: 1000,
+    };
+    const evalMetricAscOverriddenTag = {
+      key: `${AUTOML_TAG_PREFIX}.evaluation_metric_order_by_asc`,
+      value: 'False',
+    };
+    const problemTypeOveriddenTag = {
+      key: `${AUTOML_TAG_PREFIX}.problem_type`,
+      value: 'classification',
+    };
+    const errorMessageOverriddenTag = {
+      key: `${AUTOML_TAG_PREFIX}.error_message`,
+      value: 'some error message',
+    };
+    const automlWarningTag = {
+      key: `${AUTOML_WARNING_PREFIX}.${WARNING_NAMES.unsupportedFeatureCols}`,
+      value: JSON.stringify({
+        version: 1,
+        severity: 'medium',
+        affected: [{ id: 'this' }, { id: 'is' }, { id: 'sparta' }],
+      }),
+    };
+    const automlDeprecatedWarningTag = {
+      key: `${AUTOML_WARNING_PREFIX_DEPRECATED}.${WARNING_NAMES.unsupportedTargetType}`,
+      value: JSON.stringify({
+        version: 1,
+        severity: 'high',
+        affected: [{ id: 'this' }, { id: 'is' }, { id: 'patrick' }],
+      }),
+    };
+
+    const someNonAutoMLTag = { key: 'some', value: 'thing' };
+    const wrapper = getExperimentPageMock({
+      experiments: [
+        Fixtures.createExperiment({
+          tags: [
+            automlTag,
+            automlEvaluationMetricTag,
+            automlStartTimeOverriddenTag,
+            evalMetricAscOverriddenTag,
+            problemTypeOveriddenTag,
+            errorMessageOverriddenTag,
+            automlWarningTag,
+            automlDeprecatedWarningTag,
+            someNonAutoMLTag,
+          ],
+        }),
+      ],
+    });
+
+    return wrapper.instance();
+  };
+
+  test('getAutoMLExperimentData returns correct data', () => {
+    const instance = getAutoMLExperimentPageInstance();
+    expect(instance.getAutoMLExperimentData()).toEqual({
+      automl: 'True',
+      evaluationMetric: 'val_f1_score',
+      problemType: 'CLASSIFICATION',
+      startTimeSeconds: 1000,
+      evaluationMetricHigherIsBetter: true,
+      jobRunErrorMessage: 'some error message',
+      warnings: [
+        {
+          name: WARNING_NAMES.unsupportedFeatureCols,
+          version: 1,
+          severity: 'MEDIUM',
+          affected: [{ id: 'this' }, { id: 'is' }, { id: 'sparta' }],
+        },
+        {
+          name: WARNING_NAMES.unsupportedTargetType,
+          version: 1,
+          severity: 'HIGH',
+          affected: [{ id: 'this' }, { id: 'is' }, { id: 'patrick' }],
+        },
+      ],
+    });
+  });
+
+  test('getAutoMLExperimentData returns empty when service is enabled', () => {
+    /* eslint-disable no-restricted-globals */
+    top.settings = {
+      ...top.settings,
+      autoMLServiceAPIUsed: true,
+    };
+
+    const instance = getAutoMLExperimentPageInstance();
+    expect(instance.getAutoMLExperimentData()).toEqual(null);
+  });
+
+  test('getAutoMLExperimentData returns data when service is not enabled', () => {
+    const instance = getAutoMLExperimentPageInstance();
+    expect(instance.getAutoMLExperimentData()).not.toEqual(null);
+  });
+
+  test('getAutoMLEvaluationMetricData returns data when service is enabled', () => {
+    /* eslint-disable no-restricted-globals */
+    top.settings = {
+      ...top.settings,
+      autoMLServiceAPIUsed: true,
+    };
+
+    const instance = getAutoMLExperimentPageInstance();
+    expect(instance.getAutoMLEvaluationMetricData()).toEqual({
+      evaluationMetric: 'val_f1_score',
+      evaluationMetricOrderByAsc: 'False',
+    });
+  });
+
+  describe('AutoML warning tags', () => {
+    test('should not throw if warning tag value is not a json', () => {
+      const wrapper = getExperimentPageMock({
+        experiments: [
+          Fixtures.createExperiment({
+            tags: [
+              {
+                key: `${AUTOML_WARNING_PREFIX_DEPRECATED}.${WARNING_NAMES.unsupportedTargetType}`,
+                value: '([{])} definitely not a json!',
+              },
+            ],
+          }),
+        ],
+      });
+      const instance = wrapper.instance();
+
+      expect(() => instance.getAutoMLExperimentData()).not.toThrow();
+    });
+
+    test('should not include warnings with invalid names', () => {
+      const instance = getExperimentPageMock({
+        experiments: [
+          Fixtures.createExperiment({
+            tags: [
+              {
+                key: AUTOML_TAG_PREFIX,
+                value: 'true',
+              },
+              {
+                key: `${AUTOML_WARNING_PREFIX_DEPRECATED}.not_a_valid_alert`,
+                value: JSON.stringify({}),
+              },
+            ],
+          }),
+        ],
+      }).instance();
+      expect(instance.getAutoMLExperimentData()).toEqual({ automl: 'true', warnings: [] });
+    });
+  });
+
+  test('shouldRenderAutoMLExperimentPanel true if flag enabled AND tag exists', () => {
+    jest.spyOn(DatabricksUtils, 'autoMLEnabled').mockImplementation(() => true);
+    const instances = [
+      getAutoMLExperimentPageInstance(),
+      getExperimentPageMock({
+        experiments: [
+          Fixtures.createExperiment({
+            name: 'mypath/expName',
+            tags: [{ key: AUTOML_TAG_PREFIX, value: 'true' }],
+          }),
+        ],
+      }).instance(),
+      getExperimentPageMock({
+        experiments: [
+          Fixtures.createExperiment({
+            name: 'mypath/expName',
+            tags: [{ key: AUTOML_TAG_PREFIX, value: 'True' }],
+          }),
+        ],
+      }).instance(),
+      getExperimentPageMock({
+        experiments: [
+          Fixtures.createExperiment({
+            name: 'mypath/expName',
+            tags: [{ key: AUTOML_TAG_PREFIX, value: 'anything, really' }],
+          }),
+        ],
+      }).instance(),
+      getExperimentPageMock({
+        experiments: [
+          Fixtures.createExperiment({
+            name: 'mypath/expName',
+            tags: [{ key: AUTOML_TAG_PREFIX, value: '' }],
+          }),
+        ],
+      }).instance(),
+      getExperimentPageMock({
+        experiments: [
+          Fixtures.createExperiment({
+            name: 'mypath/expName',
+            tags: [{ key: AUTOML_TAG_PREFIX }],
+          }),
+        ],
+      }).instance(),
+    ];
+    for (const instance of instances) {
+      expect(instance.shouldRenderAutoMLExperimentPanel()).toEqual(true);
+    }
+  });
+
+  test('shouldRenderAutoMLExperimentPanel false if flag disabled AND tag exists', () => {
+    jest.spyOn(DatabricksUtils, 'autoMLEnabled').mockImplementation(() => false);
+    const instance = getAutoMLExperimentPageInstance();
+    expect(instance.shouldRenderAutoMLExperimentPanel()).toEqual(false);
+  });
+
+  test('shouldRenderAutoMLExperimentPanel false if flag enabled AND no automl tags', () => {
+    jest.spyOn(DatabricksUtils, 'autoMLEnabled').mockImplementation(() => true);
+    const instance = getExperimentPageMock({
+      experiments: [
+        Fixtures.createExperiment({
+          name: 'mypath/expName',
+          tags: [{ key: 'mlflow.experimentType', value: 'MLFLOW_EXPERIMENT' }],
+        }),
+      ],
+    }).instance();
+    expect(instance.shouldRenderAutoMLExperimentPanel()).toEqual(false);
+  });
+
+  test('shouldRenderAutoMLExperimentPanel false if flag disabled AND no automl tags', () => {
+    jest.spyOn(DatabricksUtils, 'autoMLEnabled').mockImplementation(() => false);
+    const instance = getExperimentPageMock({
+      experiments: [
+        Fixtures.createExperiment({
+          name: 'mypath/expName',
+          tags: [{ key: 'mlflow.experimentType', value: 'MLFLOW_EXPERIMENT' }],
+        }),
+      ],
+    }).instance();
+    expect(instance.shouldRenderAutoMLExperimentPanel()).toEqual(false);
+  });
+
+  test('shouldRenderAutoMLExperimentPanel false if flag enabled AND given exp with no tags', () => {
+    jest.spyOn(DatabricksUtils, 'autoMLEnabled').mockImplementation(() => true);
+    const instance = getExperimentPageMock({
+      experiments: [
+        Fixtures.createExperiment({
+          name: 'mypath/expName',
+        }),
+      ],
+    }).instance();
+    expect(instance.shouldRenderAutoMLExperimentPanel()).toEqual(false);
+  });
+
+  test('shouldRenderAutoMLExperimentPanel false if flag enabled AND some other autoML tag exists', () => {
+    jest.spyOn(DatabricksUtils, 'autoMLEnabled').mockImplementation(() => true);
+    const instance = getExperimentPageMock({
+      experiments: [
+        Fixtures.createExperiment({
+          name: 'mypath/expName',
+          tags: [{ key: `${AUTOML_TAG_PREFIX}.something`, value: 'True' }],
+        }),
+      ],
+    }).instance();
+    expect(instance.shouldRenderAutoMLExperimentPanel()).toEqual(false);
+  });
+
+  test('should call pollAutoMLEvaluationMetric if shouldRenderAutoMLExperimentPanel true', () => {
+    const instance = getAutoMLExperimentPageInstance();
+    instance.shouldRenderAutoMLExperimentPanel = () => true;
+    instance.pollAutoMLEvaluationMetric = jest.fn();
+    return instance.loadData().then(() => {
+      expect(instance.pollAutoMLEvaluationMetric).toHaveBeenCalled();
+    });
+  });
+
+  test('should not call pollAutoMLEvaluationMetric if shouldRenderAutoMLExperimentPanel false', () => {
+    const instance = getAutoMLExperimentPageInstance();
+    instance.shouldRenderAutoMLExperimentPanel = () => false;
+    instance.pollAutoMLEvaluationMetric = jest.fn();
+    return instance.loadData().then(() => {
+      expect(instance.pollAutoMLEvaluationMetric).toHaveBeenCalledTimes(0);
+    });
+  });
+
+  test('pollingState.autoMLEvaluationMetric is initialized to true without any URL params', () => {
+    const wrapper = getExperimentPageMock();
+    const { state } = wrapper.instance();
+    expect(state.pollingState.autoMLEvaluationMetric).toEqual(true);
+  });
+
+  test('pollingState.autoMLEvaluationMetric is initialized to false with orderByKey set in URL params', () => {
+    location.search = 'orderByKey=d';
+    const wrapper = getExperimentPageMock();
+    const { state } = wrapper.instance();
+    expect(state.pollingState.autoMLEvaluationMetric).toEqual(false);
+  });
+
+  test(
+    'pollAutoMLEvaluationMetric updates state when evaluationMetric exists and ' +
+      'pollingState.autoMLEvaluationMetric is true',
+    () => {
+      const instance = getAutoMLExperimentPageInstance();
+      instance.pollAutoMLEvaluationMetric();
+      expect(instance.state.persistedState.orderByKey).toEqual('metrics.`val_f1_score`');
+      expect(instance.state.persistedState.orderByAsc).toEqual(false);
+      expect(instance.state.pollingState.autoMLEvaluationMetric).toEqual(false);
+    },
+  );
+
+  test('pollAutoMLEvaluationMetric does not update state until evaluationMetric exists', () => {
+    const instance = getAutoMLExperimentPageInstance();
+    instance.getAutoMLEvaluationMetricData = () => ({});
+
+    const { state } = instance;
+    instance.pollAutoMLEvaluationMetric();
+    expect(instance.state).toEqual(state);
+
+    instance.getAutoMLEvaluationMetricData = () => ({
+      evaluationMetric: 'val_f1_score',
+      evaluationMetricOrderByAsc: null,
+    });
+    instance.pollAutoMLEvaluationMetric();
+    expect(instance.state.persistedState.orderByKey).toEqual('metrics.`val_f1_score`');
+    expect(instance.state.persistedState.orderByAsc).toEqual(false);
+    expect(instance.state.pollingState.autoMLEvaluationMetric).toEqual(false);
+  });
+
+  test(
+    'pollAutoMLEvaluationMetric does not update state ' +
+      'when pollingState.autoMLEvaluationMetric is false',
+    () => {
+      location.search = 'orderByKey=d'; // Given orderByKey in url, autoMLEvaluationMetric is set to false
+      const instance = getAutoMLExperimentPageInstance();
+      const { state } = instance;
+      instance.pollAutoMLEvaluationMetric();
+      expect(instance.state).toEqual(state);
+    },
+  );
+});
+// END-EDGE
 
 describe('startTime select filters out the experiment runs correctly', () => {
   test('should get startTime expr for the filter query generated correctly', () => {
@@ -997,6 +1421,26 @@ function expectSearchState(historyEntry, searchQueryParams) {
   const search = historyEntry.substring(expectedPrefix.length);
   expect(Utils.getSearchParamsFromUrl(search)).toEqual(searchQueryParams);
 }
+// BEGIN-EDGE
+test('post message is sent in showDeleteModal', () => {
+  UniverseFrontendApis.deleteExperiment.mockResolvedValue();
+  const experimentParams = {
+    name: 'mypath/expName',
+    tags: [{ key: 'mlflow.experimentType', value: 'MLFLOW_EXPERIMENT' }],
+  };
+  const wrapper = getExperimentPageMock({
+    experiments: [Fixtures.createExperiment(experimentParams)],
+  });
+  wrapper.instance().showDeleteModal();
+  expect(UniverseFrontendApis.deleteExperiment).toHaveBeenCalledTimes(1);
+  expect(UniverseFrontendApis.deleteExperiment).toHaveBeenCalledWith({
+    id: EXPERIMENT_ID,
+    name: 'expName',
+    fullLocation: experimentParams.name,
+    experimentType: experimentParams.tags[0].value,
+  });
+});
+// END-EDGE
 
 describe('updateUrlWithViewState', () => {
   const emptyCategorizedUncheckedKeys = {
@@ -1348,6 +1792,17 @@ describe('sortRunsByPrimaryMetric', () => {
             },
           },
         }),
+      // BEGIN-EDGE
+      batchGetExperimentsApi: () =>
+        Promise.resolve({
+          action: {
+            payload: {
+              experiments_databricks: [{ experiment }],
+            },
+          },
+        }),
+      experiments: [Fixtures.createExperiment(experiment)],
+      // END-EDGE
     });
     const instance = wrapper.instance();
     return instance.loadData().then(() => {

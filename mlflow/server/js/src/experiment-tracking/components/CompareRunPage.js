@@ -7,6 +7,10 @@ import RequestStateWrapper from '../../common/components/RequestStateWrapper';
 import CompareRunView from './CompareRunView';
 import { getUUID } from '../../common/utils/ActionUtils';
 import { PageContainer } from '../../common/components/PageContainer';
+// BEGIN-EDGE
+import { batchGetExperimentsApi } from '../actions';
+import { LoadingDescription } from '@databricks/web-shared-bundle/metrics';
+// END-EDGE
 
 class CompareRunPage extends Component {
   static propTypes = {
@@ -19,8 +23,15 @@ class CompareRunPage extends Component {
     super(props);
     this.requestIds = [];
   }
-
+  // BEGIN-EDGE
   fetchExperiments() {
+    const experimentRequestId = getUUID();
+    this.props.dispatch(batchGetExperimentsApi(this.props.experimentIds, experimentRequestId));
+    return [experimentRequestId];
+  }
+  // END-EDGE
+
+  oss_fetchExperiments() {
     return this.props.experimentIds.map((experimentId) => {
       const experimentRequestId = getUUID();
       this.props.dispatch(getExperimentApi(experimentId, experimentRequestId));
@@ -43,6 +54,9 @@ class CompareRunPage extends Component {
         <RequestStateWrapper
           requestIds={this.requestIds}
           // eslint-disable-next-line no-trailing-spaces
+          // BEGIN-EDGE
+          description={LoadingDescription.MLFLOW_COMPARE_RUN_PAGE}
+          // END-EDGE
         >
           <CompareRunView runUuids={this.props.runUuids} experimentIds={this.props.experimentIds} />
         </RequestStateWrapper>

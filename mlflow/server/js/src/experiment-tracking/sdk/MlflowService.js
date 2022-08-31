@@ -57,6 +57,28 @@ export class MlflowService {
   static deleteRun = (data) =>
     postJson({ relativeUrl: 'ajax-api/2.0/preview/mlflow/runs/delete', data });
 
+  // BEGIN-EDGE
+  /**
+   * Delete a mlflow experiment run (Databricks internal)
+   */
+  static deleteRunDatabricks = (data) =>
+    postJson({ relativeUrl: 'ajax-api/2.0/preview/mlflow/databricks/runs/delete', data });
+
+  /**
+   * Batch get mlflow experiments
+   */
+  static batchGetExperiments = (data) =>
+    postJson({
+      relativeUrl: 'ajax-api/2.0/mlflow/databricks/experiments/batch-get-experiments',
+      data,
+    });
+
+  /**
+   * Get credentials for artifact read
+   */
+  static getCredentialsForArtifactRead = (data) =>
+    getBigIntJson({ relativeUrl: 'ajax-api/2.0/mlflow/artifacts/credentials-for-read', data });
+  // END-EDGE
   /**
    * Restore a mlflow experiment run
    */

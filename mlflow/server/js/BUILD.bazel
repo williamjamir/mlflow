@@ -1,0 +1,335 @@
+load("//bazel/rules/javascript:yarn.bzl", "yarn_lint", "yarn_test", "yarn_workspace")
+
+filegroup(
+    name = "i18n_srcs",
+    srcs = glob(["src/i18n/**/*.json"]),
+    visibility = ["//mlflow:__subpackages__"],
+)
+
+filegroup(
+    name = "js_build_files",
+    srcs = [
+        "package.json"
+    ],
+    visibility = ["//mlflow:__subpackages__"],
+)
+
+yarn_workspace(
+    name = "workspace",
+    yarn_install = "//:node_modules",
+)
+
+filegroup(
+    name = "frontend_srcs",
+    srcs = glob(
+        [
+            "**/*.css",
+            "**/*.eot",
+            "**/*.html",
+            "**/*.ico",
+            "**/*.js",
+            "**/*.ts",
+            "**/*.mjs",
+            "**/*.json",
+            "**/*.jsx",
+            "**/*.tsx",
+            "**/*.png",
+            "**/*.svg",
+            "**/*.ttf",
+            "**/*.woff",
+            "**/*.woff2",
+            ".env",
+            ".eslintrc.js",
+            ".eslintignore",
+            ".prettierrc.js",
+        ],
+        exclude = [
+            # Exclude node_modules built if someone runs npm directly in the js dir.
+            "**/node_modules/**",
+        ],
+    ) + [
+        "//js/yarn:core",
+    ],
+    visibility = ["//js/scripts:__pkg__"],
+)
+
+genrule(
+    name = "js",
+    srcs = [
+        ":frontend_srcs",
+        ":legacy_node_modules",
+    ],
+    outs = [
+        "mlflow-js-app.jar",
+        "mlflow-js-sourcemaps.zip",
+        "mlflow-js-mfe-app.jar",
+        "mlflow-js-mfe-sourcemaps.zip",
+    ],
+    cmd = """
+        set -e
+
+        if [[ "$$(uname)" == "Linux" ]]; then
+            CP="cp"
+        else
+            # Need to use GNU cp on OS X
+            CP="gcp"
+        fi
+        BASE_PATH="$$(pwd)/$$(dirname $(execpath @nodejs//:node))"
+
+        # Node, NPM, and react-scripts are horrible. They hardcode using node from the PATH,
+        # so this is the only way to override with our version of node.
+        export PATH="$$BASE_PATH:$$PATH"
+
+        NODE="$$BASE_PATH/node"
+        NODE_MODULES="$$(pwd)/$(execpath legacy_node_modules)/node_modules"
+        OUT="$$(pwd)/$(location mlflow-js-app.jar)"
+        OUT_SOURCEMAPS="$$(pwd)/$(location mlflow-js-sourcemaps.zip)"
+
+        OUT_MFE="$$(pwd)/$(location mlflow-js-mfe-app.jar)"
+        OUT_MFE_SOURCEMAPS="$$(pwd)/$(location mlflow-js-mfe-sourcemaps.zip)"
+
+        # Escape hatch for if JS code needs to toggle behavior based on whether it's running Bazel.
+        export BAZEL_YARN=1
+
+        # Set the MLflow build env variables to enable Databricks-specific functionality.
+        # TODO(aaron) Make these default in the code in the Databricks repo, as opposed to set here.
+        export HIDE_HEADER=true
+        export HIDE_EXPERIMENT_LIST=true
+        export SHOW_GDPR_PURGING_MESSAGES=true
+        export USE_ABSOLUTE_AJAX_URLS=true
+        export SHOULD_REDIRECT_IFRAME=true
+
+        # mlflow/web/js/.env skips react-scripts preflight check because it wrongly overmatches
+        # packages in hoisted node_modules at universe root, affecting the local mlflow devloop, but
+        # on CI we want to keep this as a last line of defense.
+        export SKIP_PREFLIGHT_CHECK=false
+
+        # Strange mktemp usage to make it both Linux and OS X compatible
+        tmp_dir="$$(mktemp -d -t tmp.XXX)"
+
+        # Copy the full directory structure into the temporary directory
+        # Refer to the locations of the file group instead of the directory
+        # to avoid over-copying irrelevant files.
+        # IMPORTANT: -L argument will dereference symlinks (symlinks will not be coped, instead cp
+        # will expand them). The resulting copy will have no symlinks. This is currently required
+        # to make Node/NPM happy.
+        $$CP --parents -L $(locations :frontend_srcs) "$$tmp_dir"
+        cd "$$tmp_dir/mlflow/web/js"
+
+        # Symlink in the node modules. Unforunately we can't just export NODE_MODULES
+        ln -s $$NODE_MODULES node_modules
+
+        # After code-sharing, mlflow will no longer have a yarn.lock file. This copies the yarn.lock file placed in the
+        # node modules folder.
+        $$CP $$NODE_MODULES/yarn-lock ./yarn.lock
+
+        # Parameter #1: `yarn` command (e.g. `build`)
+        # Parameter #2: path+filename where the target build artifact archive be copied to
+        # Parameter #3: path+filename where the sourcemaps archive should be copied to
+        # Parameter #4: additional subdirectory where the assets will be copied (e.g. `static-assets`)
+        build_mlflow()
+        {
+            yarn $$1
+            rm -rf zip-staging-dir
+            if [[ $${4-} != "" ]]; then
+                mkdir -p zip-staging-dir
+                mv build zip-staging-dir/$$4
+                mv zip-staging-dir/$$4/index.html zip-staging-dir/index.html
+            else
+                mv build zip-staging-dir
+            fi
+
+            # Make zip file deterministic by setting timestamp and sorting before passing to zip. See
+            # https://blog.pivotal.io/labs/labs/barriers-deterministic-reproducible-zip-files for info.
+            pushd zip-staging-dir
+            find . -print0 | xargs -0 touch -t 201401010000
+            find . -print0 | sort -z | xargs -0 zip -X -q ../tmp.zip
+            # Pack only JS and js.map files into a separate archive for s3 upload
+            find . -name "*.js" -print0 -o -name "*.js.map" -print0 | sort -z | xargs -0 zip -X -q ../tmp_sourcemaps.zip
+            popd
+            # Copy final zips to expected output locations
+            mv tmp.zip $$2
+            mv tmp_sourcemaps.zip $$3
+        }
+
+        # For the pending iframe->webcomponent MFE migration process in MLFlow,
+        # we're going to build the application in two flavors and deploy them separately
+
+        # Flavor #1: build the iframe version
+        build_mlflow "build" $$OUT $$OUT_SOURCEMAPS "static-files"
+
+        # Flavor #2: build the MFE web-component version
+        build_mlflow "build:mfe" $$OUT_MFE $$OUT_MFE_SOURCEMAPS
+    """,
+    tools = [
+        "@nodejs//:node",
+        "@nodejs//:yarn",
+    ],
+    visibility = ["//mlflow:__subpackages__"],
+)
+
+genrule(
+    name = "js/feature-store",
+    srcs = [
+        ":frontend_srcs",
+        ":legacy_node_modules",
+    ],
+    outs = [
+        "feature-store-js-app.jar",
+        "feature-store-js-sourcemaps.zip"
+    ],
+    cmd = """
+        set -e
+
+        if [[ "$$(uname)" == "Linux" ]]; then
+            CP="cp"
+        else
+            # Need to use GNU cp on OS X
+            CP="gcp"
+        fi
+
+        BASE_PATH="$$(pwd)/$$(dirname $(execpath @nodejs//:node))"
+
+        # Node, NPM, and react-scripts are horrible. They hardcode using node from the PATH,
+        # so this is the only way to override with our version of node.
+        export PATH="$$BASE_PATH:$$PATH"
+        NODE="$$BASE_PATH/node"
+        NODE_MODULES="$$(pwd)/$(execpath legacy_node_modules)/node_modules"
+        OUT="$$(pwd)/$(location feature-store-js-app.jar)"
+        OUT_SOURCEMAPS="$$(pwd)/$(location feature-store-js-sourcemaps.zip)"
+
+        # Escape hatch for if JS code needs to toggle behavior based on whether it's running Bazel.
+        export BAZEL_YARN=1
+
+        # Set the build env variables to enable Databricks-specific functionality.
+        # Currently the feature store app is configured by modifying the entry point index.js file
+        # inside MLflow app. Set START_FEATURE_STORE to true to build the feature store app.
+        # TODO(aaron) Make these default in the code in the Databricks repo, as opposed to set here.
+        export USE_ABSOLUTE_AJAX_URLS=true
+        export SHOULD_REDIRECT_IFRAME=true
+        export START_FEATURE_STORE=true
+
+        # mlflow/web/js/.env skips react-scripts preflight check because it wrongly overmatches
+        # packages in hoisted node_modules at universe root, affecting the local mlflow devloop, but
+        # on CI we want to keep this as a last line of defense.
+        export SKIP_PREFLIGHT_CHECK=false
+
+        # Strange mktemp usage to make it both Linux and OS X compatible
+        tmp_dir="$$(mktemp -d -t tmp.XXX)"
+
+        # Copy the full directory structure into the temporary directory
+        # Refer to the locations of the file group instead of the directory
+        # to avoid over-copying irrelevant files.
+        # IMPORTANT: -L argument will dereference symlinks (symlinks will not be coped, instead cp
+        # will expand them). The resulting copy will have no symlinks. This is currently required
+        # to make Node/NPM happy.
+        $$CP --parents -L $(locations :frontend_srcs) "$$tmp_dir"
+        cd "$$tmp_dir/mlflow/web/js"
+
+        # Symlink in the node modules. Unfortunately we can't just export NODE_MODULES
+        ln -s $$NODE_MODULES node_modules
+
+        # After code-sharing, mlflow will no longer have a yarn.lock file. This copies the yarn.lock file placed in the
+        # node modules folder.
+        $$CP $$NODE_MODULES/yarn-lock ./yarn.lock
+
+        yarn build
+        mkdir -p zip-staging-dir
+        mv build zip-staging-dir/static-files
+        mv zip-staging-dir/static-files/index.html zip-staging-dir/index.html
+
+        # Make zip file deterministic by setting timestamp and sorting before passing to zip. See
+        # https://blog.pivotal.io/labs/labs/barriers-deterministic-reproducible-zip-files for info.
+        pushd zip-staging-dir
+        find . -print0 | xargs -0 touch -t 201401010000
+        find . -print0 | sort -z | xargs -0 zip -X -q ../tmp.zip
+        # Pack only JS and js.map files into a separate archive for s3 upload
+        find . -name "*.js" -print0 -o -name "*.js.map" -print0 | sort -z | xargs -0 zip -X -q ../tmp_sourcemaps.zip
+        popd
+        # Copy final zip to expected output location
+        mv tmp.zip $$OUT
+        mv tmp_sourcemaps.zip $$OUT_SOURCEMAPS
+    """,
+    tools = [
+        "@nodejs//:node",
+        "@nodejs//:yarn",
+    ],
+    visibility = ["//feature-store:__subpackages__"],
+)
+
+genrule(
+    name = "legacy_node_modules_gen",
+    srcs = [
+        ":package_files",
+        "//:yarn_install_files",
+        "//js/yarn/global/cache:universe_monorepo",
+        "//js/yarn:core",
+    ],
+    tools = [
+        "@nodejs//:node",
+        "@nodejs//:yarn",
+    ],
+    outs = ["legacy_node_modules"],
+    tags = ["no-remote-cache", "requires-network"],
+    cmd = """
+    set -e
+    NODE_BIN_PATH="$$(realpath $$(dirname $(execpath @nodejs//:yarn)))"
+    export PATH=$$NODE_BIN_PATH:$$PATH
+    SANDBOX="$$PWD"
+    TMPDIR="$$(mktemp -d)"
+    rsync -RL yarn.lock $(execpaths //js/yarn:core) $$TMPDIR/
+    rsync -L mlflow/web/js/package.json $$TMPDIR/
+    mkdir -p $$TMPDIR/js/yarn/global
+    for file in $(execpaths //js/yarn/global/cache:universe_monorepo); do
+        REALCACHE=$$(dirname $$(readlink "$$file"))
+        ln -s "$$REALCACHE" "$$TMPDIR/js/yarn/global/cache"
+        break
+    done
+    chmod +w $$TMPDIR/package.json $$TMPDIR/yarn.lock # https://databricks.atlassian.net/browse/ES-99680
+    cd $$TMPDIR
+    export YARN_GLOBAL_FOLDER=$$(pwd)
+    export CYPRESS_CACHE_FOLDER=$$(mktemp -d)
+    # Escape hatch for if JS code needs to toggle behavior based on whether it's running Bazel.
+    export BAZEL_YARN=1
+    yarn
+    cp package.json node_modules/package-json
+    cp yarn.lock node_modules/yarn-lock
+    mkdir $$SANDBOX/$(execpath legacy_node_modules)
+    mv node_modules $$SANDBOX/$(execpath legacy_node_modules)/
+    """
+)
+
+yarn_test(
+    name = "test",
+    srcs = [":frontend_srcs"],
+    script = "test:ci",
+    deps = [
+        ":workspace",
+    ],
+)
+
+yarn_lint(
+    name = "lint",
+    script = "lint",
+    script_autoformat = "lint:fix",
+    srcs = [":frontend_srcs"],
+    deps = [":workspace"],
+)
+
+yarn_lint(
+    name = "extract_i18n",
+    srcs = [
+        ":frontend_srcs",
+        ":js_build_files",
+        ":i18n_srcs",
+        "scripts/extract-i18n.js",
+    ],
+    script = "extract-i18n:check",
+    script_autoformat = "extract-i18n",
+    node_linker = "pnp",
+    size = "enormous",
+    timeout = "long",
+    deps = [
+        ":workspace",
+    ],
+)

@@ -1,0 +1,1 @@
+{"version":3,"file":"ReactInteractionIDContext.d.ts","sourceRoot":"","sources":["../../../src/metrics/interaction_tracing/ReactInteractionIDContext.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,MAAM,OAAO,CAAC;AAE1B,OAAO,KAAK,EAAE,eAAe,EAAE,MAAM,8BAA8B,CAAC;AACpE,OAAO,KAAK,EAAE,WAAW,EAAE,MAAM,2BAA2B,CAAC;AAE7D;;;;;GAKG;AACH,eAAO,MAAM,yBAAyB,oDAAiE,CAAC"}

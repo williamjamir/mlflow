@@ -8,6 +8,10 @@ import NotFoundPage from './NotFoundPage';
 import { MetricView } from './MetricView';
 import { getUUID } from '../../common/utils/ActionUtils';
 import { PageContainer } from '../../common/components/PageContainer';
+// BEGIN-EDGE
+import { batchGetExperimentsApi } from '../actions';
+import { LoadingDescription } from '@databricks/web-shared-bundle/metrics';
+// END-EDGE
 
 export class MetricPageImpl extends Component {
   static propTypes = {
@@ -21,8 +25,15 @@ export class MetricPageImpl extends Component {
     super(props);
     this.requestIds = [];
   }
-
+  // BEGIN-EDGE
   fetchExperiments() {
+    const experimentRequestId = getUUID();
+    this.props.dispatch(batchGetExperimentsApi(this.props.experimentIds, experimentRequestId));
+    return [experimentRequestId];
+  }
+  // END-EDGE
+
+  oss_fetchExperiments() {
     return this.props.experimentIds.map((experimentId) => {
       const experimentRequestId = getUUID();
       this.props.dispatch(getExperimentApi(experimentId, experimentRequestId));
@@ -67,6 +78,9 @@ export class MetricPageImpl extends Component {
         <RequestStateWrapper
           requestIds={this.requestIds}
           // eslint-disable-next-line no-trailing-spaces
+          // BEGIN-EDGE
+          description={LoadingDescription.MLFLOW_METRIC_DETAILS_PAGE}
+          // END-EDGE
         >
           {this.renderPageContent()}
         </RequestStateWrapper>

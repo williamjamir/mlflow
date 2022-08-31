@@ -1,0 +1,1 @@
+{"version":3,"file":"getAppAccess.d.ts","sourceRoot":"","sources":["../../src/utils/getAppAccess.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,eAAe,EAAE,MAAM,EAAE,MAAM,aAAa,CAAC;AAG3D,oBAAY,SAAS,GAAG;KACrB,CAAC,IAAI,MAAM,GAAG;QACb,sBAAsB,EAAE,OAAO,CAAC;QAChC,OAAO,EAAE,OAAO,CAAC;KAClB;CACF,CAAC;AAEF;;;GAGG;AACH,wBAAgB,YAAY,CAAC,MAAM,EAAE,eAAe,GAAG,SAAS,CA2B/D"}

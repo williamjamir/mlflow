@@ -1,4 +1,10 @@
 @import 'components/ModelVersionTable.css';
+/* BEGIN-EDGE */
+@import '../model-serving/components/ServingView.css';
+@import '../model-serving/components/EnableServing.css';
+@import 'components/ModelActivitiesList.css';
+@import 'components/TransitionRequestForm.css';
+/* END-EDGE */
 @import 'components/ModelVersionView.css';
 @import 'components/ModelStageTransitionDropdown.css';
 @import 'components/DirectTransitionForm.css';

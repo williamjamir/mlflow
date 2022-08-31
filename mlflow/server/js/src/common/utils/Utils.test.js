@@ -6,6 +6,13 @@ import {
   X_AXIS_WALL,
 } from '../../experiment-tracking/components/MetricsPlotControls';
 import { RunTag } from '../../experiment-tracking/sdk/MlflowMessages';
+// BEGIN-EDGE
+import { DatabricksSupportPageUrl } from '../constants-databricks';
+import { SupportPageUrl } from '../constants';
+import DatabricksUtils from './DatabricksUtils';
+import { CloudProvider } from '../../shared/constants-databricks';
+import { shallow } from 'enzyme';
+// END-EDGE
 
 test('formatMetric', () => {
   expect(Utils.formatMetric(0)).toEqual('0');
@@ -245,6 +252,159 @@ test('renderJobSource', () => {
     </a>,
   );
 });
+// BEGIN-EDGE
+test('renderPipelineSource', () => {
+  const pipelineId = 'abc123';
+  const updateId = 'u1';
+  const pipelineName = 'test pipeline';
+  const queryParams = '?o=123456789';
+
+  expect(Utils.renderPipelineSource(null, null, pipelineName, null, null)).toEqual(pipelineName);
+  expect(Utils.renderPipelineSource(null, pipelineId, pipelineName, null, null)).toEqual(
+    <a
+      title={pipelineName}
+      href={`http://localhost/#joblist/pipelines/${pipelineId}`}
+      target='_top'
+    >
+      {pipelineName}
+    </a>,
+  );
+  expect(Utils.renderPipelineSource(null, pipelineId, null, null, null)).toEqual(
+    <a
+      title={`pipeline ${pipelineId}`}
+      href={`http://localhost/#joblist/pipelines/${pipelineId}`}
+      target='_top'
+    >
+      {`pipeline ${pipelineId}`}
+    </a>,
+  );
+  expect(Utils.renderPipelineSource(null, pipelineId, pipelineName, updateId, null)).toEqual(
+    <a
+      title={pipelineName}
+      href={`http://localhost/#joblist/pipelines/${pipelineId}/updates/${updateId}`}
+      target='_top'
+    >
+      {pipelineName}
+    </a>,
+  );
+  expect(Utils.renderPipelineSource(null, pipelineId, null, updateId, null)).toEqual(
+    <a
+      title={Utils.getDefaultPipelineUpdateName(pipelineId, updateId)}
+      href={`http://localhost/#joblist/pipelines/${pipelineId}/updates/${updateId}`}
+      target='_top'
+    >
+      {Utils.getDefaultPipelineUpdateName(pipelineId, updateId)}
+    </a>,
+  );
+  expect(Utils.renderPipelineSource(queryParams, pipelineId, pipelineName, updateId, null)).toEqual(
+    <a
+      title={pipelineName}
+      href={`http://localhost/${queryParams}#joblist/pipelines/${pipelineId}/updates/${updateId}`}
+      target='_top'
+    >
+      {pipelineName}
+    </a>,
+  );
+});
+
+test('databricksRepoContext', () => {
+  const noTags = {};
+  DatabricksUtils.isMlflowDatabricksGitLineageEnabled = jest.fn().mockReturnValue(false);
+  expect(Utils.databricksRepoContext(noTags).isInDatabricksRepo).toEqual(false);
+
+  const noProviderTag = {
+    'mlflow.databricks.gitRepoUrl': { value: 'github.com/my-repo' },
+    'mlflow.databricks.gitRepoCommit': { value: '1234567' },
+    'mlflow.databricks.gitRepoRelativePath': { value: 'path/to/notebook' },
+  };
+  expect(Utils.databricksRepoContext(noProviderTag).isInDatabricksRepo).toEqual(false);
+
+  const noUrlTag = {
+    'mlflow.databricks.gitRepoProvider': { value: 'gitHub' },
+    'mlflow.databricks.gitRepoCommit': { value: '1234567' },
+    'mlflow.databricks.gitRepoRelativePath': { value: 'path/to/notebook' },
+  };
+  expect(Utils.databricksRepoContext(noUrlTag).isInDatabricksRepo).toEqual(false);
+
+  const tags = {
+    'mlflow.databricks.gitRepoProvider': { value: 'gitHub' },
+    'mlflow.databricks.gitRepoCommit': { value: '1234567' },
+    'mlflow.databricks.gitRepoRelativePath': { value: 'path/to/notebook' },
+    'mlflow.databricks.gitRepoUrl': { value: 'github.com/my-repo' },
+  };
+
+  expect(Utils.databricksRepoContext(tags).isInDatabricksRepo).toEqual(false);
+  DatabricksUtils.isMlflowDatabricksGitLineageEnabled = jest.fn().mockReturnValue(true);
+  expect(Utils.databricksRepoContext(tags)).toEqual({
+    isInDatabricksRepo: true,
+    url: 'github.com/my-repo',
+    commit: '1234567',
+    relativePath: 'path/to/notebook',
+    provider: 'gitHub',
+  });
+});
+
+test('renderDatabricksRepoVersion', () => {
+  const gitHubContext = {
+    isInDatabricksRepo: true,
+    url: 'https://github.com/my-org/my-repo',
+    commit: '1234567',
+    relativePath: 'path/to/notebook',
+    provider: 'gitHub',
+  };
+
+  expect(Utils.renderDatabricksRepoVersion(gitHubContext)).toEqual(
+    <a href='https://github.com/my-org/my-repo/blob/1234567/path/to/notebook.py' target='_top'>
+      notebook.py@123456
+    </a>,
+  );
+
+  const gitLabContext = {
+    isInDatabricksRepo: true,
+    url: 'https://gitlab.com/my-org/my-repo',
+    commit: '1234567',
+    relativePath: 'path/to/notebook',
+    provider: 'gitLab',
+  };
+
+  expect(Utils.renderDatabricksRepoVersion(gitLabContext)).toEqual(
+    <a href='https://gitlab.com/my-org/my-repo/blob/1234567/path/to/notebook.py' target='_top'>
+      notebook.py@123456
+    </a>,
+  );
+
+  const bitBucketContext = {
+    isInDatabricksRepo: true,
+    url: 'https://bitbucket.com/my-org/my-repo',
+    commit: '1234567',
+    relativePath: 'path/to/notebook',
+    provider: 'bitbucketCloud',
+  };
+
+  expect(Utils.renderDatabricksRepoVersion(bitBucketContext)).toEqual(
+    <a href='https://bitbucket.com/my-org/my-repo/src/1234567/path/to/notebook.py' target='_top'>
+      notebook.py@123456
+    </a>,
+  );
+
+  const azureRepoContext = {
+    isInDatabricksRepo: true,
+    url: 'https://azure.com/my-org/my-repo',
+    commit: '1234567',
+    relativePath: 'path/to/notebook',
+    provider: 'azureDevOpsServices',
+  };
+
+  expect(Utils.renderDatabricksRepoVersion(azureRepoContext)).toEqual(
+    <a
+      href='https://azure.com/my-org/my-repo?path=/path/to/notebook.py&version=1234567'
+      target='_top'
+    >
+      notebook.py@123456
+    </a>,
+  );
+});
+// END-EDGE
 
 test('formatSource & renderSource', () => {
   const source_with_name = {
@@ -314,6 +474,53 @@ test('formatSource & renderSource', () => {
       mlflow-apps:entry
     </a>,
   );
+  // BEGIN-EDGE
+  const databricksRunTags = {
+    'mlflow.source.name': { value: '/Users/admin/test' },
+    'mlflow.source.type': { value: 'NOTEBOOK' },
+    'mlflow.databricks.notebookID': { value: '13' },
+    'mlflow.databricks.webappURL': { value: 'https://databricks.com' },
+  };
+  const wrapper = shallow(Utils.renderSource(databricksRunTags));
+  expect(wrapper.is('a')).toEqual(true);
+  expect(wrapper.props().href).toEqual('http://localhost/#notebook/13');
+
+  const databricksRunRevisionTags = {
+    'mlflow.source.name': { value: '/Users/admin/test' },
+    'mlflow.source.type': { value: 'NOTEBOOK' },
+    'mlflow.databricks.notebookRevisionID': { value: '42' },
+    'mlflow.databricks.notebookID': { value: '13' },
+    'mlflow.databricks.webappURL': { value: 'https://databricks.com' },
+  };
+  const wrapper2 = shallow(Utils.renderSource(databricksRunRevisionTags));
+  expect(wrapper2.is('a')).toEqual(true);
+  expect(wrapper2.props().href).toEqual('http://localhost/#notebook/13/revision/42');
+
+  const wrapper3 = shallow(Utils.renderSource(databricksRunRevisionTags, '?o=123'));
+  expect(wrapper3.is('a')).toEqual(true);
+  // Query params must appear before the hash, see https://tools.ietf.org/html/rfc3986#section-4.2
+  // and https://stackoverflow.com/a/34772568
+  expect(wrapper3.props().href).toEqual('http://localhost/?o=123#notebook/13/revision/42');
+
+  const wrapper4 = shallow(Utils.renderSource(databricksRunRevisionTags, '', 'abcd123456'));
+  expect(wrapper4.is('a')).toEqual(true);
+  expect(wrapper4.props().href).toEqual(
+    'http://localhost/#notebook/13/revision/42/mlflow/run/abcd123456',
+  );
+
+  const databricksJobTags = {
+    'mlflow.source.name': { value: 'job/70/run/5' },
+    'mlflow.source.type': { value: 'JOB' },
+    'mlflow.databricks.jobID': { value: '70' },
+    'mlflow.databricks.jobRunID': { value: '5' },
+    'mlflow.databricks.jobType': { value: 'NOTEBOOK' },
+    'mlflow.databricks.webappURL': { value: 'https://databricks.com' },
+  };
+  expect(Utils.formatSource(databricksJobTags)).toEqual('run 5 of job 70');
+  const wrapper5 = shallow(Utils.renderSource(databricksJobTags));
+  expect(wrapper5.is('a')).toEqual(true);
+  expect(wrapper5.props().href).toEqual('http://localhost/#job/70/run/5');
+  // END-EDGE
 });
 
 test('setQueryParams', () => {
@@ -384,6 +591,21 @@ test('addQueryParams', () => {
   expect(Utils.addQueryParams('?param=val', { o: 123 })).toEqual('?param=val&o=123');
   expect(Utils.addQueryParams('?o=456', { o: 123 })).toEqual('?o=123');
 });
+// BEGIN-EDGE
+test('isCurrentWorkspace', () => {
+  // in ST workspace query params might be empty
+  DatabricksUtils.getCurrentWorkspaceId = jest.fn().mockReturnValue('');
+  // in this case isTheSameWorkspace should always return `true`
+  expect(Utils.isCurrentWorkspace(null)).toEqual(true);
+  expect(Utils.isCurrentWorkspace(12345)).toEqual(true);
+  expect(Utils.isCurrentWorkspace('45678')).toEqual(true);
+  // in MT workspaces workspace id will always be present as a query param
+  const currentWorkspaceId = '56789';
+  DatabricksUtils.getCurrentWorkspaceId = jest.fn().mockReturnValue(currentWorkspaceId);
+  expect(Utils.isCurrentWorkspace(currentWorkspaceId)).toEqual(true);
+  expect(Utils.isCurrentWorkspace(98765)).toEqual(false);
+});
+// END-EDGE
 
 test('getDefaultJobRunName', () => {
   expect(Utils.getDefaultJobRunName(null, null)).toEqual('-');
@@ -584,6 +806,16 @@ test('normalize', () => {
   expect(Utils.normalize('http://mlflow.org///redundant/')).toEqual('http://mlflow.org/redundant');
   expect(Utils.normalize('s3:///bucket/resource/')).toEqual('s3:/bucket/resource');
 });
+// BEGIN-EDGE
+test('getSupportPageUrl', () => {
+  DatabricksUtils.getCloudProvider = jest.fn().mockReturnValue(CloudProvider.AWS);
+  expect(Utils.getSupportPageUrl()).toBe(DatabricksSupportPageUrl[CloudProvider.AWS]);
+  DatabricksUtils.getCloudProvider = jest.fn().mockReturnValue(CloudProvider.Azure);
+  expect(Utils.getSupportPageUrl()).toBe(DatabricksSupportPageUrl[CloudProvider.Azure]);
+  DatabricksUtils.getCloudProvider = jest.fn().mockReturnValue(null);
+  expect(Utils.getSupportPageUrl()).toBe(SupportPageUrl);
+});
+// END-EDGE
 test('getLoggedModelsFromTags correctly parses run tag for logged models', () => {
   const tags = {
     'mlflow.log-model.history': RunTag.fromJs({

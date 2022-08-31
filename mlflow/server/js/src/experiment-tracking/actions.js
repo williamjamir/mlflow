@@ -1,4 +1,7 @@
 import { MlflowService } from './sdk/MlflowService';
+// BEGIN-EDGE
+import { JobsService } from '../common/sdk/JobsService';
+// END-EDGE
 import { getUUID } from '../common/utils/ActionUtils';
 import { ErrorCodes } from '../common/constants';
 
@@ -84,6 +87,42 @@ export const deleteRunApi = (runUuid, id = getUUID()) => {
     return deleteResponse.then(() => dispatch(getRunApi(runUuid, id)));
   };
 };
+// BEGIN-EDGE
+export const MARK_DESCENDANTS_AS_DELETED = 'MARK_DESCENDANTS_AS_DELETED';
+export const markDescendantsAsDeleted = (descendantRuns, id = getUUID()) => {
+  return {
+    type: MARK_DESCENDANTS_AS_DELETED,
+    payload: { descendantRuns: descendantRuns },
+    meta: { id: id },
+  };
+};
+
+export const DELETE_RUN_DATABRICKS_API = 'DELETE_RUN_DATABRICKS_API';
+export const deleteRunDatabricksApi = (
+  runUuid,
+  descendantRuns,
+  deleteDescendants,
+  id = getUUID(),
+) => {
+  return (dispatch) => {
+    const deleteResponse = dispatch({
+      type: DELETE_RUN_DATABRICKS_API,
+      payload: MlflowService.deleteRunDatabricks({
+        run_id: runUuid,
+        delete_descendants: deleteDescendants,
+      }),
+      meta: { id: getUUID() },
+    });
+    return deleteResponse
+      .then(() => {
+        dispatch(markDescendantsAsDeleted(descendantRuns));
+      })
+      .then(() => {
+        dispatch(getRunApi(runUuid, id));
+      });
+  };
+};
+// END-EDGE
 export const RESTORE_RUN_API = 'RESTORE_RUN_API';
 export const restoreRunApi = (runUuid, id = getUUID()) => {
   return (dispatch) => {
@@ -104,7 +143,10 @@ export const setCompareExperiments = ({ comparedExperimentIds, hasComparedExperi
   };
 };
 
-export const getParentRunTagName = () => 'mlflow.parentRunId';
+// BEGIN-EDGE
+export const getParentRunTagName = () => 'mlflow.rootRunId';
+// END-EDGE
+export const oss_getParentRunTagName = () => 'mlflow.parentRunId';
 
 export const getParentRunIdsToFetch = (runs) => {
   const parentsToFetch = new Set();
@@ -261,3 +303,50 @@ export const openErrorModal = (text) => {
     text,
   };
 };
+// BEGIN-EDGE
+
+export const GET_JOB_RUN_API = 'GET_JOB_RUN_API';
+export const getJobRunApi = (runId) => {
+  return {
+    type: GET_JOB_RUN_API,
+    payload: JobsService.getRun({
+      run_id: runId,
+    }),
+    meta: { run_id: runId },
+  };
+};
+
+export const CANCEL_JOB_RUN_API = 'CANCEL_JOB_RUN_API';
+export const cancelJobRunApi = (runId) => {
+  return {
+    type: CANCEL_JOB_RUN_API,
+    payload: JobsService.cancelRun({
+      run_id: runId,
+    }),
+    meta: { run_id: runId },
+  };
+};
+
+export const BATCH_GET_EXPERIMENTS_API = 'BATCH_GET_EXPERIMENTS_API';
+export const batchGetExperimentsApi = (experimentIds, id = getUUID()) => {
+  return {
+    type: BATCH_GET_EXPERIMENTS_API,
+    payload: MlflowService.batchGetExperiments({
+      experiment_ids: experimentIds,
+    }),
+    meta: { id: id },
+  };
+};
+
+export const GET_CREDENTIALS_FOR_ARTIFACT_READ_API = 'GET_CREDENTIALS_FOR_ARTIFACT_READ';
+export const getCredentialsForArtifactReadApi = (runId, artifactPath) => {
+  return {
+    type: GET_CREDENTIALS_FOR_ARTIFACT_READ_API,
+    payload: MlflowService.getCredentialsForArtifactRead({
+      run_id: runId,
+      path: artifactPath,
+    }),
+    meta: { run_id: runId, path: artifactPath },
+  };
+};
+// END-EDGE

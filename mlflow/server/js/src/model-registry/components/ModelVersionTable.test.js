@@ -6,6 +6,12 @@ import { Table } from 'antd';
 import { RegisteringModelDocUrl } from '../../common/constants';
 import { mountWithIntl } from '../../common/utils/TestUtils';
 import { BrowserRouter } from 'react-router-dom';
+// BEGIN-EDGE
+import { oss_test } from '../../common/utils/DatabricksTestUtils';
+import { DatabricksRegisterAModelDocUrl } from '../../common/constants-databricks';
+import DatabricksUtils from '../../common/utils/DatabricksUtils';
+import { CloudProvider } from '../../shared/constants-databricks';
+// END-EDGE
 
 describe('ModelVersionTable', () => {
   let wrapper;
@@ -27,8 +33,22 @@ describe('ModelVersionTable', () => {
     );
     expect(wrapper.length).toBe(1);
   });
+  // BEGIN-EDGE
 
   test('should render correct empty text', () => {
+    [CloudProvider.AWS, CloudProvider.Azure].forEach((provider) => {
+      DatabricksUtils.getCloudProvider = jest.fn().mockReturnValue(provider);
+      wrapper = mountWithIntl(
+        <BrowserRouter>
+          <ModelVersionTable {...minimalProps} />
+        </BrowserRouter>,
+      );
+      expect(wrapper.find(`a[href="${DatabricksRegisterAModelDocUrl[provider]}"]`)).toHaveLength(1);
+    });
+  });
+  // END-EDGE
+
+  oss_test('should render correct empty text', () => {
     wrapper = wrapper = mountWithIntl(
       <BrowserRouter>
         <ModelVersionTable {...minimalProps} />

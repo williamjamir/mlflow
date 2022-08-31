@@ -6,6 +6,13 @@ import {
   WarningFillIcon,
 } from '@databricks/design-system';
 import { PropTypes } from 'prop-types';
+// BEGIN-EDGE
+import DatabricksUtils from '../common/utils/DatabricksUtils';
+import { DatabricksModelRegistryEmailDocUrl } from '../common/constants-databricks';
+import { FormattedMessage } from 'react-intl';
+import { CloudProvider } from '../shared/constants-databricks';
+
+// END-EDGE
 /**
  * Get a unique key for a model version object.
  * @param modelName
@@ -14,7 +21,37 @@ import { PropTypes } from 'prop-types';
  */
 export const getModelVersionKey = (modelName, version) => `${modelName}_${version}`;
 
-export const getProtoField = (fieldName) => `${fieldName}`;
+// BEGIN-EDGE
+// Our proto API for the Databricks version of Get/List calls appends "_databricks" to
+// the end, for no particular reason.
+export const getProtoField = (fieldName) => `${fieldName}_databricks`;
+
+export const getModelVersionFollowSubscriptionTooltip = (user_id, window) => {
+  if (window && window.top && window.top.settings && window.top.settings.user === user_id) {
+    return (
+      <FormattedMessage
+        defaultMessage='You are following this model version because you created it.'
+        description='Tooltip text message for model version creator in model registry'
+      />
+    );
+  } else {
+    return (
+      <FormattedMessage
+        defaultMessage='You are following this model version because you interacted with
+           it (via comments, transition requests, etc.)'
+        description='Tooltip text message for user that interacted with the model version
+           in the model registry'
+      />
+    );
+  }
+};
+
+export const getModelRegistryEmailNotificationsDocsUri = () => {
+  const cloudProvider = DatabricksUtils.getCloudProvider() || CloudProvider.AWS;
+  return DatabricksModelRegistryEmailDocUrl[cloudProvider];
+};
+// END-EDGE
+export const oss_getProtoField = (fieldName) => `${fieldName}`;
 
 export function ReadyIcon() {
   const { theme } = useDesignSystemTheme();

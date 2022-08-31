@@ -1,0 +1,3300 @@
+{
+  "+1i81u" : {
+    "defaultMessage" : "등록 시간:",
+    "description" : "Label name for registered timestamp metadata in model version page"
+  },
+  "+D8o4G" : {
+    "defaultMessage" : "Workspace 관리자가 아티팩트 download를 비활성화했습니다.",
+    "description" : "Tooltip to explain why downloading the artifact is disabled"
+  },
+  "+Dnww0" : {
+    "defaultMessage" : "실행 이름 변경",
+    "description" : "Modal title to rename the experiment run name"
+  },
+  "+LLlvi" : {
+    "defaultMessage" : "소스 실행",
+    "description" : "Label name for source run metadata in model version page"
+  },
+  "+O40WZ" : {
+    "defaultMessage" : "마지막 게시",
+    "description" : "Title text for the online store last published metadata field."
+  },
+  "+gcii2" : {
+    "defaultMessage" : "모델 추론 설정",
+    "description" : "Modal title text for setting up model inference"
+  },
+  "+hkg/y" : {
+    "defaultMessage" : "최대",
+    "description" : "Column title for the column displaying the maximum metric values for a metric"
+  },
+  "/2MZix" : {
+    "defaultMessage" : "실행 ID:",
+    "description" : "Row title for the run id on the experiment compare runs page"
+  },
+  "/2m1wK" : {
+    "defaultMessage" : "오류 발생!",
+    "description" : "Error modal title to rendering errors"
+  },
+  "/7+KCP" : {
+    "defaultMessage" : "일부 값(5% 미만)은 null입니다.",
+    "description" : "AutoML warning shown when <5% nulls are found in columns"
+  },
+  "/738wy" : {
+    "defaultMessage" : "필터",
+    "description" : "String for the filter button to filter experiment runs table which match the search criteria"
+  },
+  "/9xaqW" : {
+    "defaultMessage" : "없음",
+    "description" : "Empty state text for when job schedule does not exist in monitoring pane"
+  },
+  "/ABq+N" : {
+    "defaultMessage" : "알림 비활성",
+    "description" : "Text for dropdown for no notifications on model view page"
+  },
+  "/EIf7s" : {
+    "defaultMessage" : "등록 보류 중...",
+    "description" : "Default status message for model versions that are pending registration"
+  },
+  "/JowTb" : {
+    "defaultMessage" : "이름",
+    "description" : "Column title for name column for displaying the metrics name for the experiment run"
+  },
+  "/VWFZb" : {
+    "defaultMessage" : "기계 학습 모델을 공유하고 서비스합니다.",
+    "description" : "Text for model registry onboarding on the model list page on Azure"
+  },
+  "/YdNM8" : {
+    "defaultMessage" : "아직 모델이 없습니다. 시작하려면 <link>모델을 만드세요</link>.",
+    "description" : "Placeholder text for empty models table in the registered model list page"
+  },
+  "/g45Xz" : {
+    "defaultMessage" : "기계 학습 모델을 공유하고 관리합니다.",
+    "description" : "Default text for model registry onboarding on the model list page"
+  },
+  "0ElvS9" : {
+    "defaultMessage" : "Y축:",
+    "description" : "Label text for y-axis in contour plot comparison in MLflow"
+  },
+  "0FuFzX" : {
+    "defaultMessage" : "취소됨",
+    "description" : "AutoML Step description canceled training"
+  },
+  "0Kfkl0" : {
+    "defaultMessage" : "전체 기능 테이블의 프로필 포함(창으로 된 프로필 외에)",
+    "description" : "Hint text for global profile in update config modal"
+  },
+  "0XA2QI" : {
+    "defaultMessage" : "예약된 Job",
+    "description" : "Title text for the feature table scheduled jobs column."
+  },
+  "0YGbFg" : {
+    "defaultMessage" : "대상 열에 null이 아닌 일부 값을 사용하여 AutoML 다시 실행",
+    "description" : "Action message for when all target column values are null values"
+  },
+  "0gGMZm" : {
+    "defaultMessage" : "이름",
+    "description" : "Default text for name placeholder in editable tags table form in MLflow"
+  },
+  "0gIYIc" : {
+    "defaultMessage" : "지수 이동 평균을 기반으로 점 사이의 선을 \"매끄럽게\" 만듭니다. 스무딩은 log하는 빈도가 높을 때 전체 추세를 표시하는 데 유용할 수 있습니다.",
+    "description" : "Helpful tooltip message to help with line smoothness for the metrics plot"
+  },
+  "0ja5l/" : {
+    "defaultMessage" : "태그를 찾을 수 없습니다.",
+    "description" : "Text for no tags found in editable form table in MLflow"
+  },
+  "0pdAuV" : {
+    "defaultMessage" : "활성",
+    "description" : "Linked model dropdown option to show active experiment runs"
+  },
+  "1/M8+x" : {
+    "defaultMessage" : "X축:",
+    "description" : "Label text for x-axis in scatter plot comparison in MLflow"
+  },
+  "16BvfJ" : {
+    "defaultMessage" : "{timeSince, plural, other {{timeSince,number}년 전}}",
+    "description" : "Text for time in years since given date for MLflow views"
+  },
+  "16HcXN" : {
+    "defaultMessage" : "모델 훈련 실패",
+    "description" : "Title text about AutoML failed"
+  },
+  "17k196" : {
+    "defaultMessage" : "취소",
+    "description" : "Text for the cancel button in an editable note in MLflow"
+  },
+  "1FE6jY" : {
+    "defaultMessage" : "지정된 구성으로 새 {stageTag}컴퓨팅 리소스를 만드는 중입니다. 몇 분 정도 걸릴 수 있습니다.",
+    "description" : "Compute config update description"
+  },
+  "1Iq+NW" : {
+    "defaultMessage" : "복사",
+    "description" : "Button text for copy button"
+  },
+  "1LfNLA" : {
+    "defaultMessage" : "대상 열에는 null 값만 있음",
+    "description" : "AutoML warning shown when the target column contains only null values"
+  },
+  "1Pem7X" : {
+    "defaultMessage" : "1일",
+    "description" : "1 day window granularity for data profiles"
+  },
+  "1Q47v+" : {
+    "defaultMessage" : "일부 모델은 학습되지 않았을 수 있습니다. 더 긴 시계열 데이터로 AutoML을 다시 실행합니다.",
+    "description" : "Recommended action for user when AutoML is given time series that are too\n          short"
+  },
+  "1UVDwT" : {
+    "defaultMessage" : "메모 추가",
+    "description" : "Text for add comment button on activities list on model version page"
+  },
+  "1Xsho/" : {
+    "defaultMessage" : "{featureNameText}을(를) 활성화하려면 이 모델에 대한 'CAN_MANAGE' 권한이 있어야 합니다.",
+    "description" : "Error message when user does not have model manage permissions in enable\n              serving button popover."
+  },
+  "1Z9/+o" : {
+    "defaultMessage" : "개요",
+    "description" : "Tab title for AutoML status overview"
+  },
+  "1f72BQ" : {
+    "defaultMessage" : "버전",
+    "description" : "Column title text for model version in model version table"
+  },
+  "1jPG5D" : {
+    "defaultMessage" : "만든 사람",
+    "description" : "Lable name for the creator under details tab on the model view page"
+  },
+  "1nKgV2" : {
+    "defaultMessage" : "보류 중인 요청",
+    "description" : "Column title text for pending requests in model version table"
+  },
+  "1xjS1n" : {
+    "defaultMessage" : "데이터 탐색 노트북 실패",
+    "description" : "AutoML warning shown when data exploration notebook fails"
+  },
+  "25EUlg" : {
+    "defaultMessage" : "아래의 코드 스니펫은 저장된 모델을 로드하는 방법을 보여줍니다.",
+    "description" : "Subtext heading explaining the below section of the model artifact view on how users can load the registered logged model"
+  },
+  "27oNFE" : {
+    "defaultMessage" : "모델 스키마",
+    "description" : "Heading text for the model schema of the registered model from the experiment run"
+  },
+  "2Exf7S" : {
+    "defaultMessage" : "지원되는 형식: 이미지, 텍스트, html, pdf, geojson 파일",
+    "description" : "Text to explain users which formats are supported to display the artifacts"
+  },
+  "2NfDVN" : {
+    "defaultMessage" : "모델 로드",
+    "description" : "Heading text for stating how to load the model from the experiment run"
+  },
+  "2Ohj3W" : {
+    "defaultMessage" : "<link>일정 없음</link>",
+    "description" : "Learn more link with cloud specific links to the feature store scheduled job documentation."
+  },
+  "2XtkeE" : {
+    "defaultMessage" : "종료 중",
+    "description" : "Terminating replica status label for serving V2 logs panel"
+  },
+  "2YEXRM" : {
+    "defaultMessage" : "편집",
+    "description" : "Text for the edit button next to the description section title on the experiment view page"
+  },
+  "2f2qeb" : {
+    "defaultMessage" : "유형",
+    "description" : "Text for type column in schema table in model version page"
+  },
+  "2kU7bW" : {
+    "defaultMessage" : "아직 등록된 모델이 없습니다. 모델 등록 방법에 대해 <link>더 알아보세요</link>.",
+    "description" : "Message text when no model versions are registerd"
+  },
+  "2lKtlK" : {
+    "defaultMessage" : "높음",
+    "description" : "Text describing a high severity AutoML warning"
+  },
+  "2ngXDv" : {
+    "defaultMessage" : "최소 복제본의 수는 최대 복제본의 수보다 작거나 같아야 합니다.",
+    "description" : "Validation error message for when there are more min replicas than max replicas"
+  },
+  "2oFAO4" : {
+    "defaultMessage" : "공유",
+    "description" : "Text for share button on experiment view page header"
+  },
+  "3+9AIt" : {
+    "defaultMessage" : "최대 복제본의 수는 최소 복제본의 수보다 크거나 같아야 합니다.",
+    "description" : "Validation error message for when there are fewer max replicas than min replicas"
+  },
+  "35/JL+" : {
+    "defaultMessage" : "복제본의 수는 {max}보다 작거나 같아야 함",
+    "description" : "Validation error message for when there are too many replicas"
+  },
+  "36g3aR" : {
+    "defaultMessage" : "편집",
+    "description" : "Text for the edit button next to the description section title on\n             the model view page"
+  },
+  "37UpKt" : {
+    "defaultMessage" : "포함된 기능",
+    "description" : "Label text for features in update config modal"
+  },
+  "3C7hQk" : {
+    "defaultMessage" : "모델 기능 및 성능을 모니터링합니다(공개 미리 보기). <link>더 알아보세요.</link>",
+    "description" : "Text for tooltip for model monitoring in the registered model page"
+  },
+  "3HTxsL" : {
+    "defaultMessage" : "지역",
+    "description" : "Title text for the online store region column."
+  },
+  "3Rb4sG" : {
+    "defaultMessage" : "삭제",
+    "description" : "String for the delete button to delete a particular experiment run"
+  },
+  "3UqTZZ" : {
+    "defaultMessage" : "<link>실시간 서비스</link>용 REST Endpoint로 배포",
+    "description" : "Continuing sub text to explain users that they can deploy the model fo real time serving"
+  },
+  "3Uuq5A" : {
+    "defaultMessage" : "{systemComment}일 때",
+    "description" : "Comment text in activity title for system transition in model\n                 version page"
+  },
+  "3WodQG" : {
+    "defaultMessage" : "호환되지 않는 의미 형식 주석이 있는 열",
+    "description" : "AutoML warning shown for columns with incompatible semantic type annotations"
+  },
+  "3Y1QLc" : {
+    "defaultMessage" : "구성 업데이트",
+    "description" : "Config button for data profiles on the feature table page"
+  },
+  "3geT+I" : {
+    "defaultMessage" : "Log 아티팩트 API를 사용하여 MLflow 실행의 파일 출력을 저장합니다.",
+    "description" : "Information in the empty state explaining how one could log artifacts output files for the experiment runs"
+  },
+  "3ioIKi" : {
+    "defaultMessage" : "로드된 하위 실행은 상위 실행 아래에 중첩됩니다.",
+    "description" : "Tooltip text for load more button explaining the runs are nested under their parent experiment run"
+  },
+  "4+RPaz" : {
+    "defaultMessage" : "삭제",
+    "description" : "Text for delete button on model version view page header"
+  },
+  "424G/o" : {
+    "defaultMessage" : "Experiment",
+    "description" : "Breadcrumb nav item to link to the list of experiments page on runs page"
+  },
+  "44s7uM" : {
+    "defaultMessage" : "마지막 수정",
+    "description" : "Title text for the feature table last modified metadata field."
+  },
+  "47QsAK" : {
+    "defaultMessage" : "{fieldName}이(가) 비어 있음",
+    "description" : "Default text in data table where items are empty in the model\n                  comparison page"
+  },
+  "4BAMr6" : {
+    "defaultMessage" : "세분성",
+    "description" : "Model monitoring configuration text for granularities"
+  },
+  "4MojW8" : {
+    "defaultMessage" : "태그를 설정하지 못했습니다. 오류: {errorTrace}",
+    "description" : "Error message when updating or setting a tag feature fails"
+  },
+  "4NEPlV" : {
+    "defaultMessage" : "산점도",
+    "description" : "Tab text for scatter plot on the model comparison page"
+  },
+  "4P3rtc" : {
+    "defaultMessage" : "생산자를 찾을 수 없습니다.",
+    "description" : "Text on the producer section describing no producers exist."
+  },
+  "4T1MAQ" : {
+    "defaultMessage" : "기본 설정",
+    "description" : "Preferences title for compute config"
+  },
+  "4X56Td" : {
+    "defaultMessage" : "단계 전환을 거부함",
+    "description" : "Activity title text for rejected transition request in model versions page"
+  },
+  "4Xgr9t" : {
+    "defaultMessage" : "마지막 수정자",
+    "description" : "Title text for the feature page last modified by metadata field."
+  },
+  "4aTcCT" : {
+    "defaultMessage" : "모든 실행",
+    "description" : "Linked model dropdown option to show all experiment runs"
+  },
+  "4cecjR" : {
+    "defaultMessage" : "기계 학습 모델을 공유하고 서비스합니다.",
+    "description" : "Text for model registry onboarding on the model list page on AWS"
+  },
+  "4hOOuV" : {
+    "defaultMessage" : "404: 리소스를 찾을 수 없음",
+    "description" : "Generic 404 user-friendly error for the MLFlow UI"
+  },
+  "4idqpX" : {
+    "defaultMessage" : "추가",
+    "description" : "Add button text in editable tags table view in MLflow"
+  },
+  "4p+nQv" : {
+    "defaultMessage" : "마지막 작성",
+    "description" : "Title text for the feature table last written metadata field."
+  },
+  "4rnCTs" : {
+    "defaultMessage" : "가져온 사람",
+    "description" : "Title text for the feature page imported by field."
+  },
+  "4yOFcJ" : {
+    "defaultMessage" : "데이터 탐색 노트북을 수정한 후 다시 실행하여 전체 데이터 집합을 프로파일링하세요.",
+    "description" : "Recommended action when data exploration notebook truncate columns."
+  },
+  "5Mzn2b" : {
+    "defaultMessage" : "만든 사람",
+    "description" : "Label name for creator metadata in model version page"
+  },
+  "5RWIet" : {
+    "defaultMessage" : "{sectionName} 스키마",
+    "description" : "Field name text for schema table in the model comparison page"
+  },
+  "5ZAXeS" : {
+    "defaultMessage" : "{timeSince, plural, other {{timeSince,number}개월 전}}",
+    "description" : "Text for time in months since given date for MLflow views"
+  },
+  "5Zui9s" : {
+    "defaultMessage" : "500: 내부 서버 오류",
+    "description" : "Generic 500 user-friendly error for the MLFlow UI"
+  },
+  "5jS5aY" : {
+    "defaultMessage" : "경고",
+    "description" : "Header/title of AutoML warnings dashboard"
+  },
+  "5nCq47" : {
+    "defaultMessage" : "대상 열에 null이 없는 데이터 집합에서 AutoML을 다시 실행합니다.",
+    "description" : "Error message shown when AutoML is given target column with nulls"
+  },
+  "656rRX" : {
+    "defaultMessage" : "<link>홈 페이지</link>로 돌아갑니다.",
+    "description" : "Default error message for error views in MLflow"
+  },
+  "6DnXTj" : {
+    "defaultMessage" : "Timestamp 키",
+    "description" : "Title text for the feature table timestamp keys metadata field."
+  },
+  "6Lsp2w" : {
+    "defaultMessage" : "열에 범주형 의미 형식이 감지됨",
+    "description" : "AutoML warning shown when columns have categorical semantic type"
+  },
+  "6P8+34" : {
+    "defaultMessage" : "지원되는 피처 열이 있는 데이터 집합에서 AutoML을 다시 실행합니다.",
+    "description" : "Recommended action for user when AutoML finds no supported feature columns"
+  },
+  "6b6fTN" : {
+    "defaultMessage" : "미리 볼 파일 선택",
+    "description" : "Label to suggests users to select a file to preview the output"
+  },
+  "6bmLqb" : {
+    "defaultMessage" : "모델 로드",
+    "description" : "Code comment which states how to load the model"
+  },
+  "6kSKRk" : {
+    "defaultMessage" : "{numVersions} 버전 비교",
+    "description" : "Text for main title for the model comparison page"
+  },
+  "6rUKx3" : {
+    "defaultMessage" : "기능을 찾을 수 없습니다.",
+    "description" : "Text describing no features exists for the feature table."
+  },
+  "6rl01I" : {
+    "defaultMessage" : "AutoML이 데이터 집합을 샘플링했습니다. 존재하는 경우 카디널리티가 높은 열(예: 다른 값이 많은 문자열 열)을 삭제하여 샘플 크기를 늘립니다.",
+    "description" : "Action that AutoML took given a dataset that was too large"
+  },
+  "6tN5G5" : {
+    "defaultMessage" : "Replica",
+    "description" : "Label for line on replicas graph"
+  },
+  "6xPc4W" : {
+    "defaultMessage" : "Spark DataFrame으로 예측:",
+    "description" : "Section heading to display the code block on how we can use registered model to predict using spark DataFrame"
+  },
+  "739thv" : {
+    "defaultMessage" : "수명 주기 단계",
+    "description" : "Label for displaying lifecycle stage of the experiment run to see if its active or deleted"
+  },
+  "74xuTf" : {
+    "defaultMessage" : "취소",
+    "description" : "Cancel text for button to cancel pending request action in model registry"
+  },
+  "778sv1" : {
+    "defaultMessage" : "AutoML 학습이 조기에 중지됨",
+    "description" : "AutoML warning shown that the training is stopped early"
+  },
+  "77YBRg" : {
+    "defaultMessage" : "데이터 프로필",
+    "description" : "Tab pane name for feature table data profiles"
+  },
+  "79dD5F" : {
+    "defaultMessage" : "노트를 제출하는 중에 오류가 발생했습니다.",
+    "description" : "Error message text when saving an editable note in MLflow"
+  },
+  "7F/CBv" : {
+    "defaultMessage" : "단계",
+    "description" : "Column title text for model version stage in model version table"
+  },
+  "7NKkk1" : {
+    "defaultMessage" : "저장",
+    "description" : "Modal button text to save the changes to rename the experiment run name"
+  },
+  "7QqKFE" : {
+    "defaultMessage" : "프로비저닝된 동시성:",
+    "description" : "Concurrency label for compute config"
+  },
+  "7RRdQX" : {
+    "defaultMessage" : "Logs",
+    "description" : "Title text for logs section on model version's serving page"
+  },
+  "7UtBbR" : {
+    "defaultMessage" : "0으로 조정",
+    "description" : "Checkbox text for enabling scale to zero"
+  },
+  "7cuzHn" : {
+    "defaultMessage" : "작업",
+    "description" : "Column header of AutoML warnings table. Describes what actions AutoML took as a result of a warning, as well as what actions we recommend that the user take."
+  },
+  "7jsqqe" : {
+    "defaultMessage" : "{timeSince, plural, other {{timeSince,number}분 전}}",
+    "description" : "Text for time in minutes since given date for MLflow views"
+  },
+  "7kUi8J" : {
+    "defaultMessage" : "기간:",
+    "description" : "Row title for the duration of runs on the experiment compare runs page"
+  },
+  "7nAMnb" : {
+    "defaultMessage" : "새 모델의 이름을 입력하세요.",
+    "description" : "Error message for having no input for creating models in the model registry"
+  },
+  "7pCEMd" : {
+    "defaultMessage" : "5% 이상의 값이 null입니다.",
+    "description" : "AutoML warning shown when >5% nulls are found in columns"
+  },
+  "7rTIly" : {
+    "defaultMessage" : "이름",
+    "description" : "Column title for name column for displaying the params name for the experiment run"
+  },
+  "7uuki1" : {
+    "defaultMessage" : "설명",
+    "description" : "Title text for transition request form to add comments for model version stage transition request"
+  },
+  "7zNDHj" : {
+    "defaultMessage" : "매개변수:",
+    "description" : "Label text for parameters in parallel coordinates plot in MLflow"
+  },
+  "8/7V3S" : {
+    "defaultMessage" : "아티팩트 위치",
+    "description" : "Label for displaying the experiment artifact location"
+  },
+  "81+fJx" : {
+    "defaultMessage" : "오류로 인해 모델 정보를 로드할 수 없습니다.",
+    "description" : "Error state text when the model artifact was unable to load"
+  },
+  "81DxPY" : {
+    "defaultMessage" : "등고선 플롯은 3개 이상의 고유한 메트릭 또는 매개 변수가 있는 실행 그룹을 비교할 때만 렌더링할 수 있습니다. 등고선 플롯을 사용하여 시각화하려면 실행에 더 많은 메트릭 또는 매개 변수를 Log합니다.",
+    "description" : "Text explanation when contour plot is disabled in comparison pages\n              in MLflow"
+  },
+  "88l+j9" : {
+    "defaultMessage" : "{versionNum} 모델 버전을 삭제하시겠습니까? 이 작업은 취소할 수 없습니다.",
+    "description" : "Comment text for model version deletion modal in model versions view\n                 page"
+  },
+  "8Qqbgr" : {
+    "defaultMessage" : "기능 테이블을 찾을 수 없습니다.",
+    "description" : "Text on the table section describing no feature tables are found by search."
+  },
+  "8Uxki0" : {
+    "defaultMessage" : "AutoML이 피처 해시 기능을 사용했습니다.",
+    "description" : "Action that AutoML took for extreme category column"
+  },
+  "8XT7z5" : {
+    "defaultMessage" : "태그를 삭제하지 못했습니다. 오류: {errorTrace}",
+    "description" : "Error message when deleting a tag feature fails"
+  },
+  "8XbTnl" : {
+    "defaultMessage" : "값",
+    "description" : "Default text for value placeholder in editable tags table form in MLflow"
+  },
+  "8flziy" : {
+    "defaultMessage" : "시간(Wall)",
+    "description" : "Radio button option to choose the time wall control option for the X-axis for metric graph on the experiment runs"
+  },
+  "8uJ0h/" : {
+    "defaultMessage" : "세분성",
+    "description" : "Option group title for window granularities in update config modal"
+  },
+  "8xji5J" : {
+    "defaultMessage" : "X축:",
+    "description" : "Label text for X-axis in box plot comparison in MLflow"
+  },
+  "92yATM" : {
+    "defaultMessage" : "버전 이벤트",
+    "description" : "Title text for version events section on model version's serving page"
+  },
+  "93iLUV" : {
+    "defaultMessage" : "{timeSince, plural, other {{timeSince,number}초 전}}",
+    "description" : "Text for time in seconds since given date for MLflow views"
+  },
+  "98Ub01" : {
+    "defaultMessage" : "모델 버전 삭제",
+    "description" : "Title text for model version deletion modal in model versions view page"
+  },
+  "99StqK" : {
+    "defaultMessage" : "기록 보기",
+    "description" : "Link to job history"
+  },
+  "9Ce4Gd" : {
+    "defaultMessage" : "시작 시간",
+    "description" : "Label for the start time select dropdown for experiment runs view"
+  },
+  "9CqEWy" : {
+    "defaultMessage" : "추가 로드",
+    "description" : "Load more button text to load more experiment runs"
+  },
+  "9KXBFn" : {
+    "defaultMessage" : "태그",
+    "description" : "Row group title for tags of runs on the experiment compare runs page"
+  },
+  "9U7p8j" : {
+    "defaultMessage" : "취소",
+    "description" : "Cancel button text for generating batch inference notebooks"
+  },
+  "9U8V17" : {
+    "defaultMessage" : "설명",
+    "description" : "Title text for the feature table description section field."
+  },
+  "9URaPt" : {
+    "defaultMessage" : "메모리 사용량(%)",
+    "description" : "Graph title for memory usage metrics graph"
+  },
+  "9W3kev" : {
+    "defaultMessage" : "등록",
+    "description" : "Confirmation text to register the model"
+  },
+  "9fVZg8" : {
+    "defaultMessage" : "삭제",
+    "description" : "Text for disabled delete button due to active versions on model view page header"
+  },
+  "9mAGv0" : {
+    "defaultMessage" : "모델 이름",
+    "description" : "Text for form title on creating model in the model registry"
+  },
+  "9tVuSP" : {
+    "defaultMessage" : "대상 열에 여러 범주가 있는 데이터 집합에서 AutoML을 다시 실행합니다.",
+    "description" : "Recommended action when AutoML is given a target column with 1 category"
+  },
+  "9y+yUQ" : {
+    "defaultMessage" : "파일이 너무 커서 미리 볼 수 없음",
+    "description" : "Label to indicate that the file is too large to preview"
+  },
+  "A27SOF" : {
+    "defaultMessage" : "페이지를 로드할 수 없습니다. 나중에 다시 시도하세요.",
+    "description" : "Page level error boundary alert description"
+  },
+  "A3+K1g" : {
+    "defaultMessage" : "심각도",
+    "description" : "Column header of AutoML warnings table. Describes priority of warning."
+  },
+  "ABg28u" : {
+    "defaultMessage" : "로깅 테이블",
+    "description" : "Link text for the generated logging table for model monitoring"
+  },
+  "AEzy9w" : {
+    "defaultMessage" : "생성 후에는 Log된 모델을 새 버전으로 등록할 수 있습니다. ",
+    "description" : "Text for form description on creating model in the model registry"
+  },
+  "AH/7/t" : {
+    "defaultMessage" : "게시된 기능 ({length})",
+    "description" : "Title text for the online store published features section."
+  },
+  "AOV6+K" : {
+    "defaultMessage" : "기능",
+    "description" : "Title text for the feature name column."
+  },
+  "AWn3+C" : {
+    "defaultMessage" : "설명",
+    "description" : "Placeholder text for stage transition form to add comments for model version stage transitions"
+  },
+  "AaU3xx" : {
+    "defaultMessage" : "모니터를 찾을 수 없음: {name}",
+    "description" : "Alert header text for when monitor with a name cannot be found"
+  },
+  "AoTAbL" : {
+    "defaultMessage" : "모델 버전",
+    "description" : "Model version label on the configure inference form"
+  },
+  "At3XhS" : {
+    "defaultMessage" : "만든 시간",
+    "description" : "Label name for the created time under details tab on the model view page"
+  },
+  "Ay+ZP/" : {
+    "defaultMessage" : "태그를 삭제하지 못했습니다. 오류: {userVisibleError}",
+    "description" : "Text for user visible error when deleting tag in model version view"
+  },
+  "B7RMVW" : {
+    "defaultMessage" : "취소됨",
+    "description" : "Job status for most recent run: cancelled"
+  },
+  "B80MC6" : {
+    "defaultMessage" : "등고선 플롯",
+    "description" : "Tab pane title for contour plots on the compare runs page"
+  },
+  "BAVJrI" : {
+    "defaultMessage" : "분석 메트릭 테이블",
+    "description" : "Link to analysis metrics table"
+  },
+  "BQVmNZ" : {
+    "defaultMessage" : "범주형 열에 균일하게 분포된 값",
+    "description" : "AutoML warning shown when categorical columns are uniformly distributed"
+  },
+  "BQt0TQ" : {
+    "defaultMessage" : "이 모델은 <link>모델 레지스트리</link>에도 등록되어 있습니다.",
+    "description" : "Sub text to tell the users where the registered models are located "
+  },
+  "BldEXx" : {
+    "defaultMessage" : "마지막 수정자",
+    "description" : "Title text for the feature table last modified by metadata field."
+  },
+  "Brd8VL" : {
+    "defaultMessage" : "온라인 스토어",
+    "description" : "Title text for the online store name column."
+  },
+  "Bw2fr8" : {
+    "defaultMessage" : "AutoML 시간 초과됨",
+    "description" : "AutoML warning shown when AutoML times before any trials are completed"
+  },
+  "BwyYS1" : {
+    "defaultMessage" : "값",
+    "description" : "Column title for value column for displaying the value of the metrics for the experiment run "
+  },
+  "C4y1fv" : {
+    "defaultMessage" : "-∞",
+    "description" : "Label displaying negative infinity symbol displayed on a plot UI element"
+  },
+  "C6JEqI" : {
+    "defaultMessage" : "대상 레이블당 행이 5개 이상인 데이터 집합을 사용하여 AutoML 다시 실행",
+    "description" : "Recommended action when AutoML is run with dataset with all invalid rows"
+  },
+  "CBuKSa" : {
+    "defaultMessage" : "이 기능 테이블에 대한 최신 프로필 데이터를 가져오려면 최신 구성을 사용하여 프로필을 다시 compute하는 Job을 다시 실행해야 합니다.",
+    "description" : "Alert description for configuration changes in feature table monitoring"
+  },
+  "CGVHLD" : {
+    "defaultMessage" : "매개변수",
+    "description" : "Label for the collapsible area to display the parameters used during the experiment run"
+  },
+  "CQoA6b" : {
+    "defaultMessage" : "AutoML 시작 중...",
+    "description" : "AutoML Step subtitle pending training"
+  },
+  "CYs020" : {
+    "defaultMessage" : "시간 열에 Null이 있음",
+    "description" : "AutoML warning shown when the time column has null values"
+  },
+  "Cb+zij" : {
+    "defaultMessage" : "Job 노트북",
+    "description" : "Link to jobs notebook"
+  },
+  "CcZmhi" : {
+    "defaultMessage" : "취소",
+    "description" : "Button text for canceling pending request on the model version page"
+  },
+  "CgfGuB" : {
+    "defaultMessage" : "취소",
+    "description" : "Text on the feature table deletion modal to cancel deletion of the feature table."
+  },
+  "CkCjt2" : {
+    "defaultMessage" : "최상의 모델에 대한 노트북 보기",
+    "description" : "Button to navigate to the notebook with the best AutoML trial"
+  },
+  "ClUzUX" : {
+    "defaultMessage" : "실행 ID",
+    "description" : "Label for displaying the ID of the experiment run"
+  },
+  "CpLnGS" : {
+    "defaultMessage" : "메트릭",
+    "description" : "Table title text for metrics table in the model comparison page"
+  },
+  "Ct2SbD" : {
+    "defaultMessage" : "대상 열에 Null이 있음",
+    "description" : "AutoML warning shown when the target column has null values"
+  },
+  "CyjF09" : {
+    "defaultMessage" : "CPU 사용량(%)",
+    "description" : "Graph title for cpu usage metrics graph"
+  },
+  "D/alNf" : {
+    "defaultMessage" : "모든 새 활동",
+    "description" : "Text for dropdown for all notifications on model view page"
+  },
+  "D5w45H" : {
+    "defaultMessage" : "{productionTag}모델은 다음 컴퓨팅을 사용합니다.",
+    "description" : "Compute config message for production compute"
+  },
+  "DMtkZp" : {
+    "defaultMessage" : "AutoML이 원본 데이터 집합의 샘플에서 데이터 탐색 및 실험을 실행했습니다.",
+    "description" : "Text for dataset sampled before exploration"
+  },
+  "DPXZ6v" : {
+    "defaultMessage" : "새로 방출된 메트릭을 사용하는 데 몇 분 정도 걸릴 수 있습니다. 그래프는 10초마다 자동 업데이트됩니다. 비율 제한 요청과 인증에 실패하는 요청은 이 메트릭에 포함되지 않으며, compute 구성 변경이 보류될 때 replica 개수가 일시적으로 급증할 수도 있음을 유념하시기 바랍니다.",
+    "description" : "Tooltip for metrics section"
+  },
+  "DUZykM" : {
+    "defaultMessage" : "서비스 제공 가능",
+    "description" : "Selection item text in model registry to filter models by serving enabled"
+  },
+  "DUnrWL" : {
+    "defaultMessage" : "실행 이름:",
+    "description" : "Row title for the run name on the experiment compare runs page"
+  },
+  "Dhn7Mb" : {
+    "defaultMessage" : "{numExperiments}개 Experiment의 run 표시",
+    "description" : "Message shown when displaying runs from multiple experiments"
+  },
+  "DkYbf8" : {
+    "defaultMessage" : "ID 열",
+    "description" : "Model monitoring configuration text for id columns"
+  },
+  "DxWJOS" : {
+    "defaultMessage" : "고유한 열 이름이 있는 데이터 집합과 함께 AutoML을 다시 실행합니다.",
+    "description" : "Action that AutoML took given a dataset with duplicate column names"
+  },
+  "Dxwvus" : {
+    "defaultMessage" : "단계 전환",
+    "description" : "Title text for model version stage transitions in confirm modal"
+  },
+  "DzGXnD" : {
+    "defaultMessage" : "복사",
+    "description" : "Copy tooltip to copy experiment name from experiment runs table header"
+  },
+  "E2etXv" : {
+    "defaultMessage" : "삭제",
+    "description" : "Ok button text for deleting a comment under activities list on the model version page"
+  },
+  "E7mv3b" : {
+    "defaultMessage" : "저장",
+    "description" : "Text for saving changes on rows in editable form table in MLflow"
+  },
+  "ECH4Hu" : {
+    "defaultMessage" : "지우기",
+    "description" : "String for the clear button to clear the text for searching models"
+  },
+  "EDi/qe" : {
+    "defaultMessage" : "온라인 스토어 ({length})",
+    "description" : "Title text for the feature table online stores section."
+  },
+  "EI7moF" : {
+    "defaultMessage" : "지난해",
+    "description" : "Option for the start select dropdown to filter runs since the last 1 year"
+  },
+  "EK5JxG" : {
+    "defaultMessage" : "매개 변수",
+    "description" : "Field name text for parameters table in the model comparison page"
+  },
+  "EKyt+3" : {
+    "defaultMessage" : "메트릭:",
+    "description" : "Label text for metrics in parallel coordinates plot in MLflow"
+  },
+  "EMNpby" : {
+    "defaultMessage" : "차이점만 표시",
+    "description" : "Switch to select only columns with different values across runs"
+  },
+  "ERatIe" : {
+    "defaultMessage" : "권한",
+    "description" : "Text for the permissions button."
+  },
+  "ERcJ7Q" : {
+    "defaultMessage" : "드리프트 메트릭 테이블",
+    "description" : "Link to the drift metrics table"
+  },
+  "ES952j" : {
+    "defaultMessage" : "숫자가 아님({metricKey})",
+    "description" : "Label indicating \"not-a-number\" used as a hover text in a plot UI element"
+  },
+  "EVfjgv" : {
+    "defaultMessage" : "마지막 수정",
+    "description" : "Title text for the feature page last modified metadata field."
+  },
+  "EYj+v2" : {
+    "defaultMessage" : "데이터를 기간으로 집계하거나 단일 프로필로 그룹화",
+    "description" : "Hint text for window granularity in update config modal"
+  },
+  "EfbHm9" : {
+    "defaultMessage" : "구성 저장",
+    "description" : "Ok text for update data profile config modal"
+  },
+  "EqNhV6" : {
+    "defaultMessage" : "단계 전환을 승인함",
+    "description" : "Activity title text for approved transition request in model versions page"
+  },
+  "EsjlN/" : {
+    "defaultMessage" : "기능 테이블이 아직 없습니다.",
+    "description" : "Text on the table section describing no feature table exists yet."
+  },
+  "EtOcLm" : {
+    "defaultMessage" : "알림 비활성화됨",
+    "description" : "Notification setting status message when disabled on the model view page"
+  },
+  "EwcVCu" : {
+    "defaultMessage" : "지우기",
+    "description" : "String for the clear button to clear any filters or sorting that we may have applied on the experiment table"
+  },
+  "F/EzKI" : {
+    "defaultMessage" : "기존 {currentStage} 모델 버전을 {archivedStage}(으)로 전환",
+    "description" : "Description text for checkbox for archiving existing model versions\n                    in the toStage for model version stage transition"
+  },
+  "F0VQH7" : {
+    "defaultMessage" : "AutoML은 데이터세트의 균형을 맞추지 않습니다. <code>{appropriateMetric}</code>와(과) 같은 다른 지표를 선택하는 것이 좋습니다.",
+    "description" : "Text shown when AutoML does not balance the data with an unsupported metric"
+  },
+  "F16DNA" : {
+    "defaultMessage" : "버전 {versionNum}",
+    "description" : "Title text for model version page"
+  },
+  "F6uRM6" : {
+    "defaultMessage" : "폐기 잔여 시간",
+    "description" : "Title text for the online store time to live metadata field."
+  },
+  "FZubuU" : {
+    "defaultMessage" : "Experiment 이름 입력",
+    "description" : "Input placeholder to enter experiment name for create experiment"
+  },
+  "FdDWTo" : {
+    "defaultMessage" : "모두 지우기",
+    "description" : "String for the clear button to clear any selected parameters and metrics"
+  },
+  "FpjDSq" : {
+    "defaultMessage" : "비교",
+    "description" : "Text for compare button to compare versions under details tab\n                       on the model view page"
+  },
+  "FpzEE0" : {
+    "defaultMessage" : "날짜",
+    "description" : "Label for displaying the start time of the experiment ran"
+  },
+  "FwBInP" : {
+    "defaultMessage" : "로드 중...",
+    "description" : "Loading state text for the artifact model view"
+  },
+  "G0Vn7R" : {
+    "defaultMessage" : "Serverless 모델 Endpoint",
+    "description" : "Feature name for serving v2 used in error message in enable serving\n            button popover."
+  },
+  "G0cL1N" : {
+    "defaultMessage" : "온라인 스토어",
+    "description" : "Title text for the feature table online stores column."
+  },
+  "G0gYkS" : {
+    "defaultMessage" : "종료 시간:",
+    "description" : "Row title for the end time of runs on the experiment compare runs page"
+  },
+  "G1CN04" : {
+    "defaultMessage" : "상태",
+    "description" : "Title text for the producer status column."
+  },
+  "GAJL1v" : {
+    "defaultMessage" : "모델의 입력 및 출력 스키마입니다. <link>더 알아보기</link>",
+    "description" : "Input and output params of the model that is registered from the experiment run"
+  },
+  "GB5GqC" : {
+    "defaultMessage" : "요청 재시도",
+    "description" : "Retry requested label for the state of the model scoring service"
+  },
+  "GDenB3" : {
+    "defaultMessage" : "메트릭",
+    "description" : "Field name text for metrics table in the model comparison page"
+  },
+  "GFJzUl" : {
+    "defaultMessage" : "AutoML이 시간 열에 null 값이 있는 행을 삭제함",
+    "description" : "Action that AutoML took for rows with null time column"
+  },
+  "GFPC97" : {
+    "defaultMessage" : "{featureNameText}을(를) 활성화하려면 범용 클러스터를 생성할 수 있는 권한이 있어야 합니다.",
+    "description" : "Error message when user does not have cluster create permissions in\n              enable serving button popover."
+  },
+  "GGWJ6D" : {
+    "defaultMessage" : "열에 텍스트 의미 형식이 감지됨",
+    "description" : "AutoML warning shown when columns have text semantic type"
+  },
+  "GJWVBA" : {
+    "defaultMessage" : "입력",
+    "description" : "Table subtitle for schema inputs in the model comparison page"
+  },
+  "GKiPV1" : {
+    "defaultMessage" : "시작 시간:",
+    "description" : "Text for start time row header in the main table in the model comparison\n                page"
+  },
+  "GX9Yb8" : {
+    "defaultMessage" : "상태",
+    "description" : "Label for displaying status of the experiment run to see if its running or finished"
+  },
+  "GXayIF" : {
+    "defaultMessage" : "Pandas DataFrame으로 예측:",
+    "description" : "Section heading to display the code block on how we can use registered model to predict using pandas DataFrame"
+  },
+  "GZNIJ6" : {
+    "defaultMessage" : "로깅 테이블",
+    "description" : "Link to logging table"
+  },
+  "Gg/vLZ" : {
+    "defaultMessage" : "모델 삭제",
+    "description" : "Title text for delete model modal on model view page"
+  },
+  "GjbOyj" : {
+    "defaultMessage" : "자세한 내용은 <link>AutoML 작업 실행</link>을 참조하세요.",
+    "description" : "Info text about AutoML failed with details about finding more information"
+  },
+  "Gk26O9" : {
+    "defaultMessage" : "메시지",
+    "description" : "Column title text for event message in model version events table"
+  },
+  "GozNR3" : {
+    "defaultMessage" : "Git 소스",
+    "description" : "Label for displaying the Databricks Repo Git Lineage"
+  },
+  "GqEyUv" : {
+    "defaultMessage" : "학습 노트북이 각 열을 숫자 유형으로 변환하고 숫자 변환을 기반으로 피처값들을 인코딩했습니다.",
+    "description" : "Action that AutoML took for columns that have numeric semantic type"
+  },
+  "GrrT4e" : {
+    "defaultMessage" : "태그를 추가하지 못했습니다. 오류: {errorTrace}",
+    "description" : "Error message when add to tag feature fails"
+  },
+  "GuWIIX" : {
+    "defaultMessage" : "버전",
+    "description" : "Column title text for version name in model version events table"
+  },
+  "GwsMuc" : {
+    "defaultMessage" : "찾아보기",
+    "description" : "Button text for browsing tables on the configure inference form"
+  },
+  "H+4gFh" : {
+    "defaultMessage" : "차이점만 표시",
+    "description" : "Toggle text that determines whether to show diff only in the model\n                      comparison page"
+  },
+  "H/rbzt" : {
+    "defaultMessage" : "만든 사람",
+    "description" : "Title text for the online store created by metadata field."
+  },
+  "H7bCb9" : {
+    "defaultMessage" : "구성 저장됨",
+    "description" : "Toast message for successful updating of monitoring configs"
+  },
+  "HBOFi3" : {
+    "defaultMessage" : "다음으로 전환",
+    "description" : "Text for transition under request column in the pending\n               requests table"
+  },
+  "HDj/uX" : {
+    "defaultMessage" : "모니터링",
+    "description" : "Title for model monitoring page"
+  },
+  "HGG+BI" : {
+    "defaultMessage" : "Y축 로그 스케일:",
+    "description" : "Label for the radio button to toggle the Log scale on the Y-axis of the metric graph for the experiment"
+  },
+  "HHxM0O" : {
+    "defaultMessage" : "오류",
+    "description" : "Error replica status label for serving V2 logs panel"
+  },
+  "HNLDYl" : {
+    "defaultMessage" : "태그를 설정하지 못했습니다. 오류: {userVisibleError}",
+    "description" : "Text for user visible error when setting tag in model version view"
+  },
+  "HO9pRw" : {
+    "defaultMessage" : "인스턴스 크기",
+    "description" : "Instance size label for compute configuration"
+  },
+  "HUf9qJ" : {
+    "defaultMessage" : "{modelName}을(를) 삭제하시겠습니까? 이 작업은 취소할 수 없습니다.",
+    "description" : "Confirmation message for delete model modal on model view page"
+  },
+  "HZqm8e" : {
+    "defaultMessage" : "활동",
+    "description" : "Title text for the activities section on the model versions view page"
+  },
+  "Hk0RSH" : {
+    "defaultMessage" : "Y축:",
+    "description" : "Label text for Y-axis in box plot comparison in MLflow"
+  },
+  "HrS270" : {
+    "defaultMessage" : "자세한 내용은 <link>데이터 탐색 노트북</link>을 참조하세요.",
+    "description" : "Informational text directing users to the data exploration notebook for more AutoML warnings"
+  },
+  "HsaxHP" : {
+    "defaultMessage" : "복제본:",
+    "description" : "Replicas label for compute config"
+  },
+  "HtzD+r" : {
+    "defaultMessage" : "설명",
+    "description" : "Title text for the feature page description section field."
+  },
+  "HvDYaH" : {
+    "defaultMessage" : "계정 URI",
+    "description" : "Title text for the online store account uri metadata field."
+  },
+  "HyBP+D" : {
+    "defaultMessage" : "태그",
+    "description" : "Title text for the tags section under details tab on the model view\n                   page"
+  },
+  "HyYya/" : {
+    "defaultMessage" : "모델",
+    "description" : "Title text for the feature model consumers column."
+  },
+  "I2oT/6" : {
+    "defaultMessage" : "각 모델 단계에 대해 동일한 컴퓨팅 설정 사용",
+    "description" : "Description for same compute settings checkbox"
+  },
+  "I4vohS" : {
+    "defaultMessage" : "게시된 온라인 테이블과 기본 Delta 테이블을 별도로 삭제해야 합니다. <link>더 알아보기</link>",
+    "description" : "Text on the feature table deletion modal describing consequences of this operation."
+  },
+  "ICtiKS" : {
+    "defaultMessage" : "삭제",
+    "description" : "OK button text for model version deletion modal in model versions view page"
+  },
+  "IEIzml" : {
+    "defaultMessage" : "입력 테이블",
+    "description" : "Input table placeholder on the configure inference form"
+  },
+  "IEORCP" : {
+    "defaultMessage" : "{numExperiments}개 Experiment의 {numRuns}개 run 비교",
+    "description" : "Breadcrumb title for compare runs page with multiple experiments"
+  },
+  "IGmuER" : {
+    "defaultMessage" : "1개월",
+    "description" : "1 month window granularity for data profiles"
+  },
+  "IHyeUr" : {
+    "defaultMessage" : "단계",
+    "description" : "Label name for stage metadata in model version page"
+  },
+  "IKx3DN" : {
+    "defaultMessage" : "Pandas DataFrame으로 예측합니다.",
+    "description" : "Code comment which states on how we can predict using pandas DataFrame"
+  },
+  "IOWt+E" : {
+    "defaultMessage" : "이 Endpoint를 제공하는 데 사용되는 컴퓨팅 구성을 변경합니다.",
+    "description" : "Compute config tab description"
+  },
+  "IWuVOI" : {
+    "defaultMessage" : "태그를 추가하지 못했습니다. 오류: {userVisibleError}",
+    "description" : "Text for user visible error when adding tag in model version view"
+  },
+  "Ik96R6" : {
+    "defaultMessage" : "편집",
+    "description" : "Text for the edit button next to the description section title on\n             the model version view page"
+  },
+  "It3jsH" : {
+    "defaultMessage" : "보류 중인 요청",
+    "description" : "Title text for the pending requests section on the model version\n                 view page"
+  },
+  "Itbhj7" : {
+    "defaultMessage" : "Timestamp 열",
+    "description" : "Model monitoring configuration text for timestamp column"
+  },
+  "Iw/M16" : {
+    "defaultMessage" : "AutoML sampled the dataset. Try a cluster with memory-optimized instance types to increase the sample size.",
+    "description" : "Action that AutoML took given a dataset that was too large, and give users a suggestion on what to do."
+  },
+  "J/Hg7I" : {
+    "defaultMessage" : "대상 레이블당 행 수가 충분한 데이터 집합을 사용하여 AutoML을 다시 실행하거나 대상 레이블 수 줄이기",
+    "description" : "Action that AutoML took when there is insufficient data per target label"
+  },
+  "JCOS4u" : {
+    "defaultMessage" : "이름",
+    "description" : "Title text for the producer name column."
+  },
+  "JChRnq" : {
+    "defaultMessage" : "지난 24시간",
+    "description" : "Option for the start select dropdown to filter runs from the last 24 hours"
+  },
+  "JYz0Gi" : {
+    "defaultMessage" : "팔로우 상태",
+    "description" : "Label name text for following status metadata in model versions page"
+  },
+  "JhpyGF" : {
+    "defaultMessage" : "없음",
+    "description" : "Empty state text for when job history does not have any successful runs"
+  },
+  "JqO8jQ" : {
+    "defaultMessage" : "열에 숫자 의미 형식이 감지됨",
+    "description" : "AutoML warning shown when columns have numeric semantic type"
+  },
+  "JrSG9X" : {
+    "defaultMessage" : "예측 열",
+    "description" : "Model monitoring configuration text for the prediction column"
+  },
+  "JsPNNv" : {
+    "defaultMessage" : "데이터 집합이 비어 있음",
+    "description" : "AutoML warning shown when the input dataset is empty"
+  },
+  "Ju/2R+" : {
+    "defaultMessage" : "현재 compute가 여전히 활성 상태입니다. <linkButton>compute 설정 tab</linkButton>을 통해 이 구성 업데이트를 다시 시도하거나 다른 구성으로 업데이트할 수 있습니다.",
+    "description" : "Message for compute config update failure"
+  },
+  "K+s7ez" : {
+    "defaultMessage" : "마지막 수정",
+    "description" : "Column title for last modified timestamp for a model in the registered model page"
+  },
+  "K4Ujb4" : {
+    "defaultMessage" : "차이점이 있는 열만 표시",
+    "description" : "Switch to select only columns with different values across runs"
+  },
+  "KEL9Js" : {
+    "defaultMessage" : "활성",
+    "description" : "Tab text to view active versions under details tab\n                               on the model view page"
+  },
+  "KioET2" : {
+    "defaultMessage" : "모든 실행이 완료되었으며 아래 테이블에 추가되었습니다. 특정 실행을 클릭하여 세부 정보를 보거나 <link>데이터 탐색 노트북</link>을 검토하세요.",
+    "description" : "Info text about AutoML evaluation completion and instructions for next steps"
+  },
+  "KkkVnN" : {
+    "defaultMessage" : "AutoML은 데이터에서 양의(positivie) 레이블을 유추했습니다. 유추된 레이블에 대해 영향을 받는 데이터를 참조하세요. 다른 양의 레이블을 사용하려면 <code>{posLabel}</code> 매개 변수를 사용하세요.",
+    "description" : "Action that AutoML took for binary classification"
+  },
+  "KoHj5A" : {
+    "defaultMessage" : "가장 최근 실행:",
+    "description" : "Title for the most recent run of the job in the monitoring pane"
+  },
+  "Krq903" : {
+    "defaultMessage" : "이 댓글을 삭제하시겠습니까? 이 작업은 취소할 수 없습니다.",
+    "description" : "Modal text for deleting a comment under activities list on the model\n                 version page"
+  },
+  "KsDW9O" : {
+    "defaultMessage" : "다음으로 전환 요청",
+    "description" : "Text for requesting transition to a different stage for a model version\n                 under dropdown menu in model version page"
+  },
+  "KwMekr" : {
+    "defaultMessage" : "CSV 다운로드",
+    "description" : "String for the download csv button to download metrics from this run offline in a CSV format"
+  },
+  "L26D19" : {
+    "defaultMessage" : "X축:",
+    "description" : "Label for the radio button to toggle the control on the X-axis of the metric graph for the experiment"
+  },
+  "L3YRZk" : {
+    "defaultMessage" : "상위 실행",
+    "description" : "Label for displaying a link to the parent experiment run if any present"
+  },
+  "LCxyXG" : {
+    "defaultMessage" : "실패함",
+    "description" : "Job status for most recent run: failed"
+  },
+  "LI6iO0" : {
+    "defaultMessage" : "배열 열의 행 길이가 같지 않음",
+    "description" : "AutoML warning shown when rows of array columns are not of the same length"
+  },
+  "LJxdDA" : {
+    "defaultMessage" : "업데이트 실패",
+    "description" : "Failed label for compute config in version sidebar"
+  },
+  "LLm5Bo" : {
+    "defaultMessage" : "{numExperiments}개 Experiment의 run 표시",
+    "description" : "Breadcrumb nav item to link to the compare-experiments page on compare runs page"
+  },
+  "LNdnVe" : {
+    "defaultMessage" : "Replica 전체에 걸친 평균",
+    "description" : "Label for line on cpu graph"
+  },
+  "LQoiHn" : {
+    "defaultMessage" : "전역 프로필 compute",
+    "description" : "Checkbox text for including global data profiles for feature tables"
+  },
+  "LTpUmZ" : {
+    "defaultMessage" : "로드 중...",
+    "description" : "Text to be displayed when waiting for RPC call to fetch events to return"
+  },
+  "LW7qpO" : {
+    "defaultMessage" : "실행 중",
+    "description" : "Running replica status label for serving V2 logs panel"
+  },
+  "LYEd8B" : {
+    "defaultMessage" : "데이터 탐색 Notebook 보기",
+    "description" : "Button to navigate to the data exploration notebook"
+  },
+  "Lr4nLK" : {
+    "defaultMessage" : "지원되는 유형의 {t} 열을 사용하여 AutoML 다시 실행",
+    "description" : "Action message for unsupported target or time type warning"
+  },
+  "LvYpQ4" : {
+    "defaultMessage" : "없음",
+    "description" : "Empty state text for when job history does not have any runs"
+  },
+  "LxOLzI" : {
+    "defaultMessage" : "분석 작업",
+    "description" : "Link text for the analysis job for model monitoring"
+  },
+  "M/O79Q" : {
+    "defaultMessage" : "스테이징 및 프로덕션 모델 버전에 대해 지정된 설정 변경이 없음",
+    "description" : "Tooltip message for when no configuration changes are specified"
+  },
+  "M4N7PH" : {
+    "defaultMessage" : "단계 전환을 취소함",
+    "description" : "Activity title text for cancelled transition request in model versions page"
+  },
+  "M7oW8u" : {
+    "defaultMessage" : "지원되지 않는 {t} 유형",
+    "description" : "AutoML warning text shown when the user selects a target or time column with an unsupported type"
+  },
+  "MEUk2a" : {
+    "defaultMessage" : "가져온 사람",
+    "description" : "Title text for the feature table imported metadata field."
+  },
+  "MGkDjM" : {
+    "defaultMessage" : "기능",
+    "description" : "Option group title for features in update config modal"
+  },
+  "MOZ+tG" : {
+    "defaultMessage" : "자동 확장 활성화",
+    "description" : "Checkbox text for enabling autoscaling"
+  },
+  "MVQrOG" : {
+    "defaultMessage" : "레이턴시(ms)",
+    "description" : "Graph title for latency metrics graph"
+  },
+  "MatV9u" : {
+    "defaultMessage" : "만들기",
+    "description" : "Create button text for creating model in the model registry"
+  },
+  "MeZb2m" : {
+    "defaultMessage" : "열에 날짜/시간 의미 형식이 감지됨",
+    "description" : "AutoML warning shown when columns have datetime semantic type"
+  },
+  "MkuIi5" : {
+    "defaultMessage" : "보류 중인 요청이 없습니다.",
+    "description" : "Default text in pending requests table when no pending requests\n                   for the model version"
+  },
+  "MmQM3C" : {
+    "defaultMessage" : "요청 및 오류율(초당)",
+    "description" : "Graph title for request and error rates metrics graph"
+  },
+  "MriySc" : {
+    "defaultMessage" : "<link>더 알아보기</link>",
+    "description" : "Learn more link with cloud specific links to the feature store documentation."
+  },
+  "MvooBc" : {
+    "defaultMessage" : "REST API 인터페이스 뒤의 실시간 모델 서비스를 활성화합니다. 이렇게 하면 이 모델의 모든 활성 버전을 호스팅할 단일 노드 클러스터가 시작됩니다. <link>더 알아보기.</link>",
+    "description" : "Enable serving description for serving v1 in enable serving page."
+  },
+  "N09YPq" : {
+    "defaultMessage" : "복제본의 수는 0보다 커야 함",
+    "description" : "Validation error message for when there are too few replicas"
+  },
+  "N0MF7O" : {
+    "defaultMessage" : "기준 데이터 테이블",
+    "description" : "Link to baseline data table"
+  },
+  "N7gNch" : {
+    "defaultMessage" : "단계 전환을 요청함",
+    "description" : "Activity title text for requested transition in model versions page"
+  },
+  "NEMZsy" : {
+    "defaultMessage" : "AutoML이 열을 삭제했습니다.",
+    "description" : "Action that AutoML took for large categories"
+  },
+  "NJ1bYP" : {
+    "defaultMessage" : "{fieldName}이(가) 동일함",
+    "description" : "Default text in data table where items are identical in the model comparison page"
+  },
+  "NN0ScV" : {
+    "defaultMessage" : "1개 Experiment의 {numRuns}개 run 비교",
+    "description" : "Breadcrumb title for compare runs page with single experiment"
+  },
+  "NZqJUU" : {
+    "defaultMessage" : "삭제",
+    "description" : "Text for delete button for activities list on the model version page"
+  },
+  "Nj6Ez5" : {
+    "defaultMessage" : "이름",
+    "description" : "Text for name column in schema table in model version page"
+  },
+  "Nm/Pjx" : {
+    "defaultMessage" : "등록 시간",
+    "description" : "Column title text for created at timestamp in model version table"
+  },
+  "NzV7O0" : {
+    "defaultMessage" : "보류 중인 요청 거부",
+    "description" : "Title text for reject pending request confirmation modal in model\n                   registry"
+  },
+  "O1rYVN" : {
+    "defaultMessage" : "Spark UDF를 사용하여 모델을 로드합니다. 모델이 이중 값을 반환하지 않으면 result_type을 재정의합니다.",
+    "description" : "Code comment which states how to load model using spark UDF"
+  },
+  "O9r1RR" : {
+    "defaultMessage" : "시작 시간:",
+    "description" : "Row title for the start time of runs on the experiment compare runs page"
+  },
+  "OEGyWZ" : {
+    "defaultMessage" : "Spark DataFrame으로 예측합니다.",
+    "description" : "Code comment which states on how we can predict using spark DataFrame"
+  },
+  "OGWg8l" : {
+    "defaultMessage" : "상태:",
+    "description" : "Filtering label to filter experiments based on state of active or deleted"
+  },
+  "OHcCcO" : {
+    "defaultMessage" : "계속해서 <link>기본 모델 서비스</link>를 사용할 수 있습니다. 활성화하려면 <button>이 Link를</button> 클릭하세요.",
+    "description" : "Link to allow enabling of serving V1 when serving V2 is enabled in\n                enable serving page."
+  },
+  "OYXrDF" : {
+    "defaultMessage" : "Databricks AutoML은 {cancelJobRun}분 동안 \"{timeoutMinutes}\"을(를) 대상으로 한 모델을 학습시킵니다. {cancelJobRun} 실행이 완료되면 {evaluationMetric}이(가) 가장 우수한 모델이 실행 테이블의 맨 위에 채워집니다.",
+    "description" : "Info text about AutoML running"
+  },
+  "OfLABN" : {
+    "defaultMessage" : "닫기",
+    "description" : "Error modal close button text"
+  },
+  "Ofp7sL" : {
+    "defaultMessage" : "{productionTag} 모델 버전에 대해 지정된 구성 변경 사항이 없습니다.{br}{br} 현재 지정된 컴퓨팅 구성을 사용하여 {stagingTag} 모델 버전에 대한 리소스를 시작하시겠습니까?",
+    "description" : "Confirmation message for updating staging compute config"
+  },
+  "OgDc6U" : {
+    "defaultMessage" : "권한",
+    "description" : "Title dropdown text for permissions in registered model page"
+  },
+  "OimAJb" : {
+    "defaultMessage" : "산점도",
+    "description" : "Tab pane title for scatterplots on the compare runs page"
+  },
+  "OsaUGL" : {
+    "defaultMessage" : "취소",
+    "description" : "Cancel button text for deleting a comment under activities list on the model version page"
+  },
+  "OzyPl3" : {
+    "defaultMessage" : "매개 변수를 선택하세요",
+    "description" : "Placeholder text for parameters in parallel coordinates plot in MLflow"
+  },
+  "PDo/JT" : {
+    "defaultMessage" : "모델을 등록하고 배포할 준비가 되었습니다. 또는, 아래 테이블의 소스 열 아래에 있는 Notebook을 클릭하여 수정하려면 모델 훈련용 소스 코드에 액세스하세요.",
+    "description" : "Info text about how to register and deploy a trained model or edit a model"
+  },
+  "PN5AOP" : {
+    "defaultMessage" : "관리자가 이 워크스페이스에서 모델 서비스를 비활성화했습니다.",
+    "description" : "Error message when model serving is not available in workspace in\n              enable serving button popover."
+  },
+  "PRe/8y" : {
+    "defaultMessage" : "없음",
+    "description" : "Default text for no content in an editable note in MLflow"
+  },
+  "PWk6rC" : {
+    "defaultMessage" : "확인",
+    "description" : "OK text for button to confirm pending request action in model registry"
+  },
+  "PZGZHV" : {
+    "defaultMessage" : "Experiment ID",
+    "description" : "Label for displaying the current experiment in view"
+  },
+  "PZN4J5" : {
+    "defaultMessage" : "열의 상수 값",
+    "description" : "AutoML warning shown when constant columns are detected, version 1"
+  },
+  "PaABx8" : {
+    "defaultMessage" : "Experiments",
+    "description" : "Breadcrumb nav item to link to the list of experiments page on compare runs page"
+  },
+  "PfK190" : {
+    "defaultMessage" : "마지막 게시자",
+    "description" : "Title text for the online store last published by metadata field."
+  },
+  "Potju2" : {
+    "defaultMessage" : "복원",
+    "description" : "String for the restore button to undo the experiments that were deleted"
+  },
+  "PpAkk2" : {
+    "defaultMessage" : "내 소유",
+    "description" : "Radio item text in model registry to filter models by models owned by me."
+  },
+  "Q1GbP9" : {
+    "defaultMessage" : "기능 테이블, 기능 또는 데이터 소스로 검색...",
+    "description" : "Placeholder text on the feature store page search box describing the attributes that the search could be based on."
+  },
+  "QAMBI9" : {
+    "defaultMessage" : "시계열 빈도가 주어진 빈도 단위와 일치하지 않음",
+    "description" : "AutoML warning shown when the time series does not match the given frequency unit in forecasting"
+  },
+  "QC5Vjq" : {
+    "defaultMessage" : "Y축:",
+    "description" : "Label where the users can choose the metric of the experiment run to be plotted on the Y-axis"
+  },
+  "QPADAU" : {
+    "defaultMessage" : "마지막 실행",
+    "description" : "Title text for the producer last run column."
+  },
+  "QgMskz" : {
+    "defaultMessage" : "모델 모니터링을 활성화하여 배치 유추 워크로드에서 drift 및 성능 지표를 추적합니다. <link>여기</link>에서 모니터링을 만드는 방법에 대해 알아보세요.",
+    "description" : "Empty state text for the monitor tab"
+  },
+  "QklAjw" : {
+    "defaultMessage" : "호스트",
+    "description" : "Title text for the online store host metadata field."
+  },
+  "Ql/b/2" : {
+    "defaultMessage" : "저장소",
+    "description" : "Title text for the online store storage column."
+  },
+  "QnIZCn" : {
+    "defaultMessage" : "예측 범위를 더 짧게 하여 AutoML을 다시 실행합니다.",
+    "description" : "Recommended action for user when AutoML finds not enough historical data"
+  },
+  "QpARq0" : {
+    "defaultMessage" : "모델 이름",
+    "description" : "Model monitoring details header text for model name"
+  },
+  "Qpjcu0" : {
+    "defaultMessage" : "{ttl, plural, other {{ttl,number}초}}",
+    "description" : "Text content for the online store table time to live metadata field in seconds."
+  },
+  "Qsgg+9" : {
+    "defaultMessage" : "Experiment 이름:",
+    "description" : "Row title for the experiment IDs of runs on the experiment compare runs page"
+  },
+  "Qtuy4V" : {
+    "defaultMessage" : "대상 열에 1개의 범주만 있음",
+    "description" : "AutoML warning shown when the target column only has 1 category"
+  },
+  "QuU1sl" : {
+    "defaultMessage" : "평행 좌표 그림",
+    "description" : "Tab text for parallel coordinates plot on the model comparison page"
+  },
+  "R7Bw0l" : {
+    "defaultMessage" : "동시에 처리할 수 있는 요청 수입니다.",
+    "description" : "Tooltip for workload size dropdown"
+  },
+  "RGyatu" : {
+    "defaultMessage" : "다음으로 전환 요청 취소",
+    "description" : "Text for transition cancel request under request column in the\n               pending requests table"
+  },
+  "RZTZyO" : {
+    "defaultMessage" : "설명",
+    "description" : "Placeholder text for transition request form to add comments for model version stage transition request"
+  },
+  "RaGnOQ" : {
+    "defaultMessage" : "비교",
+    "description" : "String for the compare button to compare experiment runs to find an ideal model"
+  },
+  "RlRsah" : {
+    "defaultMessage" : "로드 중...",
+    "description" : "Loading spinner text to show that the artifact loading is in progress"
+  },
+  "RzfjpI" : {
+    "defaultMessage" : "{count}개 더",
+    "description" : "Indicates how many additional columns an autoML warning applies to"
+  },
+  "S6yLL1" : {
+    "defaultMessage" : "기록 데이터가 충분하지 않음",
+    "description" : "AutoML warning shown when the dataset does not have enough historical data for forecasting"
+  },
+  "S7ESYH" : {
+    "defaultMessage" : "시각화",
+    "description" : "Tabs title for plots on the compare runs page"
+  },
+  "SAD2Mj" : {
+    "defaultMessage" : "확인",
+    "description" : "Text for OK button on the confirmation page for stage transition\n                 on the model versions page"
+  },
+  "SCYMXw" : {
+    "defaultMessage" : "취소",
+    "description" : "Cancel button text for creating model in the model registry"
+  },
+  "SCnPMH" : {
+    "defaultMessage" : "만든 사람",
+    "description" : "Title text for the feature table creator column."
+  },
+  "SJZAR7" : {
+    "defaultMessage" : "파티션 키",
+    "description" : "Title text for the feature table partition keys metadata field."
+  },
+  "SK8RBp" : {
+    "defaultMessage" : "정렬 기준",
+    "description" : "Sort by default option for sort by select dropdown for experiment runs"
+  },
+  "SZCN9V" : {
+    "defaultMessage" : "연결된 Databricks 클러스터 및 노트북 개정 메타데이터가 있는 완료된 실행만 재현할 수 있습니다.",
+    "description" : "Tooltip message for more information on the reproduce runs button for the experiment run"
+  },
+  "Shv28w" : {
+    "defaultMessage" : "저장",
+    "description" : "Default text for save button on editable notes in MLflow"
+  },
+  "SkMpFS" : {
+    "defaultMessage" : "모델 모니터링은 공개 미리 보기로 제공됩니다.",
+    "description" : "Feedback back link for model monitoring"
+  },
+  "SvFmvX" : {
+    "defaultMessage" : "모니터링",
+    "description" : "Column title for model monitoring in the registered model page"
+  },
+  "SzvvXl" : {
+    "defaultMessage" : "제출 실패",
+    "description" : "Message text for failing to save changes in editable note in MLflow"
+  },
+  "T4eipT" : {
+    "defaultMessage" : "선 다듬기",
+    "description" : "Label for the smoothness slider for the graph plot for metrics"
+  },
+  "TB3nMW" : {
+    "defaultMessage" : "데이터 집합에 긴 시계열이 포함됨",
+    "description" : "AutoML warning shown when AutoML truncate the dateset for forecasting"
+  },
+  "TBuDVy" : {
+    "defaultMessage" : "학습 및 검증을 위해 잘린 범위",
+    "description" : "AutoML warning shown when the horizon is truncated for training and validation"
+  },
+  "TLkF+q" : {
+    "defaultMessage" : "등록 보류 중",
+    "description" : "Tooltip text for registration pending model version status icon in\n         model view page"
+  },
+  "TOG+VQ" : {
+    "defaultMessage" : "승인",
+    "description" : "Button text for approving pending requests on the model version page"
+  },
+  "TRdM2s" : {
+    "defaultMessage" : "가장 빈도가 낮은 레이블(<code>{leastFrequentLabel}</code>)과 가장 빈도가 높은 레이블(<code>{mostFrequentLabel}</code>)의 비율은 <code>{ratio}</code>입니다.",
+    "description" : "AutoML warning that is shown for classification problems as information"
+  },
+  "TYFnnM" : {
+    "defaultMessage" : "준비",
+    "description" : "Ready label for the state of the model scoring service"
+  },
+  "TZMSC3" : {
+    "defaultMessage" : "문자열 열의 고유 값",
+    "description" : "AutoML warning shown when string columns have unique values"
+  },
+  "ThrXMh" : {
+    "defaultMessage" : "입력",
+    "description" : "Table section name for schema inputs in the model comparison page"
+  },
+  "TjgwyX" : {
+    "defaultMessage" : "세부 정보",
+    "description" : "Tab name for the details tab on the model view main panel"
+  },
+  "TlFUsN" : {
+    "defaultMessage" : "태그",
+    "description" : "Title text for the tags section on the model versions view page"
+  },
+  "TnXWt2" : {
+    "defaultMessage" : "데이터 집합이 너무 커서 데이터 탐색 노트북이 열의 하위 집합에서 실행됨",
+    "description" : "AutoML warning data exploration notebook ran on a subset of columns"
+  },
+  "Tqtctv" : {
+    "defaultMessage" : "더 긴 시계열 데이터로 AutoML을 다시 실행합니다.",
+    "description" : "Recommended action for user when AutoML finds not enough historical data"
+  },
+  "Trd9L3" : {
+    "defaultMessage" : "이름 바꾸기",
+    "description" : "Text for rename button on experiment view page header"
+  },
+  "TviAln" : {
+    "defaultMessage" : "1주일",
+    "description" : "1 week window granularity for data profiles"
+  },
+  "U+Jzcv" : {
+    "defaultMessage" : "<link>버전 {versionNumber}</link>",
+    "description" : "Row entry for version columns in the registered model page"
+  },
+  "U1JZTB" : {
+    "defaultMessage" : "대시보드 보기",
+    "description" : "Link text for the generated model monitoring dashboard"
+  },
+  "U6cPEB" : {
+    "defaultMessage" : "아티팩트 로드 실패",
+    "description" : "Error message rendered when loading the artifacts for the experiment fails"
+  },
+  "U7peTi" : {
+    "defaultMessage" : "유추를 위한 모델 사용",
+    "description" : "Button to use model for batch or streaming inference"
+  },
+  "U82iv6" : {
+    "defaultMessage" : "등록된 모델",
+    "description" : "Text for registered model link in the title for model comparison page"
+  },
+  "UEDZPq" : {
+    "defaultMessage" : "다음으로 전환",
+    "description" : "Text for activity description under confirmation modal for model\n               version stage transition"
+  },
+  "UEDu0c" : {
+    "defaultMessage" : "MLflow UI는 활성 실행에 대한 메트릭 기록을 자동으로 가져오고 메트릭 그래프를 {interval}초 간격으로 업데이트합니다.",
+    "description" : "Helpful tooltip message to explain the automatic metrics plot update"
+  },
+  "UFr0CH" : {
+    "defaultMessage" : "편집",
+    "description" : "Text for the edit button next to the description section title on the feature view page."
+  },
+  "UGAKJp" : {
+    "defaultMessage" : "X축:",
+    "description" : "Label text for x-axis in contour plot comparison in MLflow"
+  },
+  "UIG12B" : {
+    "defaultMessage" : "생산자가 이 테이블에 마지막으로 쓴 시간입니다.",
+    "description" : "Text on the tooltip of the feature table last written column describing the definition of the column title."
+  },
+  "UVcwn9" : {
+    "defaultMessage" : "새 설정 확인",
+    "description" : "Title for confirm compute config update modal"
+  },
+  "UXlXyf" : {
+    "defaultMessage" : "현재 지정된 컴퓨팅 구성을 사용하여 {productionTag} 및 {stagingTag} 모델 버전에 대한 리소스를 시작하시겠습니까?",
+    "description" : "Confirmation message for updating production and staging compute config"
+  },
+  "Ugx2bZ" : {
+    "defaultMessage" : "<link>더 알아보기</link>",
+    "description" : "Popover link to learn more about the artifact root location"
+  },
+  "UhdPmo" : {
+    "defaultMessage" : "다음으로 전환",
+    "description" : "Text for transitioning a model version to a different stage under\n                 dropdown menu in model version page"
+  },
+  "Ux8CTl" : {
+    "defaultMessage" : "링크된 모델:",
+    "description" : "Filtering label for filtering experiments based on if the models are linked or not to the experiment"
+  },
+  "Uyl7hP" : {
+    "defaultMessage" : "만든 사람",
+    "description" : "Title text for the feature table created metadata field."
+  },
+  "V/17L+" : {
+    "defaultMessage" : "요청자",
+    "description" : "Column name text for requester in pending requests table in model\n                   registry"
+  },
+  "V5tYhr" : {
+    "defaultMessage" : "ARIMA에 귀속된 시계열의 누락된 값입니다.",
+    "description" : "Action that AutoML took when there are missing time steps in a forecasting problem."
+  },
+  "VAwUi9" : {
+    "defaultMessage" : "AutoML이 ARIMA 모델을 훈련시키지 않았습니다. ARIMA를 포함하려면 데이터의 빈도와 일치하도록 <code> {frequency}</code>을(를) 설정하거나 원하는 빈도로 데이터를 전처리합니다.",
+    "description" : "Action that AutoML took when the time series frequency is different from the specified one."
+  },
+  "VKao5t" : {
+    "defaultMessage" : "모니터 구성이 변경되었습니다.",
+    "description" : "Alert title for configuration changes in feature table monitoring"
+  },
+  "VP+qFF" : {
+    "defaultMessage" : "차이점만 표시",
+    "description" : "Label next to the switch that controls displaying only differing values in comparision tables on the compare runs page"
+  },
+  "VbEMGm" : {
+    "defaultMessage" : "모델 등록",
+    "description" : "Button text to register the model for deployment"
+  },
+  "VbKQta" : {
+    "defaultMessage" : "실행 재현",
+    "description" : "A button label to reproduce the experiment run with the same params and data to reproduce a constant run"
+  },
+  "VbTRBn" : {
+    "defaultMessage" : "삭제",
+    "description" : "Text on the feature table deletion modal to confirm deletion of the feature table."
+  },
+  "VdDI/f" : {
+    "defaultMessage" : "가장 빈도가 낮은 레이블(<code>{leastFrequentLabel}</code>)과 가장 빈도가 높은 레이블(<code>{mostFrequentLabel}</code>)의 비율은 <code>{ratio}</code>이지만 지정된 지표 <code>{metric}</code>은(는) 불균형 데이터세트에 적합하지 않습니다.",
+    "description" : "AutoML warning shown when an inappropriate metric is used for an imbalanced dataset"
+  },
+  "Vk52J6" : {
+    "defaultMessage" : "업데이트 중",
+    "description" : "Pending label for compute config in version sidebar"
+  },
+  "Vm9CvZ" : {
+    "defaultMessage" : "설명",
+    "description" : "Column title text for description in model version table"
+  },
+  "Vrm3OM" : {
+    "defaultMessage" : "온라인 스토어를 찾을 수 없습니다.",
+    "description" : "Text describing no online stores exists for the feature table."
+  },
+  "VyDMFy" : {
+    "defaultMessage" : "최대 복제본의 수는 0보다 커야 합니다.",
+    "description" : "Validation error message for when there are too few max replicas"
+  },
+  "W1Dion" : {
+    "defaultMessage" : "신규",
+    "description" : "New tag label for data profile in feature store table view"
+  },
+  "W73Euz" : {
+    "defaultMessage" : "성공",
+    "description" : "Job status for most recent run: succeeded"
+  },
+  "WDnDfU" : {
+    "defaultMessage" : "서비스 활성화"
+  },
+  "WGhlnW" : {
+    "defaultMessage" : "사용자",
+    "description" : "Label for displaying the user who created the experiment run"
+  },
+  "WJF+wY" : {
+    "defaultMessage" : "Z축:",
+    "description" : "Label text for z-axis in contour plot comparison in MLflow"
+  },
+  "WL3e0K" : {
+    "defaultMessage" : "거부",
+    "description" : "Button text for rejecting pending requests on the model version page"
+  },
+  "WQoyB3" : {
+    "defaultMessage" : "최상의 {evaluationMetric}을(를) 보유한 모델",
+    "description" : "Title to indicate the best AutoML model"
+  },
+  "WRbkh9" : {
+    "defaultMessage" : "마지막 작성자",
+    "description" : "Title text for the feature table last written by metadata field."
+  },
+  "WVFb+Y" : {
+    "defaultMessage" : "기능 테이블 삭제",
+    "description" : "Text for the feature table deletion modal title."
+  },
+  "WYkCR/" : {
+    "defaultMessage" : "일정",
+    "description" : "Title text for the producer schedule column."
+  },
+  "Wd8Tga" : {
+    "defaultMessage" : "스키마가 없습니다. 모델에 입력 및 출력 스키마를 포함하는 방법은 <link>MLflow 문서</link>를 참조하세요.",
+    "description" : "Text for schema table when no schema exists in the model version\n                     page"
+  },
+  "Wf+ORy" : {
+    "defaultMessage" : "생성됨",
+    "description" : "Title text for the feature table created metadata field."
+  },
+  "WqtISN" : {
+    "defaultMessage" : "작업 출력",
+    "description" : "Label for displaying the output logs for the experiment run job"
+  },
+  "WvHAEg" : {
+    "defaultMessage" : "아티팩트 위치 입력(선택 사항)",
+    "description" : "Input placeholder to enter artifact location for create experiment"
+  },
+  "X+boXI" : {
+    "defaultMessage" : "복사됨",
+    "description" : "Tooltip text shown when copy operation completes"
+  },
+  "X/425G" : {
+    "defaultMessage" : "AutoML이 원본 데이터 집합의 샘플에서 데이터 탐색 및 평가를 실행하고 있습니다.",
+    "description" : "Text for dataset sampled when running"
+  },
+  "X0vZ1h" : {
+    "defaultMessage" : "AutoML이 모델을 훈련시키는 중입니다",
+    "description" : "Title text about AutoML running"
+  },
+  "X3F7x3" : {
+    "defaultMessage" : "기록된 아티팩트 없음",
+    "description" : "Empty state string when there are no artifacts record for the experiment"
+  },
+  "X48mIf" : {
+    "defaultMessage" : "요청",
+    "description" : "Column name text for requests in pending requests table in model\n                   registry"
+  },
+  "X620F4" : {
+    "defaultMessage" : "Job 생산자의 일정입니다.",
+    "description" : "Text on the tooltip of the feature table scheduled jobs column title describing the definition of the column title."
+  },
+  "X6XurQ" : {
+    "defaultMessage" : "<bold> 참고: </bold>{featureNameText}을(를) 성공적으로 활성화하려면 범용 클러스터를 생성할 권한이 있어야 합니다.",
+    "description" : "Error message description when failing to fetch cluster permissions in\n                  enable serving page."
+  },
+  "XBtNVo" : {
+    "defaultMessage" : "Experiments",
+    "description" : "Breadcrumb nav item to link to the list of experiments page"
+  },
+  "XIOnOe" : {
+    "defaultMessage" : "버전 {versionNum}",
+    "description" : "Text for current version under the header on the model version view page"
+  },
+  "XVmgNn" : {
+    "defaultMessage" : "모니터를 찾을 수 없음",
+    "description" : "Alert header text for when monitor is not available"
+  },
+  "XZyekD" : {
+    "defaultMessage" : "최소 복제본의 수는 {max}보다 작거나 같아야 합니다.",
+    "description" : "Validation error message for when there are too many min replicas"
+  },
+  "XaD7FM" : {
+    "defaultMessage" : "Select parameters/metrics to plot.",
+    "description" : "Text to show when x or y axis is not selected on box plot"
+  },
+  "Xbu03a" : {
+    "defaultMessage" : "완료",
+    "description" : "Icon text to indicate AutoML evaluation is complete"
+  },
+  "Xi2jOv" : {
+    "defaultMessage" : "AutoML은 모델을 학습시키기 전에 대상 라벨의 균형을 맞추려고 합니다.",
+    "description" : "Action that AutoML took for imbalanced dataset"
+  },
+  "Xqs6q2" : {
+    "defaultMessage" : "모델 버전 미포함",
+    "description" : "Linked model dropdown option to show experiment runs without model versions only"
+  },
+  "XrgL6Q" : {
+    "defaultMessage" : "이 모델 버전을 만들었기 때문에 팔로우하고 있습니다.",
+    "description" : "Tooltip text message for model version creator in model registry"
+  },
+  "XzoBvA" : {
+    "defaultMessage" : "취소",
+    "description" : "Text for cancel button on the confirmation page for stage\n                transitions on the model versions page"
+  },
+  "Y+3ncX" : {
+    "defaultMessage" : "기능 테이블이 업데이트될 때 프로필을 자동으로 다시 compute",
+    "description" : "Checkbox text for auto recomputing global data profiles for feature tables"
+  },
+  "Y7zUQp" : {
+    "defaultMessage" : "마지막 게시",
+    "description" : "Title text for the online store last published column."
+  },
+  "Y9ZFyN" : {
+    "defaultMessage" : "아티팩트 다운로드",
+    "description" : "Link to download the artifact of the experiment"
+  },
+  "YBFyOi" : {
+    "defaultMessage" : "마지막 Job 실행이 이 기능 테이블에 성공적으로 기록되지 않았을 수 있습니다.",
+    "description" : "Text on the warning icon of the last written column describing the last job run may have not written to the feature table."
+  },
+  "YINJEO" : {
+    "defaultMessage" : "메트릭",
+    "description" : "Column title for the column displaying the metric names for a run"
+  },
+  "YJO3SV" : {
+    "defaultMessage" : "트레이닝",
+    "description" : "AutoML Step title train"
+  },
+  "YKojwe" : {
+    "defaultMessage" : "REST API 인터페이스 뒤의 Serverless 모델 Endpoint를 활성화합니다. 이렇게 하면 이 모델의 모든 활성 스테이징 및 프로덕션 버전에 대한 Endpoint가 시작됩니다.",
+    "description" : "Enable serving description for serving v2 in enable serving page."
+  },
+  "YLvpXM" : {
+    "defaultMessage" : "Experiment에서 기계 학습 트레이닝 run을 추적합니다. <link>더 알아보기</link>",
+    "description" : "Information banner text to provide more information about experiments runs page"
+  },
+  "YO5QXy" : {
+    "defaultMessage" : "{stagingTag} 모델은 다음 컴퓨팅을 사용합니다.",
+    "description" : "Compute config message for staging compute"
+  },
+  "YOH2W5" : {
+    "defaultMessage" : "모델 레지스트리 페이지에서 이 모델에 대한 기존 실시간 유추 Endpoint를 봅니다.",
+    "description" : "Text for form description on viewing real-time inference"
+  },
+  "YRFAGK" : {
+    "defaultMessage" : "음의 무한대({metricKey})",
+    "description" : "Label indicating negative infinity used as a hover text in a plot UI element"
+  },
+  "YY32KO" : {
+    "defaultMessage" : "기계 학습 기능을 공유하고 관리합니다.",
+    "description" : "Text on the tooltip for feature store onboarding."
+  },
+  "YZ1bYT" : {
+    "defaultMessage" : "DBFS의 default 출력 경로는 이 Workspace의 모든 사용자가 액세스할 수 있습니다. DBFS에 데이터를 쓸수 없도록 Notebook을 수정합니다.",
+    "description" : "Legal disclaimer for output table location"
+  },
+  "YgIXC1" : {
+    "defaultMessage" : "출력 테이블 위치",
+    "description" : "Output table location placleholder on the configure inference form"
+  },
+  "YkcoeV" : {
+    "defaultMessage" : "{numExperiments}개 Experiment의 run 표시",
+    "description" : "Breadcrumb nav item to link to compare-experiments page on compare runs page"
+  },
+  "YkptyI" : {
+    "defaultMessage" : "인스턴스 크기:",
+    "description" : "Instance label for compute config"
+  },
+  "Yx7fMC" : {
+    "defaultMessage" : "검색",
+    "description" : "Placeholder text for input box to search for the columns names that could be selected or unselected to be rendered on the experiment runs table"
+  },
+  "YzN7kN" : {
+    "defaultMessage" : "모델 버전",
+    "description" : "Model version placeholder on configure inference form"
+  },
+  "Z5en2d" : {
+    "defaultMessage" : "버전",
+    "description" : "Title text for the versions section under details tab on the\n                       model view page"
+  },
+  "Z5jUmP" : {
+    "defaultMessage" : "AutoML은 트레이닝에서 ARIMA 모델을 제외했습니다. ARIMA는 시계열의 빈도가 일정하지 않은 경우 적용할 수 없습니다.",
+    "description" : "Action that AutoML took when there is inconsistent frequency in a forecasting problem"
+  },
+  "Z8WY05" : {
+    "defaultMessage" : "비어 있지 않은 데이터 집합에서 AutoML을 다시 실행합니다.",
+    "description" : "Recommended action for user when AutoML is given an empty dataset"
+  },
+  "ZEGaN7" : {
+    "defaultMessage" : "모든 기능",
+    "description" : "Label text for features in update config modal"
+  },
+  "ZEp/ot" : {
+    "defaultMessage" : "마지막 게시자",
+    "description" : "Title text for the online store last published by column."
+  },
+  "ZNqi/B" : {
+    "defaultMessage" : "최소 복제본의 수는 0보다 크거나 같아야 합니다.",
+    "description" : "Validation error message for when there are too few min replicas"
+  },
+  "ZPc4rM" : {
+    "defaultMessage" : "대상 레이블에 데이터가 충분하지 않음",
+    "description" : "AutoML warning shown when some target labels have insufficient data"
+  },
+  "ZYBoeF" : {
+    "defaultMessage" : "다음으로 전환",
+    "description" : "Text for activity description under confirmation modal for model\n             version stage transition"
+  },
+  "Zc48NC" : {
+    "defaultMessage" : "(알 수 없음)",
+    "description" : "Filler text when run's time information is unavailable"
+  },
+  "Zk0h+O" : {
+    "defaultMessage" : "중복된 열 이름",
+    "description" : "AutoML warning shown when the there are multiple columns with the same name"
+  },
+  "ZmTtO0" : {
+    "defaultMessage" : "이 버전은 다음에서 전환되었습니다",
+    "description" : "Activity title text for system transition in model versions page"
+  },
+  "ZnVxv9" : {
+    "defaultMessage" : "경고",
+    "description" : "Tab header for AutoML Warnings dashboard"
+  },
+  "ZvBSjw" : {
+    "defaultMessage" : "값",
+    "description" : "Column title for value column for displaying the value of the params for the experiment run "
+  },
+  "ZwAzmu" : {
+    "defaultMessage" : "모델 만들기",
+    "description" : "Create button to register a new model"
+  },
+  "a/TbnY" : {
+    "defaultMessage" : "항상",
+    "description" : "Option for the start select dropdown to render all runs"
+  },
+  "a3rEfZ" : {
+    "defaultMessage" : "설명",
+    "description" : "Label for the notes editable content for the experiment run"
+  },
+  "a8rS4O" : {
+    "defaultMessage" : "삭제",
+    "description" : "OK text for delete model modal on model view page"
+  },
+  "aB6xFd" : {
+    "defaultMessage" : "출력",
+    "description" : "Table subtitle for schema outputs in the model comparison page"
+  },
+  "aGxvDa" : {
+    "defaultMessage" : "태그 또는 이름 및 태그로 검색하려면 <link>MLflow 검색 구문</link>을 사용하세요.{newline}예:{examples}",
+    "description" : "Tooltip string to explain how to search models from the model registry table"
+  },
+  "aHh9dI" : {
+    "defaultMessage" : "지역",
+    "description" : "Title text for the online store region metadata field."
+  },
+  "aIP7Kb" : {
+    "defaultMessage" : "취소",
+    "description" : "Cancel button text for confirmation pop-up to delete a tag from\n                     table in MLflow"
+  },
+  "aJvfWR" : {
+    "defaultMessage" : "가장 빈도가 낮은 레이블(<code>{leastFrequentLabel}</code>)과 가장 빈도가 높은 레이블(<code>{mostFrequentLabel}</code>)의 비율은 <code>{ratio}</code>입니다.",
+    "description" : "AutoML warning shown for classification problem when the labels have an imbalanced ratio"
+  },
+  "aNnPar" : {
+    "defaultMessage" : "시간(Relative)",
+    "description" : "Radio button option to choose the time relative control option for the X-axis for metric graph on the experiment runs"
+  },
+  "aOW396" : {
+    "defaultMessage" : "{timeSince, plural, other {{timeSince,number}시간 전}}",
+    "description" : "Text for time in hours since given date for MLflow views"
+  },
+  "aUoi8K" : {
+    "defaultMessage" : "태그({length})",
+    "description" : "Title text for the feature page tags section."
+  },
+  "aXJNz8" : {
+    "defaultMessage" : "빌드 로그 ",
+    "description" : "Tab text for build logs on the model version's serving page"
+  },
+  "aXw0NO" : {
+    "defaultMessage" : "메트릭을 선택하세요",
+    "description" : "Placeholder text where one can select metrics from the list of available metrics to render on the graph"
+  },
+  "aYsI8a" : {
+    "defaultMessage" : "<link>더 알아보기</link>",
+    "description" : "Learn more link on the model list page with cloud-specific link"
+  },
+  "ag05Pe" : {
+    "defaultMessage" : "새로 고침",
+    "description" : "refresh button text to refresh the experiment runs"
+  },
+  "ah2bY9" : {
+    "defaultMessage" : "생성됨",
+    "description" : "Title text for the feature page created timestamp field."
+  },
+  "aiBJcU" : {
+    "defaultMessage" : "{stagingTag} 모델 버전에 대해 지정된 구성 변경 사항이 없습니다.{br}{br} 현재 지정된 컴퓨팅 구성을 사용하여 {productionTag} 모델 버전에 대한 리소스를 시작하시겠습니까?",
+    "description" : "Confirmation message for updating production compute config"
+  },
+  "aiWz6l" : {
+    "defaultMessage" : "범주형 열에 있는 1,024~65,536개의 다른 값",
+    "description" : "AutoML warning shown when columns with very high cardinalty are detected"
+  },
+  "aj/X1B" : {
+    "defaultMessage" : "데이터 집합이 너무 커서 데이터 탐색 노트북이 행의 하위 집합에서 실행됨",
+    "description" : "AutoML warning data exploration notebook ran on a subset of rows"
+  },
+  "ao9KQl" : {
+    "defaultMessage" : "부하에 따라 최소 및 최대 노드 수 사이에서 자동으로 확장되는 클러스터입니다.",
+    "description" : "Definition of autoscaling clusters for MLflow serving"
+  },
+  "at1Htb" : {
+    "defaultMessage" : "컨테이너 URI",
+    "description" : "Title text for the online store container uri field."
+  },
+  "awLbAc" : {
+    "defaultMessage" : "Logs",
+    "description" : "Link to the logs for the job output"
+  },
+  "axF2gD" : {
+    "defaultMessage" : "전체 경로:",
+    "description" : "Label to display the full path of where the artifact of the experiment runs is located"
+  },
+  "b/TI6t" : {
+    "defaultMessage" : "클라우드",
+    "description" : "Title text for the online store cloud column."
+  },
+  "b3PDXs" : {
+    "defaultMessage" : "클라우드",
+    "description" : "Title text for the online store cloud metadata field."
+  },
+  "b8VxLg" : {
+    "defaultMessage" : "이 아티팩트 루트 위치는 워크스페이스의 모든 사용자에게 열려 있습니다.",
+    "description" : "Popover text to explain more about the artifact location"
+  },
+  "bFDQJ0" : {
+    "defaultMessage" : "컴퓨팅 설정",
+    "description" : "Compute config tab title"
+  },
+  "bGzQsG" : {
+    "defaultMessage" : "현재 실행에 대해 <code>'{'{artifactUri}</code>에 저장된 아티팩트를 나열할 수 없습니다. 표준 DBFS 디렉터리에 저장된 아티팩트만 MLflow UI에서 볼 수 있습니다(DBFS에 마운트된 외부 저장소 위치는 볼 수 없음).",
+    "description" : "Error message when the artifact is unable to load. This message is displayed for databricks users only"
+  },
+  "bHuphj" : {
+    "defaultMessage" : "아래 문서를 참조하여 이 모델을 수정하는 방법과 pyfunc 모델 버전을 사용해 Batch 또는 실시간 스코어용으로 배포하는 방법을 알아보세요.",
+    "description" : "Subtext heading for a list of documents that describe how to customize the model using the mlflow.pyfunc module"
+  },
+  "bIZ/La" : {
+    "defaultMessage" : "AutoML이 null 값을 결측값 대체하였습니다.",
+    "description" : "Action that AutoML took for null values of large null columns"
+  },
+  "bSx/er" : {
+    "defaultMessage" : "매개 변수",
+    "description" : "Table title text for parameters table in the model comparison page"
+  },
+  "bhgG7S" : {
+    "defaultMessage" : "명령 실행",
+    "description" : "Label for the collapsible area to display the run command used for the experiment run"
+  },
+  "bi26D5" : {
+    "defaultMessage" : "실행 ID:",
+    "description" : "Text for run ID header in the main table in the model comparison page"
+  },
+  "biE0Wq" : {
+    "defaultMessage" : "홈 폴더에 편집할 수 있는 노트북을 생성합니다.",
+    "description" : "Form description for generating a batch inference notebook"
+  },
+  "bjoGjg" : {
+    "defaultMessage" : "지난 1시간",
+    "description" : "Option for the start select dropdown to filter runs from the last hour"
+  },
+  "bq+LYL" : {
+    "defaultMessage" : "아직 실행되지 않았습니다. 이 Experiment에서 ML 모델 훈련 {newLine} 실행을 생성하는 방법에 대해 <link>더 알아보세요.</link>",
+    "description" : "Empty state text for experiment runs page"
+  },
+  "bqn2bk" : {
+    "defaultMessage" : "출력",
+    "description" : "Table section name for schema outputs in the model comparison page"
+  },
+  "bsD2VQ" : {
+    "defaultMessage" : "Workload 크기",
+    "description" : "Workload size label for compute configuration"
+  },
+  "bv2Lem" : {
+    "defaultMessage" : "가져옴",
+    "description" : "Title text for the feature table imported metadata field."
+  },
+  "c5yGeS" : {
+    "defaultMessage" : "팔로우 중",
+    "description" : "Text for the following status metadata in the model versions page"
+  },
+  "c8ulzO" : {
+    "defaultMessage" : "Feature Store",
+    "description" : "Text for the feature store page header title."
+  },
+  "cBDYla" : {
+    "defaultMessage" : "작업",
+    "description" : "Column title for actions column in editable form table in MLflow"
+  },
+  "cF/rZT" : {
+    "defaultMessage" : "모든 모델",
+    "description" : "Selection item text in model registry to filter models by all models"
+  },
+  "cI+F/q" : {
+    "defaultMessage" : "이름",
+    "description" : "Column title for name column in editable tags table view in MLflow"
+  },
+  "cK6riy" : {
+    "defaultMessage" : "스키마",
+    "description" : "Table title text for schema table in the model comparison page"
+  },
+  "cTFkkR" : {
+    "defaultMessage" : "다음으로 전환 요청",
+    "description" : "Text for activity description under confirmation modal for model\n             version stage transition request"
+  },
+  "cigkRk" : {
+    "defaultMessage" : "자동 확장",
+    "description" : "Autoscaling title for compute container"
+  },
+  "cmuOjw" : {
+    "defaultMessage" : "마지막 작성",
+    "description" : "Title text for the feature table last written column."
+  },
+  "cnzeNX" : {
+    "defaultMessage" : "레이블 열",
+    "description" : "Model monitoring configuration text for the label column"
+  },
+  "co/oIf" : {
+    "defaultMessage" : "팔로우하지 않음",
+    "description" : "Text for the not following status metadata in the model versions page"
+  },
+  "cyx8LQ" : {
+    "defaultMessage" : "하위 디렉터리",
+    "description" : "Input description for the subdirectory field on the configure inference form"
+  },
+  "d/cZ34" : {
+    "defaultMessage" : "편집",
+    "description" : "Text for the edit button next to the description section title on the run view"
+  },
+  "d/f0Dg" : {
+    "defaultMessage" : "득점 데이터 테이블",
+    "description" : "Link to scored data table"
+  },
+  "d1Ou4x" : {
+    "defaultMessage" : "실행",
+    "description" : "Column title for the column displaying the run names for a metric"
+  },
+  "d3Pvg1" : {
+    "defaultMessage" : "구성",
+    "description" : "AutoML Step title configure"
+  },
+  "d78wwA" : {
+    "defaultMessage" : "피드백 제공",
+    "description" : "Link to a survey for users to give feedback"
+  },
+  "dNrn1u" : {
+    "defaultMessage" : "start하려면 이 기능 테이블에 대한 프로필을 활성화하고 Job을 실행하여 지정된 구성으로 프로필을 compute합니다. <link>여기</link>에서 더 알아보기",
+    "description" : "Alert description for configuration changes in feature table monitoring"
+  },
+  "dZNHLL" : {
+    "defaultMessage" : "Timestamp",
+    "description" : "Column title text for created at timestamp in model (version) events table"
+  },
+  "dfMCmy" : {
+    "defaultMessage" : "이 기능 테이블에 대한 프로필을 찾을 수 없음",
+    "description" : "Alert title for empty state of feature table monitoring"
+  },
+  "dq8MJd" : {
+    "defaultMessage" : "등고선도",
+    "description" : "Tab text for contour plot on the model comparison page"
+  },
+  "dtzF73" : {
+    "defaultMessage" : "AutoML이 ARIMA 모델을 훈련시키지 않았습니다. ARIMA를 포함하려면 원하는 빈도로 데이터를 전처리하십시오.",
+    "description" : "Action that AutoML took when there are extra time steps in a forecasting problem."
+  },
+  "dwTTNK" : {
+    "defaultMessage" : "다른 곳으로 이동하시겠습니까? 보류 중인 텍스트 변경 사항은 손실됩니다.",
+    "description" : "Prompt text for navigating away before saving changes in editable note in MLflow"
+  },
+  "e8cUzg" : {
+    "defaultMessage" : "최신 버전",
+    "description" : "Column title for latest model version in the registered model page"
+  },
+  "eBGO2d" : {
+    "defaultMessage" : "표시할 메트릭이 없습니다.",
+    "description" : "Text shown when there are no metrics to display"
+  },
+  "eBqELq" : {
+    "defaultMessage" : "AutoML에서 식별한 데이터 문제는 아래와 같습니다.",
+    "description" : "Informational description of AutoML warnings shown in the warnings dashboard"
+  },
+  "eDWtdW" : {
+    "defaultMessage" : "데이터 집합이 너무 큼",
+    "description" : "AutoML warning shown when the input dataset too large"
+  },
+  "eFCjOp" : {
+    "defaultMessage" : "메트릭",
+    "description" : "Label for the collapsible area to display the output metrics after the experiment run"
+  },
+  "eKAKGN" : {
+    "defaultMessage" : "슬라이싱 표현식",
+    "description" : "Model monitoring configuration text for slice expressions"
+  },
+  "eNUbaN" : {
+    "defaultMessage" : "Y축:",
+    "description" : "Label text for y-axis in scatter plot comparison in MLflow"
+  },
+  "eOxs/C" : {
+    "defaultMessage" : "매개 변수",
+    "description" : "Row group title for parameters of runs on the experiment compare runs page"
+  },
+  "eQQfK+" : {
+    "defaultMessage" : "세부 정보",
+    "description" : "Tab pane name for feature table details"
+  },
+  "eQgPEi" : {
+    "defaultMessage" : "{value} (step={step})",
+    "description" : "Formats a metric value along with the step number it corresponds to"
+  },
+  "eQsXm7" : {
+    "defaultMessage" : "지난 7일",
+    "description" : "Option for the start select dropdown to filter runs from the last 7 days"
+  },
+  "eWyRrF" : {
+    "defaultMessage" : "마지막 작성",
+    "description" : "Title text for the producer last written column."
+  },
+  "eXigMr" : {
+    "defaultMessage" : "AutoML이 원본 데이터 집합의 샘플에서 데이터 탐색 및 평가를 실행하려고 했습니다.",
+    "description" : "Text for dataset sampled after exploration"
+  },
+  "epBpp2" : {
+    "defaultMessage" : "Delta Live Tables 파이프라인",
+    "description" : "Link text for the Delta Live Table pipeline for model monitoring"
+  },
+  "erqoIC" : {
+    "defaultMessage" : "실행 이름:",
+    "description" : "Text for run name row header in the main table in the model comparison\n                page"
+  },
+  "esASWb" : {
+    "defaultMessage" : "컴퓨팅",
+    "description" : "Compute dropdown title for compute container"
+  },
+  "ev6aiR" : {
+    "defaultMessage" : "이 기능 테이블의 메타데이터가 마지막으로 업데이트된 시간입니다.",
+    "description" : "Text on the tooltip describing the definition of last modified timestamp field."
+  },
+  "eyGoqW" : {
+    "defaultMessage" : "Experiment 이름",
+    "description" : "Label for create experiment modal to enter a valid experiment name"
+  },
+  "f+VJMF" : {
+    "defaultMessage" : "기간",
+    "description" : "Label for displaying the duration of the experiment run"
+  },
+  "f/An1W" : {
+    "defaultMessage" : "준비되었습니다.",
+    "description" : "Default status message for model versions that are ready"
+  },
+  "fETAS9" : {
+    "defaultMessage" : "<bold>{userId}</bold>이(가) 단계 전환을 적용함",
+    "description" : "Activity title text for applied transition in model versions page"
+  },
+  "fIziil" : {
+    "defaultMessage" : "AutoML이 데이터 집합을 자릅니다.",
+    "description" : "Action that AutoML took given a dataset that contains long time series"
+  },
+  "fL9439" : {
+    "defaultMessage" : "일부 모델은 학습되지 않았을 수 있습니다. 예측 범위를 더 짧게 하여 AutoML을 다시 실행합니다.",
+    "description" : "Recommended action for user when AutoML is given time series that are too\n          short"
+  },
+  "fZPf0W" : {
+    "defaultMessage" : "반전색:",
+    "description" : "Label text for reverse color toggle in contour plot comparison\n                      in MLflow"
+  },
+  "fbK+ir" : {
+    "defaultMessage" : "범주형 열의 고유 값",
+    "description" : "AutoML warning shown when categorical columns have unique values"
+  },
+  "fcr9me" : {
+    "defaultMessage" : "기존 실시간 유추 보기",
+    "description" : "View existing real-time inference button text"
+  },
+  "fg3SRm" : {
+    "defaultMessage" : "Git Commit",
+    "description" : "Label for displaying the tag or the commit hash of the git commit"
+  },
+  "fojdp2" : {
+    "defaultMessage" : "전역(단일 프로필)",
+    "description" : "global window granularity for data profiles"
+  },
+  "frPtD/" : {
+    "defaultMessage" : "메트릭",
+    "description" : "Row group title for metrics of runs on the experiment compare runs page"
+  },
+  "fv7vQf" : {
+    "defaultMessage" : "이름 변경",
+    "description" : "Menu item to rename an experiment run"
+  },
+  "g17Es2" : {
+    "defaultMessage" : "이름",
+    "description" : "Column title for model name in the registered model page"
+  },
+  "gJQwoH" : {
+    "defaultMessage" : "{stagingTag} 및 {productionTag} 모델 간에 컴퓨팅 설정을 공유하거나 다른 설정을 사용하도록 선택합니다.",
+    "description" : "Tooltip for same compute checkbox toggle"
+  },
+  "gUdmaJ" : {
+    "defaultMessage" : "스키마",
+    "description" : "Title text for the schema section on the model versions view page"
+  },
+  "gVxisd" : {
+    "defaultMessage" : "\"{value}\" 태그가 이미 있습니다.",
+    "description" : "Validation message for tags that already exist in tags table in MLflow"
+  },
+  "gh1B0R" : {
+    "defaultMessage" : "Serverless 모델 Endpoint",
+    "description" : "Feature name for serving v2 used in error message in enable serving page."
+  },
+  "gqvy5V" : {
+    "defaultMessage" : "범주형 열에 있는 65,535개 이상의 다른 값",
+    "description" : "AutoML warning shown when columns with very high cardinalty are detected"
+  },
+  "h6jAnw" : {
+    "defaultMessage" : "기계 학습 모델을 공유하고 관리합니다.",
+    "description" : "Text for model registry onboarding on the model list page on GCP"
+  },
+  "hT7e6J" : {
+    "defaultMessage" : "복제본",
+    "description" : "Replicas label for compute configuration"
+  },
+  "hU4+wc" : {
+    "defaultMessage" : "모델 유형",
+    "description" : "Model monitoring details header text for model type"
+  },
+  "hcDB9U" : {
+    "defaultMessage" : "+∞",
+    "description" : "Label displaying positive infinity symbol displayed on a plot UI element"
+  },
+  "hgZcqQ" : {
+    "defaultMessage" : "AutoML 평가",
+    "description" : "Title to indicate AutoML evaluation is complete"
+  },
+  "hmugVp" : {
+    "defaultMessage" : "피처 열 없음",
+    "description" : "AutoML warning shown when the input dataset has no feature columns"
+  },
+  "hnbkyz" : {
+    "defaultMessage" : "AutoML이 실패를 무시하고 계속 진행되었습니다.",
+    "description" : "Text shown when AutoML ignores data exploration failures"
+  },
+  "i7fVw0" : {
+    "defaultMessage" : "마지막으로 성공한 실행:",
+    "description" : "Title for the last successful run of the job in the monitoring pane"
+  },
+  "iA52uJ" : {
+    "defaultMessage" : "낮음",
+    "description" : "Text describing a low severity AutoML warning"
+  },
+  "iQzwqe" : {
+    "defaultMessage" : "최소",
+    "description" : "Column title for the column displaying the minimum metric values for a metric"
+  },
+  "iXb99e" : {
+    "defaultMessage" : "Box Plot",
+    "description" : "Tab pane title for box plot on the compare runs page"
+  },
+  "iZm6YQ" : {
+    "defaultMessage" : "<link>더 알아보기</link>",
+    "description" : "Learn more link on the form for creating model in the model registry"
+  },
+  "id6Wmi" : {
+    "defaultMessage" : "문제가 발생했습니다.",
+    "description" : "Page level error boundary alert header."
+  },
+  "ir96eY" : {
+    "defaultMessage" : "더 이상 로드할 실행이 없습니다.",
+    "description" : "Tooltip text for load more button when there are no more experiment runs to load"
+  },
+  "iwD/Dv" : {
+    "defaultMessage" : "취소",
+    "description" : "Cancel button text to cancel the flow to register the model"
+  },
+  "iyuf0l" : {
+    "defaultMessage" : "포트",
+    "description" : "Title text for the online store port metadata field."
+  },
+  "j/pJM6" : {
+    "defaultMessage" : "마지막 수정",
+    "description" : "Label name for the last modified time under details tab on the model view page"
+  },
+  "j3xzFF" : {
+    "defaultMessage" : "최대 복제본의 수는 {max}보다 작거나 같아야 합니다.",
+    "description" : "Validation error message for when there are too many max replicas"
+  },
+  "jBUFA+" : {
+    "defaultMessage" : "일시 중지됨 -",
+    "description" : "Text for the status and schedule of this Databricks job."
+  },
+  "jPdZ2S" : {
+    "defaultMessage" : "마지막 Job 실행의 start 시간입니다.",
+    "description" : "Text on the tooltip of the last run column describing the start time of the last job run."
+  },
+  "jh4lDz" : {
+    "defaultMessage" : "내가 팔로우하는 버전의 활동",
+    "description" : "Text for dropdown for notifications that user follows on model view page"
+  },
+  "jhiG9a" : {
+    "defaultMessage" : "데이터 유형",
+    "description" : "Title text for the feature data type column."
+  },
+  "jjuya2" : {
+    "defaultMessage" : "기능을 찾을 수 없습니다.",
+    "description" : "Text describing no feature exists for the online store."
+  },
+  "jk5LNk" : {
+    "defaultMessage" : "워크스페이스에서 이메일 알림이 활성화되어 있지 않습니다. 이 기능에 액세스하려면 워크스페이스 관리자에게 문의하세요.",
+    "description" : "Tooltip text for notifications when not enabled for workspace in the\n               model view page"
+  },
+  "js4/Y8" : {
+    "defaultMessage" : "또한 버전 제어를 위해 <link>모델 레지스트리에 등록</link>할 수 있습니다.",
+    "description" : "Sub text to tell the users where one can go to register the model artifact"
+  },
+  "kBl8Er" : {
+    "defaultMessage" : "트레이닝 준비를 하고 있습니다.",
+    "description" : "AutoML Step description pending training"
+  },
+  "kCE4Z6" : {
+    "defaultMessage" : "1시간",
+    "description" : "1 hour window granularity for data profiles"
+  },
+  "kFpx6j" : {
+    "defaultMessage" : "모델 버전 포함",
+    "description" : "Linked model dropdown option to show experiment runs with model versions only"
+  },
+  "kH0JxD" : {
+    "defaultMessage" : "(댓글, 전환 요청 등을 통해) 상호 작용했기 때문에 이 모델 버전을 따르고 있습니다.",
+    "description" : "Tooltip text message for user that interacted with the model version\n           in the model registry"
+  },
+  "kJKZ+a" : {
+    "defaultMessage" : "삭제",
+    "description" : "Text for delete button on experiment view page header"
+  },
+  "kJjZ5l" : {
+    "defaultMessage" : "드리프트 메트릭 테이블",
+    "description" : "Link text for the drift metrics table for model monitoring"
+  },
+  "kV2Dw/" : {
+    "defaultMessage" : "모델을 PyFuncModel로 로드합니다.",
+    "description" : "Code comment which states how to load model using PyFuncModel"
+  },
+  "kX6Kdv" : {
+    "defaultMessage" : "플롯 차트",
+    "description" : "Link to the view the plot chart for the experiment run"
+  },
+  "kXu9xm" : {
+    "defaultMessage" : "카탈로그 이름",
+    "description" : "Model monitoring details header text for catalog name"
+  },
+  "kiSt83" : {
+    "defaultMessage" : "평가 메트릭이 개선되지 않아 AutoML이 조기에 학습을 중지했습니다.",
+    "description" : "Action that AutoML took when training is stopped early"
+  },
+  "kjxsOJ" : {
+    "defaultMessage" : "모델 이름 또는 태그로 검색",
+    "description" : "Placeholder text inside model search bar"
+  },
+  "km6ehx" : {
+    "defaultMessage" : "AutoML이 열을 삭제했습니다.",
+    "description" : "Action that AutoML took"
+  },
+  "ktiuki" : {
+    "defaultMessage" : "Link 가져오기",
+    "description" : "Title text for get-link modal"
+  },
+  "l/GKwW" : {
+    "defaultMessage" : "지원되지 않는 열 유형",
+    "description" : "AutoML warning shown when columns are unsupported"
+  },
+  "l4q0t9" : {
+    "defaultMessage" : "AutoML이 호환되지 않는 의미 형식 주석을 무시했습니다.",
+    "description" : "Action that AutoML took for columns with incompatible annotations"
+  },
+  "lBfJSk" : {
+    "defaultMessage" : "최소 복제본",
+    "description" : "Min replicas label for compute configuration"
+  },
+  "lEMqfE" : {
+    "defaultMessage" : "생산자가 이 테이블에 마지막으로 쓴 시간입니다.",
+    "description" : "Text on the tooltip of the last written column describing the last time the producer wrote to this table."
+  },
+  "lISqyJ" : {
+    "defaultMessage" : "run 세부 정보",
+    "description" : "Compare table title on the compare runs page"
+  },
+  "lK1I+m" : {
+    "defaultMessage" : "데이터 소스",
+    "description" : "Title text for the feature table data sources column."
+  },
+  "lNO3kK" : {
+    "defaultMessage" : "표시할 매개 변수가 없습니다.",
+    "description" : "Text shown when there are no parameters to display"
+  },
+  "lOfzvM" : {
+    "defaultMessage" : "학습 노트북이 범주형 변환을 기반으로 기능을 인코딩했습니다.",
+    "description" : "Action that AutoML took for columns that have categorical semantic type"
+  },
+  "lSnvCt" : {
+    "defaultMessage" : "작업",
+    "description" : "Column name text for actions in pending requests table in model\n                   registry"
+  },
+  "ldGXXD" : {
+    "defaultMessage" : "모니터링",
+    "description" : "Tab name for the monitoring tab on the model view main panel"
+  },
+  "ljfJW4" : {
+    "defaultMessage" : "하나 이상의 시계열에 대해 제공한 범위가 너무 깁니다. AutoML은 해당 시계열에 대한 학습 및 검증에 더 짧은 범위를 사용했습니다.",
+    "description" : "Action that AutoML took when user-provided horizon is too long for\n          one or more time series"
+  },
+  "llVQ2r" : {
+    "defaultMessage" : "출력 ({numOutputs})",
+    "description" : "Input section header for schema table in model version page"
+  },
+  "lrmKxO" : {
+    "defaultMessage" : "업데이트",
+    "description" : "Compute config update button text"
+  },
+  "lvCKIZ" : {
+    "defaultMessage" : "편집",
+    "description" : "Text for the edit button next to the description section title on the feautre table view page."
+  },
+  "lyDeCG" : {
+    "defaultMessage" : "{timestamp}에 {userId}이(가) 마지막으로 업데이트함",
+    "description" : "Last updated message for compute config"
+  },
+  "lz3IoV" : {
+    "defaultMessage" : "분석 Job 노트북",
+    "description" : "Link text for the analysis job notebook for model monitoring"
+  },
+  "m9e01X" : {
+    "defaultMessage" : "표시할 태그가 없습니다.",
+    "description" : "Text shown when there are no tags to display"
+  },
+  "mC2BT1" : {
+    "defaultMessage" : "{featureNameText}을(를) 활성화하려면 범용 클러스터를 생성할 권한과 이 모델에 대한 'CAN_MANAGE' 권한이 있어야 합니다.",
+    "description" : "Error message when user has neither cluster create nor model manage\n              permissions in enable serving button popover."
+  },
+  "mC7uxG" : {
+    "defaultMessage" : "REST API 인터페이스 뒤에서 서비스하는 호스팅된 실시간 모델입니다.<link>더 알아보기.</link>",
+    "description" : "Text for tooltip for model serving in the registered model page"
+  },
+  "mDg5TV" : {
+    "defaultMessage" : "AutoML 실행이 중지되었습니다. AutoML이 모델을 학습할 시간을 갖도록 제한 시간을 늘립니다.",
+    "description" : "Action that AutoML took when it timed out"
+  },
+  "mGzCoq" : {
+    "defaultMessage" : "데이터베이스 이름",
+    "description" : "Model monitoring details header text for database name"
+  },
+  "mI1o3S" : {
+    "defaultMessage" : "아티팩트",
+    "description" : "Label for the collapsible area to display the artifacts page"
+  },
+  "mIk1MU" : {
+    "defaultMessage" : "모델 만들기",
+    "description" : "Title text for creating model in the model registry"
+  },
+  "meoYKZ" : {
+    "defaultMessage" : "아티팩트 위치",
+    "description" : "Label for create experiment modal to enter a artifact location"
+  },
+  "mfxai2" : {
+    "defaultMessage" : "숫자 유형이 아닌 배열 열",
+    "description" : "AutoML warning shown when array columns are not of numerical type"
+  },
+  "mhohOA" : {
+    "defaultMessage" : "{name}을(를) 삭제하시겠습니까? 이 작업은 취소할 수 없습니다.",
+    "description" : "Text on the feature table deletion modal describing consequences of this operation."
+  },
+  "mjF6Y3" : {
+    "defaultMessage" : "소비자",
+    "description" : "Title text for the feature consumers column."
+  },
+  "mnY5Xo" : {
+    "defaultMessage" : "AutoML이 대상 열에 null 값이 있는 행을 삭제했습니다.",
+    "description" : "Action that AutoML took for rows with null target column"
+  },
+  "mpHsCg" : {
+    "defaultMessage" : "크기:",
+    "description" : "Label to display the size of the artifact of the experiment"
+  },
+  "mrZMO/" : {
+    "defaultMessage" : "다음으로 전환",
+    "description" : "Text for transitioning a model version to a different stage under\n                   dropdown menu in model version page"
+  },
+  "myb+e+" : {
+    "defaultMessage" : "AutoML은 이러한 열을 지원하지 않으며 삭제했습니다.",
+    "description" : "Text shown when AutoML drops a column"
+  },
+  "myewla" : {
+    "defaultMessage" : "생산자 ({length})",
+    "description" : "Title text for the feature table producers section."
+  },
+  "n7IWOP" : {
+    "defaultMessage" : "AutoML에서 열을 삭제했습니다.",
+    "description" : "Text shown when AutoML drops a column"
+  },
+  "n9wjGx" : {
+    "defaultMessage" : "기본 키",
+    "description" : "Title text for the feature table primary keys metadata field."
+  },
+  "nC54Nf" : {
+    "defaultMessage" : "태그",
+    "description" : "Column title for model tags in the registered model page"
+  },
+  "nEoTsR" : {
+    "defaultMessage" : "완료된 실행",
+    "description" : "Label for the progress bar to show the number of completed runs"
+  },
+  "nQoUED" : {
+    "defaultMessage" : "단계",
+    "description" : "Radio button option to choose the step control option for the X-axis for metric graph on the experiment runs"
+  },
+  "nR/D0a" : {
+    "defaultMessage" : "프로비저닝된 동시성",
+    "description" : "Graph title for provisioned concurrency metrics graph"
+  },
+  "nVndit" : {
+    "defaultMessage" : "{registeredDate}에 등록됨",
+    "description" : "Label to display at what date the model was registered"
+  },
+  "nYKZy4" : {
+    "defaultMessage" : "<link>더 알아보기</link>",
+    "description" : "Learn more tooltip link to learn more on how to search in an experiments run table"
+  },
+  "nam2iP" : {
+    "defaultMessage" : "이 보기는 더 이상 사용되지 않으며 향후 릴리스에서 제거됩니다.",
+    "description" : "Deprecation of compact view"
+  },
+  "nfUwqn" : {
+    "defaultMessage" : "태그 ({length})",
+    "description" : "Title text for the feature table tags section."
+  },
+  "nkNESK" : {
+    "defaultMessage" : "상태:",
+    "description" : "Status label for compute config"
+  },
+  "noUGy/" : {
+    "defaultMessage" : "입력 테이블을 제공하세요.",
+    "description" : "Error message for missing input table when generating a batch inference notebook"
+  },
+  "npFKje" : {
+    "defaultMessage" : "모니터링 세부 정보",
+    "description" : "Title for model monitoring panel"
+  },
+  "nq8Zd9" : {
+    "defaultMessage" : "모든 행에 잘못된 데이터가 있음",
+    "description" : "AutoML warning shown when all rows have invalid data"
+  },
+  "nu7Cns" : {
+    "defaultMessage" : "유형",
+    "description" : "Column header of AutoML warnings table. Describes type of warning."
+  },
+  "nxBcY/" : {
+    "defaultMessage" : "단계",
+    "description" : "Column title text for stage in model version events table"
+  },
+  "ny+fBZ" : {
+    "defaultMessage" : "열",
+    "description" : "Dropdown text to display columns names that could to be rendered for the experiment runs table"
+  },
+  "o1BTcp" : {
+    "defaultMessage" : "이진 분류가 탐지되었지만 양의 레이블이 지정되지 않았습니다.",
+    "description" : "AutoML warning shown when no positive label is specified for binary classification"
+  },
+  "o7dzKo" : {
+    "defaultMessage" : "마지막 수정",
+    "description" : "Label name for last modified timestamp metadata in model version page"
+  },
+  "oBKd1E" : {
+    "defaultMessage" : "값",
+    "description" : "Column title for value column in editable tags table view in MLflow"
+  },
+  "oBpBjm" : {
+    "defaultMessage" : "현재 실행에 대해 <code>'{'{artifactUri}</code>에 저장된 아티팩트를 나열할 수 없습니다. 추적 서버 관리자에게 이 오류를 알려주시기 바랍니다. 이 오류는 추적 서버가 현재 실행의 루트 아티팩트 디렉터리에 아티팩트를 나열할 권한이 없을 때 발생할 수 있습니다.",
+    "description" : "Error message when the artifact is unable to load. This message is displayed in the open source ML flow only"
+  },
+  "oHW+ks" : {
+    "defaultMessage" : "설명",
+    "description" : "Title text for the description section under details tab on the model\n                   view page"
+  },
+  "ocSYN1" : {
+    "defaultMessage" : "내가 액세스 가능",
+    "description" : "Radio item text in model registry to filter models by models accessible by me."
+  },
+  "od6bUm" : {
+    "defaultMessage" : "댓글 삭제",
+    "description" : "Modal title text for deleting a comment under activities list on the model version page"
+  },
+  "oipM0r" : {
+    "defaultMessage" : "서비스"
+  },
+  "okQ1oB" : {
+    "defaultMessage" : "새 Experiment의 새 이름을 입력하세요.",
+    "description" : "Error message for name requirement in create experiment for MLflow"
+  },
+  "osC+NN" : {
+    "defaultMessage" : "노트북",
+    "description" : "Title text for the feature notebook consumer column."
+  },
+  "p1H1KR" : {
+    "defaultMessage" : "지난 30일",
+    "description" : "Option for the start select dropdown to filter runs from the last 30 days"
+  },
+  "p72Sll" : {
+    "defaultMessage" : "작업",
+    "description" : "Title text for the feature job consumers column."
+  },
+  "pBUaAK" : {
+    "defaultMessage" : "이 태그를 삭제하시겠습니까?",
+    "description" : "Title text for confirmation pop-up to delete a tag from table\n                     in MLflow"
+  },
+  "pG2LOv" : {
+    "defaultMessage" : "데이터 탐색 노트북을 수정한 후 다시 실행하여 전체 데이터 집합을 프로파일링하세요.",
+    "description" : "Recommended action when data exploration notebook truncate rows."
+  },
+  "pGL+V/" : {
+    "defaultMessage" : "설명",
+    "description" : "Title text for stage transition form to add comments for model version stage transitions"
+  },
+  "pIrFtK" : {
+    "defaultMessage" : "기록",
+    "description" : "Title for job history section of the monitoring page"
+  },
+  "pLDynC" : {
+    "defaultMessage" : "소비자",
+    "description" : "Title text for the feature consumers section in feature page."
+  },
+  "peyOdH" : {
+    "defaultMessage" : "취소",
+    "description" : "Text for canceling changes on rows in editable form table in MLflow"
+  },
+  "pl1bdY" : {
+    "defaultMessage" : "등록된 모델",
+    "description" : "Text for link back to models page under the header on the model version\n             view page"
+  },
+  "pqTUMf" : {
+    "defaultMessage" : "분석 메트릭 테이블",
+    "description" : "Link text for the analysis metrics table for model monitoring"
+  },
+  "pt1fjo" : {
+    "defaultMessage" : "이 기능의 메타데이터가 마지막으로 업데이트된 시간입니다.",
+    "description" : "Text on the tooltip describing the definition of last modified timestamp field."
+  },
+  "pvnK0e" : {
+    "defaultMessage" : "Replica 개수",
+    "description" : "Graph title for number of replicas metrics graph"
+  },
+  "pwphBo" : {
+    "defaultMessage" : "모든 {productionTag} 및 {stagingTag} 모델은 다음 컴퓨팅을 사용합니다.",
+    "description" : "Compute config message for configurations with same compute"
+  },
+  "q0e4qI" : {
+    "defaultMessage" : "진입점",
+    "description" : "Label for displaying entry point of the project"
+  },
+  "q82PwF" : {
+    "defaultMessage" : "기능",
+    "description" : "Title text for the online store published feature column."
+  },
+  "q9k/7D" : {
+    "defaultMessage" : "시간 초과",
+    "description" : "Job status for most recent run: timed out"
+  },
+  "qI6w1P" : {
+    "defaultMessage" : "Delta Live Tables 파이프라인",
+    "description" : "Link to jobs Delta Live Tables pipeline"
+  },
+  "qMwRy3" : {
+    "defaultMessage" : "등록된 모델",
+    "description" : "Header for displaying models in the model registry"
+  },
+  "qeemlg" : {
+    "defaultMessage" : "가져옴",
+    "description" : "Title text for the feature page imported timestamp field."
+  },
+  "qpEAFw" : {
+    "defaultMessage" : "기능 ({length})",
+    "description" : "Title text for the feature table features section."
+  },
+  "qpPAyQ" : {
+    "defaultMessage" : "시계열이 너무 짧음",
+    "description" : "AutoML warning shown when the input time series identities are too short for forecasting"
+  },
+  "queiUn" : {
+    "defaultMessage" : "최대 복제본",
+    "description" : "Max replicas label for compute configuration"
+  },
+  "r3/K3V" : {
+    "defaultMessage" : "예측",
+    "description" : "Heading text for the prediction section on the registered model from the experiment run"
+  },
+  "r4Xd+6" : {
+    "defaultMessage" : "모델 단계 또는 버전을 선택하세요.",
+    "description" : "Error message for missing model stage or version input when generating a batch inference notebook"
+  },
+  "r5JI+N" : {
+    "defaultMessage" : "메트릭을 선택하세요",
+    "description" : "Placeholder text for metrics in parallel coordinates plot in MLflow"
+  },
+  "rAJDzz" : {
+    "defaultMessage" : "기존 {currentStage} 모델 버전을 {archivedStage}(으)로 전환",
+    "description" : "Description text for checkbox for archiving existing model versions\n                  in the toStage for model version stage transition request"
+  },
+  "rC/9u5" : {
+    "defaultMessage" : "예측 테이블 로드",
+    "description" : "Title to load the prediction result"
+  },
+  "rMo+i0" : {
+    "defaultMessage" : "정렬 기준",
+    "description" : "Sort label for the sort select dropdown for experiment runs view"
+  },
+  "rOnjGB" : {
+    "defaultMessage" : "CSV 다운로드",
+    "description" : "String for the download csv button to download experiments offline in a CSV format"
+  },
+  "rPUkxG" : {
+    "defaultMessage" : "편집",
+    "description" : "Text for edit button for activities list on the model version page"
+  },
+  "rQzSrC" : {
+    "defaultMessage" : "클러스터 생성 권한 가져오기 실패: {errorMessage}",
+    "description" : "Error message when failing to fetch cluster permissions in\n                  enable serving page."
+  },
+  "rRwpY5" : {
+    "defaultMessage" : "데이터 소스",
+    "description" : "Title text for the feature table data sources metadata field."
+  },
+  "rYDNcw" : {
+    "defaultMessage" : "일정 편집",
+    "description" : "Link to jobs edit schedule"
+  },
+  "raZ/7t" : {
+    "defaultMessage" : "보류 중",
+    "description" : "Pending replica status label for serving V2 logs panel"
+  },
+  "raa3Ij" : {
+    "defaultMessage" : "등록된 모델",
+    "description" : "Text for link back to model page under the header on the model view page"
+  },
+  "rfrJ1h" : {
+    "defaultMessage" : "배치 추론을 위한 모델 사용",
+    "description" : "Use model button text for generating batch inference notebooks"
+  },
+  "rj8GxY" : {
+    "defaultMessage" : "실패함",
+    "description" : "Failed label for the state of the model scoring service"
+  },
+  "rmzffu" : {
+    "defaultMessage" : "AutoML이 대상 레이블당 행이 5개 미만인 행을 삭제함",
+    "description" : "Action that AutoML took when there is insufficient data per target label"
+  },
+  "rnpmHV" : {
+    "defaultMessage" : "Experiment가 너무 오래 걸리면 Experiment를 중지할 수 있습니다.",
+    "description" : "Info text about canceling AutoML"
+  },
+  "s+W0ov" : {
+    "defaultMessage" : "권한",
+    "description" : "Text for permissions button on model view page header"
+  },
+  "s4GemG" : {
+    "defaultMessage" : "<link>Feature Store</link>",
+    "description" : "Text link on the breadcrumbs section that links to the feature store home page."
+  },
+  "sCC/a6" : {
+    "defaultMessage" : "시계열에는 주어진 <code>{frequency}</code>에 비해 추가 시간 단계가 포함됨",
+    "description" : "AutoML warning shown when the time series includes extra time steps compared to specified frequency in forecasting"
+  },
+  "sHMQzu" : {
+    "defaultMessage" : "{length, plural, =0 {{length}개의 일치하는 실행 표시} other {{length}개의 일치 실행 표시}}",
+    "description" : "Message for displaying how many runs match search criteria on experiment page"
+  },
+  "sMxFx9" : {
+    "defaultMessage" : "열의 상수 값",
+    "description" : "AutoML warning shown when constant columns are detected, version 2"
+  },
+  "sQi+4T" : {
+    "defaultMessage" : "심하게 치우친 값",
+    "description" : "AutoML warning shown when columns are highly skewed"
+  },
+  "sTp/V3" : {
+    "defaultMessage" : "평행 좌표 그래프",
+    "description" : "Tab pane title for parallel coordinate plots on the compare runs page"
+  },
+  "sUR69N" : {
+    "defaultMessage" : "평가",
+    "description" : "AutoML Step title evaluate"
+  },
+  "sXjD3p" : {
+    "defaultMessage" : "SQL {whereBold} 절의 간소화된 버전을 사용하여 검색 실행",
+    "description" : "Tooltip string to explain how to search runs from the experiments table"
+  },
+  "sXqvoN" : {
+    "defaultMessage" : "열 순서 무시",
+    "description" : "Toggle text that determines whether to ignore column order in the\n                      model comparison page"
+  },
+  "sZ7ebp" : {
+    "defaultMessage" : "보류 중인 요청 취소",
+    "description" : "Title text for cancel pending request confirmation modal in model\n                   registry"
+  },
+  "sezz5e" : {
+    "defaultMessage" : "기능 테이블을 삭제하면 업스트림 생산자와 다운스트림 소비자(모델, Endpoint 및 예약된 Job)에서 예기치 않은 오류가 발생할 수 있습니다.",
+    "description" : "Text on the feature table deletion modal describing consequences of this operation."
+  },
+  "smcAv3" : {
+    "defaultMessage" : "높은 상관 관계 열",
+    "description" : "AutoML warning shown when high correlation is detected"
+  },
+  "sqNarP" : {
+    "defaultMessage" : "아티팩트 위치",
+    "description" : "Label for the popover explaining access level for the artifact"
+  },
+  "ss//L4" : {
+    "defaultMessage" : "{subMessage}, <link>홈 페이지</link>로 돌아갑니다.",
+    "description" : "Default error message for error views in MLflow"
+  },
+  "swGuWh" : {
+    "defaultMessage" : "입력 테이블",
+    "description" : "Input table label on the configure inference form"
+  },
+  "sxlGRc" : {
+    "defaultMessage" : "입력({numInputs})",
+    "description" : "Input section header for schema table in model version page"
+  },
+  "t64lsB" : {
+    "defaultMessage" : "Batch 유추 또는 실시간 유추를 선택합니다.",
+    "description" : "Text for form description on using the model for batch or real-time inference"
+  },
+  "t8BXC5" : {
+    "defaultMessage" : "태그",
+    "description" : "Label for the collapsible area to display the tags for the experiment run"
+  },
+  "tD0/e2" : {
+    "defaultMessage" : "모델 {modelName}이(가) 존재하지 않음",
+    "description" : "Sub-message text for error message on overall model page"
+  },
+  "tLb7+M" : {
+    "defaultMessage" : "{timeSince, plural, other {{timeSince,number}일 전}}",
+    "description" : "Text for time in days since given date for MLflow views"
+  },
+  "tP/v7L" : {
+    "defaultMessage" : "출력 경로를 제공하세요.",
+    "description" : "Error message for missing output table when generating a batch inference notebook"
+  },
+  "tc9+eK" : {
+    "defaultMessage" : "모델 등록",
+    "description" : "Register model modal title to register the model for deployment"
+  },
+  "thYqEs" : {
+    "defaultMessage" : "AutoML 실행이 취소되었습니다. 데이터 탐색 노트북과 일부 평가판이 완료될 수 있습니다. 자세한 내용은 아래 Link를 참조하세요.",
+    "description" : "Info text about AutoML is canceled and instructions for next steps"
+  },
+  "tikw83" : {
+    "defaultMessage" : "서비스",
+    "description" : "Column title for model serving in the registered model page"
+  },
+  "tstu7I" : {
+    "defaultMessage" : "참고: 이 작업을 수행하면 이 Experiment에 해당하는 노트북의 권한도 수정됩니다.",
+    "description" : "Experiment permission: in a notebook experiment"
+  },
+  "u/+K4k" : {
+    "defaultMessage" : "Serverless 모델 Endpoint 활성화",
+    "description" : "Button text to enable serving v2."
+  },
+  "u0h8PG" : {
+    "defaultMessage" : "모델 레지스트리 활동에 대한 자동 알림이 이메일 주소로 전송됩니다. <link>더 알아보기.</link>",
+    "description" : "Tooltip text for email notifications when turned on in the model view\n                 page"
+  },
+  "u29Rt6" : {
+    "defaultMessage" : "상관 관계를 찾았습니다. 자세한 내용은 데이터 탐색 노트북을 참조하세요.",
+    "description" : "Action that AutoML took for correlation columns"
+  },
+  "u2iNee" : {
+    "defaultMessage" : "기간 단위",
+    "description" : "Label text for window granularity in update config modal"
+  },
+  "u95taW" : {
+    "defaultMessage" : "(편집됨)",
+    "description" : "Text signaling whether comment had been edited or not on the\n                   model version page"
+  },
+  "uAGDqM" : {
+    "defaultMessage" : "고급",
+    "description" : "Advanced section heading in update config modal"
+  },
+  "uAnanv" : {
+    "defaultMessage" : "Experiment 중지",
+    "description" : "Button to stop an AutoML run"
+  },
+  "uICVmD" : {
+    "defaultMessage" : "Job 생산자의 일정입니다.",
+    "description" : "Text on the tooltip of the scheduled jobs column title describing the definition of the column title."
+  },
+  "uMkq/n" : {
+    "defaultMessage" : "나에게 알림",
+    "description" : "Notification setting status message when enabled on the model view page"
+  },
+  "ubGTUL" : {
+    "defaultMessage" : "이름이 필요합니다.",
+    "description" : "Error message for name requirement in editable tags table view in MLflow"
+  },
+  "ufRiXB" : {
+    "defaultMessage" : "Medium",
+    "description" : "Text describing a medium severity AutoML warning"
+  },
+  "ufamzi" : {
+    "defaultMessage" : "{runs} MLflow 실행 비교",
+    "description" : "Page title for the compare runs page"
+  },
+  "umDXbF" : {
+    "defaultMessage" : "모니터가 존재하지 않거나 삭제되었을 수 있습니다. 드롭다운에서 다른 모니터를 선택하세요.",
+    "description" : "Alert description text for when monitor is not available"
+  },
+  "umeTwG" : {
+    "defaultMessage" : "최신",
+    "description" : "Column title for the column displaying the latest metric values for a metric"
+  },
+  "uuiai8" : {
+    "defaultMessage" : "Databricks Feature Store는 기능을 관리하고 공유할 수 있는 중앙 집중식 repository입니다.",
+    "description" : "Text on the table section describing the feature store product."
+  },
+  "uxbtqB" : {
+    "defaultMessage" : "데이터 프로필 구성",
+    "description" : "Data profile config update modal title"
+  },
+  "v/BU6z" : {
+    "defaultMessage" : "추론에 사용할 모델 등록",
+    "description" : "Tooltip text to suggest to register a model when no model versions are available"
+  },
+  "v1javB" : {
+    "defaultMessage" : "진행 중",
+    "description" : "Job status for most recent run: still in progress"
+  },
+  "v5l25i" : {
+    "defaultMessage" : "Replica 전체에 걸친 평균",
+    "description" : "Label for line on memory graph"
+  },
+  "vFeVcH" : {
+    "defaultMessage" : "생산자가 이 기능 테이블에 마지막으로 쓴 시간입니다.",
+    "description" : "Text on the tooltip describing the definition of last written timestamp field."
+  },
+  "vLCGXc" : {
+    "defaultMessage" : "서비스 Logs",
+    "description" : "Tab text for service logs on the model version's serving page"
+  },
+  "vi2MM7" : {
+    "defaultMessage" : "모두",
+    "description" : "Tab text to view all versions under details tab on the model view page"
+  },
+  "vlxeiA" : {
+    "defaultMessage" : "확인",
+    "description" : "OK button text for confirmation pop-up to delete a tag from table\n                     in MLflow"
+  },
+  "voq99T" : {
+    "defaultMessage" : "Endpoint",
+    "description" : "Title text for the feature endpoint consumers column."
+  },
+  "vowsp3" : {
+    "defaultMessage" : "보류 중인 요청 승인",
+    "description" : "Title text for approve pending request confirmation modal in model\n                   registry"
+  },
+  "vrYdzG" : {
+    "defaultMessage" : "AutoML 취소됨",
+    "description" : "Title to indicate AutoML is canceled"
+  },
+  "vryAGK" : {
+    "defaultMessage" : "취소",
+    "description" : "Cancel text for update data profile config modal"
+  },
+  "vt75ua" : {
+    "defaultMessage" : "등록 실패",
+    "description" : "Tooltip text for registration failed model version status icon in\n         model view page"
+  },
+  "w3Eapi" : {
+    "defaultMessage" : "감지된 빈도가 지정된 <code>{frequency}</code>와(과) 일치하지 않음",
+    "description" : "AutoML warning shown when the time series frequency is different from the specified one."
+  },
+  "w3g0Nd" : {
+    "defaultMessage" : "시계열에서 누락된 시간 단계",
+    "description" : "AutoML warning shown when there are missing time steps in a forecasting problem."
+  },
+  "w3r0WZ" : {
+    "defaultMessage" : "영향을 받은 데이터",
+    "description" : "Column header of AutoML warnings table. Describes what data of a dataset that a warning applies to."
+  },
+  "w6erlb" : {
+    "defaultMessage" : "소스",
+    "description" : "Label for displaying source notebook of the experiment run"
+  },
+  "w6zksH" : {
+    "defaultMessage" : "종료됨",
+    "description" : "Terminated replica status label for serving V2 logs panel"
+  },
+  "wBFfWW" : {
+    "defaultMessage" : "등록",
+    "description" : "Register button text to register the model"
+  },
+  "wDwAdX" : {
+    "defaultMessage" : "설명",
+    "description" : "Header for displaying notes for the experiment table"
+  },
+  "wI9LM8" : {
+    "defaultMessage" : "대상 레이블 분포를 왜곡하지 않고 데이터를 샘플링할 수 없음",
+    "description" : "AutoML warning shown when data cannot be sampled without skewing the target label distribution"
+  },
+  "wMhQ6H" : {
+    "defaultMessage" : "이벤트 유형",
+    "description" : "Column title text for event type in model version events table"
+  },
+  "wbRVln" : {
+    "defaultMessage" : "메트릭",
+    "description" : "Title for metrics page"
+  },
+  "weY3Kh" : {
+    "defaultMessage" : "데이터 집합은 pyspark의 <code>{sampleMethod}</code> 메서드를 사용하여 {sampleType} 샘플링으로 {samplePercentage}% 샘플링되었습니다.",
+    "description" : "Indicate sampling method details"
+  },
+  "wt3t+h" : {
+    "defaultMessage" : "서비스",
+    "description" : "Tab name for the serving tab on the model view main panel"
+  },
+  "x+PwWK" : {
+    "defaultMessage" : "AutoML이 null 값을 결측값 대체하였습니다.",
+    "description" : "Action that AutoML took for null values of small null columns"
+  },
+  "xEJj8d" : {
+    "defaultMessage" : "등록하지 못했습니다.",
+    "description" : "Default status message for model versions that have failed registration"
+  },
+  "xIildU" : {
+    "defaultMessage" : "저장소",
+    "description" : "Title text for the online store storage metadata field."
+  },
+  "xR655i" : {
+    "defaultMessage" : "복사",
+    "description" : "Copy tooltip in model monitoring pane"
+  },
+  "xRw7H2" : {
+    "defaultMessage" : "만든 사람",
+    "description" : "Column title text for creator username in model version table"
+  },
+  "xaeEZk" : {
+    "defaultMessage" : "확인",
+    "description" : "Update compute config confirm button text"
+  },
+  "xcro5y" : {
+    "defaultMessage" : "가장 적합한 모델의 예측 결과는 <link>{table_name}</link>에 저장됩니다. 예측 테이블을 로드합니다.",
+    "description" : "Text message when user provide the output database"
+  },
+  "xd3prT" : {
+    "defaultMessage" : "보류 중",
+    "description" : "Pending label for the state of the model scoring service"
+  },
+  "xgLBAH" : {
+    "defaultMessage" : "''{currentStage}' 단계의 모델 버전은 'Archive' 단계로 이동합니다.",
+    "description" : "Tooltip text for transitioning existing model versions in stage to archived\n       in the model versions page"
+  },
+  "xmPKKq" : {
+    "defaultMessage" : "모델 버전:",
+    "description" : "Text for model version row header in the main table in the model\n                comparison page"
+  },
+  "xndk0K" : {
+    "defaultMessage" : "Feature 테이블",
+    "description" : "Title text for the feature table name column."
+  },
+  "xqd0rS" : {
+    "defaultMessage" : "댓글 추가",
+    "description" : "Placeholder text for add comment section in activities list on model version page"
+  },
+  "y2sSNa" : {
+    "defaultMessage" : "테이블 ARN",
+    "description" : "Title text for the online store table ARN metadata field."
+  },
+  "yGH3Oz" : {
+    "defaultMessage" : "생성됨",
+    "description" : "Title text for the online store created metadata field."
+  },
+  "yJpGwW" : {
+    "defaultMessage" : "삭제됨",
+    "description" : "Linked model dropdown option to show deleted experiment runs"
+  },
+  "yK/6vg" : {
+    "defaultMessage" : "취소",
+    "description" : "Cancel text for delete model modal on model view page"
+  },
+  "yL9JKm" : {
+    "defaultMessage" : "NaN",
+    "description" : "Label displaying \"not-a-number\" symbol displayed on a plot UI element"
+  },
+  "ySno61" : {
+    "defaultMessage" : "아래 코드 스니펫은 Log된 모델을 사용하여 예측하는 방법을 보여줍니다.",
+    "description" : "Subtext heading explaining the below section of the model artifact view on how users can prediction using the registered logged model"
+  },
+  "yV9Slo" : {
+    "defaultMessage" : "검색",
+    "description" : "String for the search button to search objects in MLflow"
+  },
+  "ybzBAU" : {
+    "defaultMessage" : "학습 노트북이 각 열을 고정 길이 기능 벡터로 변환했습니다.",
+    "description" : "Action that AutoML took for columns that have text semantic type"
+  },
+  "yhoq4a" : {
+    "defaultMessage" : "다음으로 전환 요청",
+    "description" : "Text for transition request under request column in the pending\n               requests table"
+  },
+  "yjerKR" : {
+    "defaultMessage" : "<link>버전 {versionNumber}</link>",
+    "description" : "Link to model version in the model version table"
+  },
+  "ywUU5Q" : {
+    "defaultMessage" : "컴퓨팅 구성 시작 중",
+    "description" : "Compute config successful update request notification title"
+  },
+  "yzxYIm" : {
+    "defaultMessage" : "지점:",
+    "description" : "Label for the toggle button to toggle to show points or not for the metric experiment run"
+  },
+  "z1RZwl" : {
+    "defaultMessage" : "미리 보기",
+    "description" : "Preview badge shown for features which are under preview"
+  },
+  "z2Gyuw" : {
+    "defaultMessage" : "MLflow 모델",
+    "description" : "Heading text for mlflow model artifact"
+  },
+  "z9UqPZ" : {
+    "defaultMessage" : "설명",
+    "description" : "Title text for the description section on the model version view page"
+  },
+  "zAvilr" : {
+    "defaultMessage" : "준비",
+    "description" : "Tooltip text for ready model version status icon in model view page"
+  },
+  "zMhOr3" : {
+    "defaultMessage" : "취소",
+    "description" : "Cancel button text for model version deletion modal in model versions view page"
+  },
+  "zWGmon" : {
+    "defaultMessage" : "양의 무한대({metricKey})",
+    "description" : "Label indicating positive infinity used as a hover text in a plot UI element"
+  },
+  "za/k4p" : {
+    "defaultMessage" : "프로비저닝된 동시성",
+    "description" : "Label for line on concurrency graph"
+  },
+  "zeXiq+" : {
+    "defaultMessage" : "일정",
+    "description" : "Title for job schedule section of the monitoring page"
+  },
+  "zeuGuG" : {
+    "defaultMessage" : "학습 노트북이 각 열을 날짜/시간 유형으로 변환하고 시간 변환을 기반으로 기능을 인코딩했습니다.",
+    "description" : "Action that AutoML took for columns that have datetime semantic type"
+  },
+  "zs09yI" : {
+    "defaultMessage" : "이 모델 버전을 팔로우하고 있지 않습니다. 모델 버전과 상호 작용하여 팔로우하거나 등록된 모델의 모든 활동을 구독하세요.",
+    "description" : "Tooltip text message for a non-follower of a model version in\n                   model registry"
+  },
+  "zw1f9W" : {
+    "defaultMessage" : "만든 사람",
+    "description" : "Title text for the feature page created by field."
+  },
+  "zx+KWt" : {
+    "defaultMessage" : "메트릭",
+    "description" : "Title text for metrics section on model version's serving page"
+  }
+}

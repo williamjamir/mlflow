@@ -29,6 +29,10 @@ import { getArtifactRootUri, getArtifacts } from '../reducers/Reducers';
 import { getAllModelVersions } from '../../model-registry/reducers';
 import { listArtifactsApi } from '../actions';
 import { MLMODEL_FILE_NAME } from '../constants';
+// BEGIN-EDGE
+import DatabricksUtils from '../../common/utils/DatabricksUtils';
+import { getCredentialsForArtifactReadApi } from '../actions';
+// END-EDGE
 
 const { Text } = Typography;
 
@@ -45,6 +49,9 @@ export class ArtifactViewImpl extends Component {
     runTags: PropTypes.object,
     modelVersions: PropTypes.arrayOf(PropTypes.object),
     intl: PropTypes.shape({ formatMessage: PropTypes.func.isRequired }).isRequired,
+    // BEGIN-EDGE
+    getCredentialsForArtifactReadApi: PropTypes.func.isRequired,
+    // END-EDGE
   };
 
   state = {
@@ -110,13 +117,60 @@ export class ArtifactViewImpl extends Component {
     );
   }
 
-  onDownloadClick(runUuid, artifactPath) {
+  oss_onDownloadClick(runUuid, artifactPath) {
     window.location.href = getSrc(artifactPath, runUuid);
   }
+  // BEGIN-EDGE
+  /**
+   * Download an artifact from the Databricks managed MLflow Tracking service
+   */
+  async onDownloadClick(runUuid, artifactPath) {
+    if (this.props.artifactRootUri.startsWith('dbfs:/databricks/mlflow-tracking')) {
+      // For artifacts stored in the ACL'ed artifact DBFS mount
+      // (`dbfs:/databricks/mlflow-tracking/`), perform downloads by fetching a presigned URL for
+      // the given artifact from the corresponding cloud storage service and redirecting the browser
+      // to the presigned URL. This approach offloads the work of serving the download request to
+      // the cloud storage services (e.g. S3, Azure Blob Storage, GCS), which is more scalable and
+      // efficient than making streaming requests to the MLflow Service's `get-artifact` API
+      const downloadDestination = await this.props
+        .getCredentialsForArtifactReadApi(runUuid, artifactPath)
+        .then((response) => {
+          return response.value.credential_infos[0].signed_uri;
+        });
+      window.location.href = downloadDestination;
+    } else {
+      // For artifacts stored in other locations, such as the DBFS root mount (e.g.
+      // `dbfs:/databricks/mlflow/), download files via the MLflow Service's `get-artifact` API,
+      // since MLflow does not provide presigned URL generation support for artifacts stored outside
+      // the ACL'ed artifacts DBFS mount (`dbfs:/databricks/mlflow-tracking/`)
+      window.location.href = getSrc(artifactPath, runUuid);
+    }
+  }
+  // END-EDGE
 
   renderDownloadLink() {
     const { runUuid } = this.props;
     const { activeNodeId } = this.state;
+    // BEGIN-EDGE
+    if (!DatabricksUtils.artifactDownloadEnabled()) {
+      return (
+        <div className='artifact-info-link artifact-info-link-disabled'>
+          <Tooltip
+            placement='topLeft'
+            title={this.props.intl.formatMessage({
+              defaultMessage:
+                'Artifact download has been disabled by your workspace administrator.',
+              description: 'Tooltip to explain why downloading the artifact is disabled',
+            })}
+          >
+            {/* TODO:  we don't want to rely solely on colour to differentiate between icons
+            update with new icons for download and download disabled when they are created */}
+            <i className='fas fa-download' style={{ color: 'grey' }} />
+          </Tooltip>
+        </div>
+      );
+    }
+    // END-EDGE
     return (
       <div className='artifact-info-link'>
         {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
@@ -340,6 +394,9 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = {
   listArtifactsApi,
+  // BEGIN-EDGE
+  getCredentialsForArtifactReadApi,
+  // END-EDGE
 };
 
 export const ArtifactView = connect(

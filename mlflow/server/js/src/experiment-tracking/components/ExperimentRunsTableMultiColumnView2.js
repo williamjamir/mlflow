@@ -24,6 +24,9 @@ import { AgGridPersistedState } from '../sdk/MlflowLocalStorageMessages';
 import { TrimmedText } from '../../common/components/TrimmedText';
 import { getModelVersionPageRoute } from '../../model-registry/routes';
 import { COLUMN_TYPES, ATTRIBUTE_COLUMN_LABELS, ATTRIBUTE_COLUMN_SORT_KEY } from '../constants';
+// BEGIN-EDGE
+import DatabricksUtils from '../../common/utils/DatabricksUtils';
+// END-EDGE
 
 const PARAM_PREFIX = '$$$param$$$';
 const METRIC_PREFIX = '$$$metric$$$';
@@ -106,6 +109,12 @@ export class ExperimentRunsTableMultiColumnView2Impl extends React.Component {
   }
 
   componentDidMount() {
+    // BEGIN-EDGE
+    DatabricksUtils.logClientSideEvent(
+      'mlflowExperimentRunsTableLoad',
+      'experimentRunsTableMultiColumnViewMounted',
+    );
+    // END-EDGE
     // In some cases, the API request to fetch run info resolves
     // before this component is constructed and mounted. We need to get
     // column defs here to handle that case, as well as the one already
@@ -402,6 +411,9 @@ export class ExperimentRunsTableMultiColumnView2Impl extends React.Component {
         };
 
         const version = {
+          // BEGIN-EDGE
+          databricksRepoGitContext: Utils.databricksRepoContext(tags),
+          // END-EDGE
           version: Utils.getSourceVersion(tags),
           name: Utils.getSourceName(tags),
           type: Utils.getSourceType(tags),
@@ -740,6 +752,9 @@ SourceCellRenderer.propTypes = { value: PropTypes.object };
 function VersionCellRenderer(props) {
   // prettier-ignore
   const {
+    // BEGIN-EDGE
+    databricksRepoGitContext,
+    // END-EDGE
     version,
     name,
     type,
@@ -747,6 +762,9 @@ function VersionCellRenderer(props) {
   return (
     // prettier-ignore
     Utils.renderSourceVersion(
+      // BEGIN-EDGE
+      databricksRepoGitContext,
+      // END-EDGE
       version,
       name,
       type,
@@ -779,6 +797,9 @@ export function ModelsCellRenderer(props) {
   const { registeredModels, loggedModels, experimentId, runUuid } = props.value;
   const models = Utils.mergeLoggedAndRegisteredModels(loggedModels, registeredModels);
 
+  // BEGIN-EDGE
+  // Copied to webapp/web/js/notebook/mlflow-runs-panel/MlflowRunsUtils.tsx
+  // END-EDGE
   if (models && models.length) {
     const modelToRender = models[0];
     let modelDiv;

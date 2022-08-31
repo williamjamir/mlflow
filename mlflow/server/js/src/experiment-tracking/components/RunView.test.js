@@ -10,6 +10,9 @@ import { ArtifactNode } from '../utils/ArtifactUtils';
 import { mockModelVersionDetailed } from '../../model-registry/test-utils';
 import { ModelVersionStatus, Stages } from '../../model-registry/constants';
 import { mountWithIntl } from '../../common/utils/TestUtils';
+// BEGIN-EDGE
+import DatabricksUtils from '../../common/utils/DatabricksUtils';
+// END-EDGE
 
 describe('RunView', () => {
   let minimalProps;
@@ -75,6 +78,10 @@ describe('RunView', () => {
       compareExperiments: {},
     };
     minimalStore = mockStore(minimalStoreRaw);
+    // BEGIN-EDGE
+    // Set up the feature flag so that the clone Run button will show up
+    DatabricksUtils.isCloneRunUIEnabled = jest.fn().mockReturnValue(true);
+    // END-EDGE
   });
 
   test('should render with minimal props without exploding', () => {
@@ -208,4 +215,98 @@ describe('RunView', () => {
     wrapper.find('[data-test-id="overflow-rename-button"]').hostNodes().simulate('click');
     expect(wrapper.find(RunViewImpl).instance().state.showRunRenameModal).toBe(true);
   });
+  // BEGIN-EDGE
+  test('reproduce run button should be disabled when cluster ID is absent', () => {
+    // Construct a mock tags response that omits the `mlflow.databricks.cluster.id` tag
+    minimalStoreRaw.entities.tagsByRunUuid['uuid-1234-5678-9012'] = {
+      'mlflow.databricks.notebookID': RunTag.fromJs({
+        key: 'mlflow.databricks.notebookID',
+        value: '10',
+      }),
+      'mlflow.databricks.notebookRevisionID': RunTag.fromJs({
+        key: 'mlflow.databricks.notebookRevisionID',
+        value: '1234567890123',
+      }),
+    };
+    wrapper = mountWithIntl(
+      <Provider store={minimalStore}>
+        <BrowserRouter>
+          <RunView {...minimalProps} />
+        </BrowserRouter>
+      </Provider>,
+    ).find(BrowserRouter);
+    const reproduceRunButton = wrapper.find('.mlflow-cloneRun-button button.ant-btn');
+    expect(reproduceRunButton.props().disabled).toBe(true);
+  });
+
+  test('should set MlflowCloneRunModal when Clone Run button is clicked', () => {
+    RunViewImpl.prototype.showCloneRunModal = jest.fn();
+    // Add notebook tag, cluster id and cluster Json to enable clone button
+    minimalStoreRaw.entities.tagsByRunUuid['uuid-1234-5678-9012'] = {
+      'mlflow.databricks.notebookID': RunTag.fromJs({
+        key: 'mlflow.databricks.notebookID',
+        value: '10',
+      }),
+      'mlflow.databricks.notebookRevisionID': RunTag.fromJs({
+        key: 'mlflow.databricks.notebookRevisionID',
+        value: '1234567890123',
+      }),
+      'mlflow.databricks.cluster.info': RunTag.fromJs({
+        key: 'mlflow.databricks.cluster.info',
+        value: '{"clusterId": "1234-567890-test"},',
+      }),
+      'mlflow.databricks.cluster.id': RunTag.fromJs({
+        key: 'mlflow.databricks.cluster.id',
+        value: '1234-567890-test',
+      }),
+    };
+    wrapper = mountWithIntl(
+      <Provider store={minimalStore}>
+        <BrowserRouter>
+          <RunView {...minimalProps} />
+        </BrowserRouter>
+      </Provider>,
+    ).find(BrowserRouter);
+    wrapper.find('.mlflow-cloneRun-button').hostNodes().simulate('click');
+    expect(RunViewImpl.prototype.showCloneRunModal).toHaveBeenCalled();
+  });
+
+  test('should not set MlflowCloneRunModal when disabled Clone Run button is clicked', () => {
+    RunViewImpl.prototype.showCloneRunModal = jest.fn();
+    wrapper = mountWithIntl(
+      <Provider store={minimalStore}>
+        <BrowserRouter>
+          <RunView {...minimalProps} />
+        </BrowserRouter>
+      </Provider>,
+    ).find(BrowserRouter);
+    wrapper.find('.mlflow-cloneRun-button').hostNodes().simulate('click');
+    expect(RunViewImpl.prototype.showCloneRunModal).not.toHaveBeenCalled();
+  });
+
+  test('breadcrumbs are rendered as expected', () => {
+    wrapper = mountWithIntl(
+      <Provider store={minimalStore}>
+        <BrowserRouter>
+          <RunView {...minimalProps} />
+        </BrowserRouter>
+      </Provider>,
+    );
+
+    expect(wrapper.find('[data-test-id="experiment-runs-link"]').at(0).props().to).toEqual(
+      '/experiments/12345',
+    );
+    expect(wrapper.find('[data-test-id="experiment-runs-link"]').at(0).props().children).toEqual(
+      'my experiment',
+    );
+
+    expect(wrapper.find('[data-test-id="experiment-observatory-link"]').at(0).props().to).toEqual(
+      '/experiments',
+    );
+    expect(
+      wrapper.find('[data-test-id="experiment-observatory-link"]').at(0).props().children.props
+        .defaultMessage,
+    ).toEqual('Experiments');
+  });
+  // END-EDGE
 });

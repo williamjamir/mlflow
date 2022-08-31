@@ -23,9 +23,20 @@ import {
   deleteJson,
   deleteBigIntJson,
   deleteYaml,
+  // BEGIN-EDGE
+  getDefaultHeadersFromWindowSettings,
+  // END-EDGE
 } from './FetchUtils';
 import { ErrorWrapper } from './ErrorWrapper';
 
+// BEGIN-EDGE
+jest.mock('./DatabricksUtils', () => ({
+  getOrgID: () => '12345',
+  getCSRFToken: () => '123-token',
+  HEADER_DATABRICKS_ORG_ID: 'header-org-id',
+  HEADER_DATABRICKS_CSRF_TOKEN: 'header-token',
+}));
+// END-EDGE
 describe('FetchUtils', () => {
   describe('getDefaultHeadersFromCookies', () => {
     it('empty cookie should result in no headers', () => {
@@ -40,6 +51,24 @@ describe('FetchUtils', () => {
       ).toEqual({ 'My-CSRF': '1', Hello: 'World' });
     });
   });
+  // BEGIN-EDGE
+  describe('getDefaultHeadersFromWindowSettings', () => {
+    let oldSettings;
+    beforeEach(() => {
+      oldSettings = window.settings;
+      window.settings = {};
+    });
+    afterEach(() => {
+      window.settings = oldSettings;
+    });
+    it('should return proper (mocked) data', () => {
+      expect(getDefaultHeadersFromWindowSettings()).toEqual({
+        'header-org-id': '12345',
+        'header-token': '123-token',
+      });
+    });
+  });
+  // END-EDGE
 
   describe('parseResponse', () => {
     let mockResolve;

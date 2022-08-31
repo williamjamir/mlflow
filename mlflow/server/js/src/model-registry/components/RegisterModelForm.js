@@ -1,6 +1,9 @@
 import React from 'react';
 import { Form, Select, Input } from 'antd';
 import PropTypes from 'prop-types';
+// BEGIN-EDGE
+import PermissionUtils from '../utils/PermissionUtils';
+// END-EDGE
 
 import './RegisterModelForm.css';
 
@@ -44,6 +47,11 @@ export class RegisterModelForm extends React.Component {
   };
 
   renderModel(model) {
+    // BEGIN-EDGE
+    if (!PermissionUtils.permissionLevelCanEdit(model.permission_level)) {
+      return null;
+    }
+    // END-EDGE
     return (
       <Option value={model.name} key={model.name}>
         {model.name}

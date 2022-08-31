@@ -466,6 +466,10 @@ module.exports = {
       plugins: ['prettier', 'react', '@typescript-eslint', '@emotion'],
       parser: '@typescript-eslint/parser',
 
+      // BEGIN-EDGE
+      // While we're waiting to have code sharing here, the following rules
+      // are plucked from js/packages/config-eslint/presets/createConfig.js
+      // END-EDGE
       rules: {
         // Do not require functions (especially react components) to have explicit returns
         '@typescript-eslint/explicit-function-return-type': 'off',
@@ -557,3 +561,14 @@ module.exports = {
     },
   ],
 };
+// BEGIN-EDGE
+
+module.exports = {
+  ...module.exports,
+  rules: {
+    ...module.exports.rules,
+    'import/no-duplicates': 0,
+    'no-duplicate-imports': 0,
+  },
+};
+// END-EDGE

@@ -65,7 +65,6 @@ export class PageHeader extends React.Component {
     let feedbackLink = null;
     // BEGIN-EDGE
     const { feedbackForm } = this.props;
-    // eslint-disable-next-line prefer-const
     feedbackLink = feedbackForm && <FeedbackLink link={feedbackForm} />;
     // END-EDGE
     return (

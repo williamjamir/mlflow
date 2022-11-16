@@ -14,6 +14,7 @@ version = (
 
 # Get a list of all files in the directory to include in our module
 def package_files(directory):
+
     paths = []
     for (path, _, filenames) in os.walk(directory):
         for filename in filenames:

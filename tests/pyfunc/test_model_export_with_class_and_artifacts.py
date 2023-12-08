@@ -1470,86 +1470,17 @@ def test_load_model_fails_for_feature_store_models(tmp_path):
         mlflow.pyfunc.load_model(f"runs:/{run.info.run_id}/model")
 
 
-# NOTE: This is a stop-gap measure to ensure that we have corrected the condition of the
-# regression introduced in 2.9.0 release.
-# After release, we should replace this test with a more permanent and resilient solution.
-def run_command(command, env):
-    subprocess.run(command, shell=True, check=True, env=env)
+def test_pyfunc_model_infer_signature_from_type_hints(model_path):
+    class TestModel(mlflow.pyfunc.PythonModel):
+        def predict(self, context, model_input: List[str], params=None) -> List[str]:
+            return model_input
 
-
-@pytest.fixture
-def mlflow_env():
-    with tempfile.TemporaryDirectory() as tmp_dir:
-        env_name = os.path.join(tmp_dir, "mlflow_test_env")
-        run_command(f"python -m venv {env_name}", os.environ.copy())
-
-        yield env_name
-
-
-@pytest.mark.skipif(is_windows(), reason="This test is not Windows compatible")
-def test_mlflow_backward_compatibility(tmp_path):
-    with tempfile.TemporaryDirectory() as tmp_dir:
-        cloudpickle_version = cloudpickle.__version__
-        env_vars = os.environ.copy()
-        env_name = os.path.join(tmp_dir, "mlflow_test_env")
-        python_executable = os.path.join(env_name, "bin", "python")
-        activate_script = os.path.join(env_name, "bin", "activate")
-
-        # Create and activate the virtual environment
-        run_command(f"python -m venv {env_name}", env_vars)
-
-        run_command(
-            f"{python_executable} -m pip install -U mlflow cloudpickle=={cloudpickle_version}",
-            env_vars,
+    with mlflow.start_run():
+        model_info = mlflow.pyfunc.log_model(
+            python_model=TestModel(),
+            artifact_path="test_model",
+            input_example=["a"],
         )
-
-        model_save_path = tmp_path / "test_model"
-        model_path = str(model_save_path)
-
-        # Prepare the Python script
-        model_logging_script = f"""
-import mlflow
-
-mlflow.set_experiment("Backwards Test")
-
-class TestModel(mlflow.pyfunc.PythonModel):
-    def predict(self, context, model_input):
-        return model_input
-
-mlflow.pyfunc.save_model(
-    path='{model_path}',
-    python_model=TestModel(),
-    pip_requirements=['cloudpickle=={cloudpickle_version}']
-)
-"""
-
-        # Write the script to a temporary file
-        script_path = tmp_path / "model_logging_script.py"
-        script_path.write_text(model_logging_script)
-
-        shell_script = f"""
-        #!/bin/bash
-        source {activate_script}
-        {python_executable} {script_path}
-        """
-
-        # Write the shell script to a temporary file
-        shell_script_path = tmp_path / "run_model_logging.sh"
-        shell_script_path.write_text(shell_script)
-        run_command(f"chmod +x {shell_script_path}", env_vars)
-
-        # Clear out the python path so that the subprocess doesn't attempt to use the
-        # pytest environment
-        env_vars["PYTHONPATH"] = ""
-        # Run the shell script
-        run_command(str(shell_script_path), env_vars)
-
-    model = mlflow.pyfunc.load_model(model_path)
-
-    assert model is not None
-
-    mlmodel_file = yaml.safe_load(model_save_path.joinpath("MLmodel").read_bytes())
-
-    logged_mlflow_version = Version(mlmodel_file["mlflow_version"])
-    assert logged_mlflow_version < Version(mlflow.__version__)
-    assert not logged_mlflow_version.is_devrelease
+    pyfunc_model = mlflow.pyfunc.load_model(model_info.model_uri)
+    assert pyfunc_model.metadata.get_input_schema().to_dict() == [{"type": "string"}]
+    pd.testing.assert_frame_equal(pyfunc_model.predict(["a", "b"]), pd.DataFrame(["a", "b"]))
